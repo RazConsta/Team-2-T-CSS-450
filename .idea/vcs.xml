@@ -2,16 +2,5 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/AlcoBlock" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/CatConveyorRepository" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Connect_to_Web_Service_Lab" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Cultivate-Chat-App" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Dead-Drop-Mockup-UI/Dead-Drop-Mockup-UI" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Dead-Drop-Mockup-UI/my-app" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Lab3-Authentication" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Pokemon-Weather-React-App/pokemon-weather-react-app" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/React-Tic-Tac-Toe" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/UI_and_Navigation_Lab" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/deaddrop" vcs="Git" />
   </component>
 </project>
