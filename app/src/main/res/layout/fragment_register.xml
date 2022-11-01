@@ -13,7 +13,7 @@
         android:layout_height="45dp"
         android:layout_marginBottom="100dp"
         android:text="@string/cap_register"
-        android:textSize="34sp"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -52,10 +52,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/action_register"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="564dp" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.881" />
 
     <EditText
         android:id="@+id/editTextTextPersonName2"

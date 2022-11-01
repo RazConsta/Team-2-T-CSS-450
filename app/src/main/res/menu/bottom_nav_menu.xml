@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home_icon"
+        android:title="@string/title_home" />
+    <item
+        android:id="@+id/chatsFragment"
+        android:icon="@drawable/chats_icon"
+        android:title="@string/title_chats" />
+    <item
+        android:id="@+id/contactsFragment"
+        android:icon="@drawable/contacts_icon"
+        android:title="@string/title_contacts" />
+
+    <item
+        android:id="@+id/weatherFragment"
+        android:icon="@drawable/weather_icon"
+        android:title="@string/title_weather" />
+
+
+<!--    <item-->
+<!--        android:id="@+id/signInFragment"-->
+<!--        android:icon="@drawable/login_icon"-->
+<!--        android:title="@string/title_login" />-->
+
+    <item
+        android:id="@+id/registerFragment"
+        android:icon="@drawable/register_icon"
+        android:title="@string/title_register" />
+
+</menu>

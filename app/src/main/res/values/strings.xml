@@ -7,4 +7,12 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="action_register">Register</string>
+
+    <!-- Bottom Navigation Bar Text -->>
+    <string name="title_home">Home</string>
+    <string name="title_chats">Chats</string>
+    <string name="title_contacts">Contacts</string>
+    <string name="title_weather">Weather</string>
+    <string name="title_register">Register</string>
+    <string name="title_login">Login</string>
 </resources>
