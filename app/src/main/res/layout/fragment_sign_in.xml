@@ -43,4 +43,13 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/logo" />
 
+    <Button
+        android:id="@+id/button_to_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REGISTER"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="37dp"
+        tools:layout_editor_absoluteY="635dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
