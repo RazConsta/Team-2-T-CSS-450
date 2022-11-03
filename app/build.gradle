@@ -6,6 +6,10 @@ android {
     namespace 'com.example.cultivate_chat_app'
     compileSdk 32
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.example.cultivate_chat_app"
         minSdk 21
