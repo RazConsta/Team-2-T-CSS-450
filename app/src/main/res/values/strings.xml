@@ -8,10 +8,11 @@
     <string name="hint_username">User Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
-    <string name="action_register">Register</string>
+    <string name="action_register">REGISTER</string>
 
     <!-- Sign in Fragment Names -->>
-    <string name="action_login">Login</string>
+    <string name="action_login">SIGN IN</string>
+    <string name="action_signup">SIGN UP</string>
 
     <!-- Bottom Navigation Bar Text -->>
     <string name="title_home">Home</string>

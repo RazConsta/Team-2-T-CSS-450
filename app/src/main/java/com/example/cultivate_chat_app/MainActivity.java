@@ -32,4 +32,14 @@ public class MainActivity extends AppCompatActivity {
       NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
       NavigationUI.setupWithNavController(navView, navController);
    }
+
+   /*
+   enable the go back function for the go back icon on the title.
+    */
+   @Override
+   public boolean onSupportNavigateUp() {
+      NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+      return NavigationUI.navigateUp(navController, mAppBarConfiguration)
+              || super.onSupportNavigateUp();
+   }
 }
