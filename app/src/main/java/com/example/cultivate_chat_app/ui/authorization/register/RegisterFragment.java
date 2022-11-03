@@ -1,4 +1,4 @@
-package com.example.cultivate_chat_app.ui.register;
+package com.example.cultivate_chat_app.ui.authorization.register;
 
 import android.os.Bundle;
 

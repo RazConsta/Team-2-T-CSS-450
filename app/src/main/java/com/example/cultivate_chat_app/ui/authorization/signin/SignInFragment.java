@@ -1,4 +1,4 @@
-package com.example.cultivate_chat_app.ui.authorization;
+package com.example.cultivate_chat_app.ui.authorization.signin;
 
 import android.os.Bundle;
 

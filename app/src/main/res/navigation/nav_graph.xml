@@ -8,7 +8,7 @@
     <fragment android:id="@+id/placeholder" />
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.cultivate_chat_app.ui.authorization.SignInFragment"
+        android:name="com.example.cultivate_chat_app.ui.authorization.signin.SignInFragment"
         android:label="fragment_sign_in"
         tools:layout="@layout/fragment_sign_in" />
 </navigation>

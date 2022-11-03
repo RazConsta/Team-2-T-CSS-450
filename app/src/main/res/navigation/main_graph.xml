@@ -28,12 +28,12 @@
         tools:layout="@layout/fragment_weather" />
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.cultivate_chat_app.ui.register.RegisterFragment"
+        android:name="com.example.cultivate_chat_app.ui.authorization.register.RegisterFragment"
         android:label="Register"
         tools:layout="@layout/fragment_register" />
     <fragment
         android:id="@+id/signInFragment"
-        android:name="com.example.cultivate_chat_app.ui.authorization.SignInFragment"
+        android:name="com.example.cultivate_chat_app.ui.authorization.signin.SignInFragment"
         android:label="Sign In"
         tools:layout="@layout/fragment_sign_in" />
 </navigation>
