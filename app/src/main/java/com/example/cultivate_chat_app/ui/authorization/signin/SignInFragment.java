@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentSignInBinding;
+import com.example.cultivate_chat_app.ui.authorization.register.RegisterFragmentDirections;
 
 public class SignInFragment extends Fragment {
 
@@ -28,15 +29,31 @@ public class SignInFragment extends Fragment {
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       // Inflate the layout for this fragment
-      mBinding = FragmentSignInBinding.inflate(inflater, container, false);
-      return mBinding.getRoot();
+
+      return inflater.inflate(R.layout.fragment_sign_in, container, false);
    }
 
    @Override
    public void onViewCreated (@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
       //Use a Lamda expression to add the OnClickListener
-      mBinding.buttonToRegister.setOnClickListener(button -> processRegister());
+      mBinding = FragmentSignInBinding.bind(requireView());
+
+      //On button click, navigate to MainActivity
+      mBinding.buttonToLogin.setOnClickListener(button -> {
+//         Navigation.findNavController(requireView()).navigate(
+//                 SignInFragmentDirections
+//                         .actionSignInFragmentToMainActivity(
+//                                 generateJwt(binding.editEmail.getText().toString())
+//                         ));
+         //This tells the containing Activity that we are done with it.
+         //It will not be added to backstack.
+//         getActivity().finish();
+      });
+      mBinding.buttonToRegister.setOnClickListener(button -> {
+         Navigation.findNavController(requireView())
+                 .navigate(R.id.action_signInFragment_to_registerFragment);
+      });
    }
 
    @Override
@@ -44,10 +61,4 @@ public class SignInFragment extends Fragment {
       super.onDestroyView();
       mBinding = null;
    }
-
-   private void processRegister() {
-      Log.d("REGISTER", "Process to register");
-      Navigation.findNavController(getView()).navigate(R.id.action_signInFragment_to_registerFragment);
-   }
-
 }
