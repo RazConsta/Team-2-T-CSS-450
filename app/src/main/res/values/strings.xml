@@ -5,10 +5,12 @@
 
     <!-- Register Fragment Names -->>
     <string name="cap_register">Create New Account</string>
-    <string name="hint_username">User Name</string>
+    <string name="hint_first">First Name</string>
+    <string name="hint_last">Last Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="action_register">REGISTER</string>
+    <string name="hint_retype_password">Retype Password</string>
 
     <!-- Sign in Fragment Names -->>
     <string name="action_login">SIGN IN</string>
