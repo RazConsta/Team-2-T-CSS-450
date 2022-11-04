@@ -54,7 +54,7 @@ public class RegisterFragment extends Fragment {
         mBinding = FragmentRegisterBinding.inflate(inflater);
         return mBinding.getRoot();
     }
-
+    
 //    private PasswordValidator mNameValidator = checkPwdLength(1);
 //
 //    private PasswordValidator mEmailValidator = checkPwdLength(2)
