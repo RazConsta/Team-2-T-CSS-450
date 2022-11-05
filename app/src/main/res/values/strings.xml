@@ -16,6 +16,11 @@
     <string name="action_login">SIGN IN</string>
     <string name="action_signup">SIGN UP</string>
 
+    <!-- Email Verification Fragment Names -->>
+    <string name="hint_account_creation">Thank you for creating the account!
+        Please check your email to verify your account.</string>
+    <string name="email_verification_completed">Back to Sign In</string>
+
     <!-- Bottom Navigation Bar Text -->>
     <string name="title_home">Home</string>
     <string name="title_chats">Chats</string>
