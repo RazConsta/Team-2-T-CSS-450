@@ -35,6 +35,20 @@ public class RegisterFragment extends Fragment {
 
     private RegisterViewModel mRegisterModel;
 
+    private PasswordValidator mNameValidator = checkPwdLength(1);
+
+    private PasswordValidator mEmailValidator = checkPwdLength(2)
+            .and(checkExcludeWhiteSpace())
+            .and(checkPwdSpecialChar("@"));
+
+    private PasswordValidator mPassWordValidator =
+            checkClientPredicate(pwd -> pwd.equals(mBinding.editRetypePassword.getText().toString()))
+                    .and(checkPwdLength(7))
+                    .and(checkPwdSpecialChar())
+                    .and(checkExcludeWhiteSpace())
+                    .and(checkPwdDigit())
+                    .and(checkPwdLowerCase().or(checkPwdUpperCase()));
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -54,116 +68,101 @@ public class RegisterFragment extends Fragment {
         mBinding = FragmentRegisterBinding.inflate(inflater);
         return mBinding.getRoot();
     }
-    
-//    private PasswordValidator mNameValidator = checkPwdLength(1);
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mBinding.buttonRegister.setOnClickListener(this::attemptRegister);
+        mRegisterModel.addResponseObserver(getViewLifecycleOwner(),
+                this::observeResponse);
+    }
+
+    private void attemptRegister(final View button) {
+        validateFirst();
+    }
+
+    private void validateFirst() {
+        mNameValidator.processResult(
+                mNameValidator.apply(mBinding.editFirst.getText().toString().trim()),
+                this::validateLast,
+                result -> mBinding.editFirst.setError("Please enter a first name."));
+    }
+
+    private void validateLast() {
+        mNameValidator.processResult(
+                mNameValidator.apply(mBinding.editLast.getText().toString().trim()),
+                this::validateEmail,
+                result -> mBinding.editLast.setError("Please enter a last name."));
+    }
+
+    private void validateEmail() {
+        mEmailValidator.processResult(
+                mEmailValidator.apply(mBinding.editEmail.getText().toString().trim()),
+                this::validatePasswordsMatch,
+                result -> mBinding.editEmail.setError("Please enter a valid Email address."));
+    }
+
+    private void validatePasswordsMatch() {
+        PasswordValidator matchValidator =
+                checkClientPredicate(
+                        pwd -> pwd.equals(mBinding.editRetypePassword.getText().toString().trim()));
+
+        mEmailValidator.processResult(
+                matchValidator.apply(mBinding.editPassword.getText().toString().trim()),
+                this::validatePassword,
+                result -> mBinding.editPassword.setError("Passwords must match."));
+    }
+
+    private void validatePassword() {
+        mPassWordValidator.processResult(
+                mPassWordValidator.apply(mBinding.editPassword.getText().toString()),
+                this::verifyAuthWithServer,
+                result -> mBinding.editPassword.setError("Please enter a valid Password."));
+    }
+
+    private void verifyAuthWithServer() {
+        mRegisterModel.connect(
+                mBinding.editFirst.getText().toString(),
+                mBinding.editLast.getText().toString(),
+                mBinding.editEmail.getText().toString(),
+                mBinding.editPassword.getText().toString());
+        //This is an Asynchronous call. No statements after should rely on the
+        //result of connect().
+    }
 //
-//    private PasswordValidator mEmailValidator = checkPwdLength(2)
-//            .and(checkExcludeWhiteSpace())
-//            .and(checkPwdSpecialChar("@"));
-//
-//    private PasswordValidator mPassWordValidator =
-//            checkClientPredicate(pwd -> pwd.equals(mBinding.editPassword2.getText().toString()))
-//                    .and(checkPwdLength(7))
-//                    .and(checkPwdSpecialChar())
-//                    .and(checkExcludeWhiteSpace())
-//                    .and(checkPwdDigit())
-//                    .and(checkPwdLowerCase().or(checkPwdUpperCase()));
-//
-//
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//
-//        mBinding.buttonRegister.setOnClickListener(this::attemptRegister);
-//        mRegisterModel.addResponseObserver(getViewLifecycleOwner(),
-//                this::observeResponse);
-//    }
-//
-//    private void attemptRegister(final View button) {
-//        validateFirst();
-//    }
-//
-//    private void validateFirst() {
-//        mNameValidator.processResult(
-//                mNameValidator.apply(mBinding.editFirst.getText().toString().trim()),
-//                this::validateLast,
-//                result -> mBinding.editFirst.setError("Please enter a first name."));
-//    }
-//
-//    private void validateLast() {
-//        mNameValidator.processResult(
-//                mNameValidator.apply(mBinding.editLast.getText().toString().trim()),
-//                this::validateEmail,
-//                result -> mBinding.editLast.setError("Please enter a last name."));
-//    }
-//
-//    private void validateEmail() {
-//        mEmailValidator.processResult(
-//                mEmailValidator.apply(mBinding.editEmail.getText().toString().trim()),
-//                this::validatePasswordsMatch,
-//                result -> mBinding.editEmail.setError("Please enter a valid Email address."));
-//    }
-//
-//    private void validatePasswordsMatch() {
-//        PasswordValidator matchValidator =
-//                checkClientPredicate(
-//                        pwd -> pwd.equals(mBinding.editPassword2.getText().toString().trim()));
-//
-//        mEmailValidator.processResult(
-//                matchValidator.apply(mBinding.editPassword1.getText().toString().trim()),
-//                this::validatePassword,
-//                result -> mBinding.editPassword1.setError("Passwords must match."));
-//    }
-//
-//    private void validatePassword() {
-//        mPassWordValidator.processResult(
-//                mPassWordValidator.apply(mBinding.editPassword1.getText().toString()),
-//                this::verifyAuthWithServer,
-//                result -> mBinding.editPassword1.setError("Please enter a valid Password."));
-//    }
-//
-//    private void verifyAuthWithServer() {
-//        mRegisterModel.connect(
-//                mBinding.editFirst.getText().toString(),
-//                mBinding.editLast.getText().toString(),
-//                mBinding.editEmail.getText().toString(),
-//                mBinding.editPassword1.getText().toString());
-//        //This is an Asynchronous call. No statements after should rely on the
-//        //result of connect().
-//    }
-//
-//    private void navigateToLogin() {
-//        RegisterFragmentDirections.ActionRegisterFragmentToLoginFragment directions =
-//                RegisterFragmentDirections.actionRegisterFragmentToLoginFragment();
-//
-//        directions.setEmail(mBinding.editEmail.getText().toString());
-//        directions.setPassword(mBinding.editPassword1.getText().toString());
-//
-//        Navigation.findNavController(getView()).navigate(directions);
-//
-//    }
-//
-//    /**
-//     * An observer on the HTTP Response from the web server. This observer should be
-//     * attached to SignInViewModel.
-//     *
-//     * @param response the Response from the server
-//     */
-//    private void observeResponse(final JSONObject response) {
-//        if (response.length() > 0) {
-//            if (response.has("code")) {
-//                try {
-//                    mBinding.editEmail.setError(
-//                            "Error Authenticating: " +
-//                                    response.getJSONObject("data").getString("message"));
-//                } catch (JSONException e) {
-//                    Log.e("JSON Parse Error", e.getMessage());
-//                }
-//            } else {
-//                navigateToLogin();
-//            }
-//        } else {
-//            Log.d("JSON Response", "No Response");
-//        }
-//    }
+    private void navigateToLogin() {
+        RegisterFragmentDirections.ActionRegisterFragmentToSignInFragment directions =
+                RegisterFragmentDirections.actionRegisterFragmentToSignInFragment();
+
+        directions.setEmail(mBinding.editEmail.getText().toString());
+        directions.setPassword(mBinding.editPassword.getText().toString());
+
+        Navigation.findNavController(getView()).navigate(directions);
+
+    }
+
+    /**
+     * An observer on the HTTP Response from the web server. This observer should be
+     * attached to SignInViewModel.
+     *
+     * @param response the Response from the server
+     */
+    private void observeResponse(final JSONObject response) {
+        if (response.length() > 0) {
+            if (response.has("code")) {
+                try {
+                    mBinding.editEmail.setError(
+                            "Error Authenticating: " +
+                                    response.getJSONObject("data").getString("message"));
+                } catch (JSONException e) {
+                    Log.e("JSON Parse Error", e.getMessage());
+                }
+            } else {
+                navigateToLogin();
+            }
+        } else {
+            Log.d("JSON Response", "No Response");
+        }
+    }
 }

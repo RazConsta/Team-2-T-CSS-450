@@ -20,12 +20,7 @@
         android:title="@string/title_weather" />
 
 
-    <item
-        android:id="@+id/signInFragment"
-        android:icon="@drawable/login_icon"
-        android:title="Sign In" />
-
-<!--    <item-->
+    <!--    <item-->
 <!--        android:id="@+id/registerFragment"-->
 <!--        android:icon="@drawable/register_icon"-->
 <!--        android:title="@string/title_register" />-->

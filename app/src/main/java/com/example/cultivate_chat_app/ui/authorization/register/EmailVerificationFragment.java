@@ -1,13 +1,10 @@
 package com.example.cultivate_chat_app.ui.authorization.register;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentEmailVerificationBinding;
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.util.Log;
@@ -19,46 +20,34 @@ import com.example.cultivate_chat_app.ui.authorization.register.RegisterFragment
 public class SignInFragment extends Fragment {
 
    private FragmentSignInBinding mBinding;
+   private SignInViewModel mSignInModel;
 
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
+      mSignInModel = new ViewModelProvider(getActivity())
+              .get(SignInViewModel.class);
    }
 
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
+      mBinding = FragmentSignInBinding.inflate(inflater);
       // Inflate the layout for this fragment
-
-      return inflater.inflate(R.layout.fragment_sign_in, container, false);
+      return mBinding.getRoot();
    }
 
    @Override
    public void onViewCreated (@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
-      //Use a Lamda expression to add the OnClickListener
       mBinding = FragmentSignInBinding.bind(requireView());
 
-      //On button click, navigate to MainActivity
-      mBinding.buttonToLogin.setOnClickListener(button -> {
-//         Navigation.findNavController(requireView()).navigate(
-//                 SignInFragmentDirections
-//                         .actionSignInFragmentToMainActivity(
-//                                 generateJwt(binding.editEmail.getText().toString())
-//                         ));
-         //This tells the containing Activity that we are done with it.
-         //It will not be added to backstack.
-//         getActivity().finish();
-      });
-      mBinding.buttonToRegister.setOnClickListener(button -> {
-         Navigation.findNavController(requireView())
-                 .navigate(R.id.action_signInFragment_to_registerFragment);
-      });
+      //On register button click, navigate to register
+      mBinding.buttonToRegister.setOnClickListener(button ->
+              Navigation.findNavController(getView()).navigate(
+                      SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
+              ));
    }
 
-   @Override
-   public void onDestroyView() {
-      super.onDestroyView();
-      mBinding = null;
-   }
+
 }
