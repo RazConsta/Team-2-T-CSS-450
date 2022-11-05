@@ -14,6 +14,7 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.cultivate_chat_app.io.RequestQueueSingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,7 +42,6 @@ public class SignInViewModel extends AndroidViewModel {
    }
 
    public void connect(final String email, final String password) {
-      // String url = "https://cfb3-tcss450-labs-2021sp.herokuapp.com/auth";
       String url = "https://cultivate-app-web-service.herokuapp.com/auth";
       Request request = new JsonObjectRequest(
               Request.Method.GET,
@@ -70,11 +70,9 @@ public class SignInViewModel extends AndroidViewModel {
       //I commented this out because its an error import not working for now
       //-Kevin
 
-//      RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
-//              .addToRequestQueue(request);
+      RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+              .addToRequestQueue(request);
    }
-
-
 
    private void handleError(final VolleyError error) {
       if (Objects.isNull(error.networkResponse)) {
