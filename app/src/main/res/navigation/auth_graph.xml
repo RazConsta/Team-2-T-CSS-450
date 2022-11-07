@@ -24,6 +24,9 @@
             android:name="password"
             android:defaultValue="default"
             app:argType="string" />
+        <action
+            android:id="@+id/actionSignInFragmentToForgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
 
     <fragment
@@ -66,5 +69,10 @@
             android:id="@+id/action_emailVerificationFragment_to_SignInFragment"
             app:destination="@id/SignInFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.example.cultivate_chat_app.ui.authorization.signin.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" />
 
 </navigation>
