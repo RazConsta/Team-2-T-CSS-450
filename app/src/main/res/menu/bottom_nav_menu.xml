@@ -19,10 +19,4 @@
         android:icon="@drawable/weather_icon"
         android:title="@string/title_weather" />
 
-
-    <!--    <item-->
-<!--        android:id="@+id/registerFragment"-->
-<!--        android:icon="@drawable/register_icon"-->
-<!--        android:title="@string/title_register" />-->
-
 </menu>
