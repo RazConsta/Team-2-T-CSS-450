@@ -71,7 +71,7 @@ public class SignInFragment extends Fragment {
       //On "Forgot passsword?" button click, navigate to ForgotPasswordFragment
       mBinding.forgotPassword.setOnClickListener(button ->
               Navigation.findNavController(getView()).navigate(
-                      SignInFragmentDirections.actionSignInFragmentToForgotPasswordFragment()
+                      SignInFragmentDirections.actionSignInFragmentToPasswordResetFragment()
               ));
 
       mBinding.buttonToLogin.setOnClickListener(this::attemptSignIn);

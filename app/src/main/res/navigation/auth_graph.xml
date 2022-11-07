@@ -25,8 +25,8 @@
             android:defaultValue="default"
             app:argType="string" />
         <action
-            android:id="@+id/actionSignInFragmentToForgotPasswordFragment"
-            app:destination="@id/forgotPasswordFragment" />
+            android:id="@+id/actionSignInFragmentToPasswordResetFragment"
+            app:destination="@id/passwordResetFragment" />
     </fragment>
 
     <fragment
@@ -70,9 +70,9 @@
             app:destination="@id/SignInFragment" />
     </fragment>
     <fragment
-        android:id="@+id/forgotPasswordFragment"
-        android:name="com.example.cultivate_chat_app.ui.authorization.signin.ForgotPasswordFragment"
-        android:label="fragment_forgot_password"
-        tools:layout="@layout/fragment_forgot_password" />
+        android:id="@+id/passwordResetFragment"
+        android:name="com.example.cultivate_chat_app.ui.authorization.passwordReset.PasswordResetFragment"
+        android:label="fragment_password_reset"
+        tools:layout="@layout/fragment_password_reset" />
 
 </navigation>
