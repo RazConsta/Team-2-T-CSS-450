@@ -40,26 +40,20 @@ public class PasswordResetViewModel extends AndroidViewModel {
       mResponse.observe(owner, observer);
    }
 
-   public void connect(final String email, final String password) {
-      String url = "https://cultivate-app-web-service.herokuapp.com/auth";
+   public void verify(final String email) {
+      String url = "https://cultivate-app-web-service.herokuapp.com/sendResetVerify";
+      JSONObject body = new JSONObject();
+      try {
+         body.put("email", email);
+      } catch (JSONException e) {
+         e.printStackTrace();
+      }
       Request request = new JsonObjectRequest(
-              Request.Method.GET,
+              Request.Method.POST,
               url,
-              null, //no body for this get request
+              body, //no body for this get request
               mResponse::setValue,
               this::handleError) {
-
-         @Override
-         public Map<String, String> getHeaders() {
-            Map<String, String> headers = new HashMap<>();
-            // add headers <key,value>
-            String credentials = email + ":" + password;
-            String auth = "Basic "
-                    + Base64.encodeToString(credentials.getBytes(),
-                    Base64.NO_WRAP);
-            headers.put("Authorization", auth);
-            return headers;
-         }
       };
       request.setRetryPolicy(new DefaultRetryPolicy(10_000,
               DefaultRetryPolicy.DEFAULT_MAX_RETRIES,

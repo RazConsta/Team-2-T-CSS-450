@@ -5,9 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +19,21 @@ import com.example.cultivate_chat_app.databinding.FragmentPasswordReset1Binding;
 import com.example.cultivate_chat_app.ui.authorization.register.EmailVerificationFragmentDirections;
 import com.example.cultivate_chat_app.ui.authorization.register.RegisterViewModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class PasswordReset1Fragment extends Fragment {
 
    private FragmentPasswordReset1Binding mBinding;
+
+   private PasswordResetViewModel mPasswordResetModel;
+
+   @Override
+   public void onCreate(@Nullable Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      mPasswordResetModel = new ViewModelProvider(getActivity())
+              .get(PasswordResetViewModel.class);
+   }
 
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,7 +46,20 @@ public class PasswordReset1Fragment extends Fragment {
    @Override
    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
-      mBinding.buttonToResetPassword.setOnClickListener(button -> navigateToNext());
+
+      mBinding.buttonToResetPassword.setOnClickListener(this::attemptSend);
+      mPasswordResetModel.addResponseObserver(getViewLifecycleOwner(),
+              this::observeResponse);
+   }
+
+   private void attemptSend(final View button) {
+      verifyEmailWithServer();
+   }
+
+   private void verifyEmailWithServer() {
+      mPasswordResetModel.verify(mBinding.editEmail.getText().toString());
+      //This is an Asynchronous call. No statements after should rely on the
+      //result of connect().
    }
 
    /**
@@ -45,29 +72,27 @@ public class PasswordReset1Fragment extends Fragment {
       Navigation.findNavController(getView()).navigate(directions);
    }
 
-   /*private FragmentEmailVerificationBinding mBinding;
-   private EmailVerificationFragmentArgs mArgs;
-
-   @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                            Bundle savedInstanceState) {
-      // Inflate the layout for this fragment
-      mBinding = FragmentEmailVerificationBinding.inflate(inflater, container, false);
-      mArgs = EmailVerificationFragmentArgs.fromBundle(getArguments());
-      return mBinding.getRoot();
+   /**
+    * An observer on the HTTP Response from the web server. This observer should be
+    * attached to SignInViewModel.
+    *
+    * @param response the Response from the server
+    */
+   private void observeResponse(final JSONObject response) {
+      if (response.length() > 0) {
+         if (response.has("code")) {
+            try {
+               mBinding.editEmail.setError(
+                       "Error Authenticating: " +
+                               response.getJSONObject("data").getString("message"));
+            } catch (JSONException e) {
+               Log.e("JSON Parse Error", e.getMessage());
+            }
+         } else {
+            navigateToNext();
+         }
+      } else {
+         Log.d("JSON Response", "No Response");
+      }
    }
-
-   @Override
-   public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-      super.onViewCreated(view, savedInstanceState);
-      mBinding.buttonVerified.setOnClickListener(button -> navigateToLogin());
-   }
-
-   private void navigateToLogin() {
-      EmailVerificationFragmentDirections.ActionEmailVerificationFragmentToSignInFragment directions =
-              EmailVerificationFragmentDirections.actionEmailVerificationFragmentToSignInFragment();
-      directions.setEmail(mArgs.getEmail());
-      directions.setPassword(mArgs.getPassword());
-      Navigation.findNavController(getView()).navigate(directions);
-   } */
 }
