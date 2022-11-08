@@ -19,10 +19,22 @@
     <string name="forgot_password"><u>Forgot password?</u></string>
     <string name="remember_me">Remember me</string>
 
-    <!-- Email Verification Fragment Names -->>
-    <string name="hint_account_creation">Thank you for creating the account!
-        Please check your email to verify your account.</string>
+    <!-- Registration - Email Verification Fragment Names -->
+    <string name="hint_account_creation">
+        Thank you for creating the account!
+        Please check your email to verify your account.
+    </string>
     <string name="email_verification_completed">Back to Sign In</string>
+
+    <!-- Password Reset - Email Verification Fragment Names -->>
+    <string name="hint_password_reset">
+        Please check your email to verify your account.
+        After that, set your new password on the next screen.
+    </string>
+    <string name="continue_to_reset">I verified my email</string>
+
+    <!-- Password Reset - Input New Password -->
+    <string name="hint_new_password">New password</string>
 
     <!-- Bottom Navigation Bar Text -->>
     <string name="title_home">Home</string>
