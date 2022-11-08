@@ -16,7 +16,8 @@
     <!-- Sign in Fragment Names -->>
     <string name="action_login">SIGN IN</string>
     <string name="action_signup">SIGN UP</string>
-    <string name="forgot_password">Forgot password?</string>
+    <string name="forgot_password"><u>Forgot password?</u></string>
+    <string name="remember_me">Remember me</string>
 
     <!-- Email Verification Fragment Names -->>
     <string name="hint_account_creation">Thank you for creating the account!
