@@ -97,10 +97,18 @@ public class SignInFragment extends Fragment {
    }
 
    private void validatePassword() {
-      mPassWordValidator.processResult(
-              mPassWordValidator.apply(mBinding.editPassword.getText().toString()),
-              this::verifyAuthWithServer,
-              result -> mBinding.editPassword.setError("Invalid password"));
+      String password = mBinding.editPassword.getText().toString();
+      if (password.equals("")) {
+         mBinding.editPassword.setError("Enter password");
+      } else {
+            mPassWordValidator.processResult(
+                    mPassWordValidator.apply(mBinding.editPassword.getText().toString()),
+                    this::verifyAuthWithServer,
+                    result -> mBinding.editPassword.setError("Invalid password"));
+
+      }
+      mBinding.editPassword.requestFocus();
+
    }
 
    private void verifyAuthWithServer() {
