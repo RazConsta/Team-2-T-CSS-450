@@ -68,7 +68,7 @@ public class SignInFragment extends Fragment {
                       SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
               ));
 
-      //On "Forgot passsword?" button click, navigate to ForgotPasswordFragment
+      //On "Forgot passsword?" button click, navigate to PasswordResetFragment
       mBinding.forgotPassword.setOnClickListener(button ->
               Navigation.findNavController(getView()).navigate(
                       SignInFragmentDirections.actionSignInFragmentToPasswordResetFragment()
@@ -93,14 +93,14 @@ public class SignInFragment extends Fragment {
       mEmailValidator.processResult(
               mEmailValidator.apply(mBinding.editEmail.getText().toString().trim()),
               this::validatePassword,
-              result -> mBinding.editEmail.setError("Please enter a valid Email address."));
+              result -> mBinding.editEmail.setError("Invalid email"));
    }
 
    private void validatePassword() {
       mPassWordValidator.processResult(
               mPassWordValidator.apply(mBinding.editPassword.getText().toString()),
               this::verifyAuthWithServer,
-              result -> mBinding.editPassword.setError("Please enter a valid Password."));
+              result -> mBinding.editPassword.setError("Invalid password"));
    }
 
    private void verifyAuthWithServer() {
@@ -132,9 +132,14 @@ public class SignInFragment extends Fragment {
       if (response.length() > 0) {
          if (response.has("code")) {
             try {
-               mBinding.editEmail.setError(
-                       "Error Authenticating: " +
-                               response.getJSONObject("data").getString("message"));
+               String errorMessage = response.getJSONObject("data").getString("message");
+               if (errorMessage.contains("password")) {
+                  mBinding.editPassword.setError(errorMessage);
+                  mBinding.editPassword.requestFocus();
+               } else {
+                  mBinding.editEmail.setError(errorMessage);
+                  mBinding.editEmail.requestFocus();
+               }
             } catch (JSONException e) {
                Log.e("JSON Parse Error", e.getMessage());
             }
