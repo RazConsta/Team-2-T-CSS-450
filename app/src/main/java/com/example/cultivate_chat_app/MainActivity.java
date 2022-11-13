@@ -11,6 +11,7 @@ import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.os.Bundle;
+import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();
+        // getSupportActionBar().hide(); // Had to delete otherwise top bar would not show up
         // Make sure the new statements go BELOW setContentView
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -41,5 +42,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dropdown_menu, menu);
+        return true;
+        // return super.onCreateOptionsMenu(menu);
     }
 }
