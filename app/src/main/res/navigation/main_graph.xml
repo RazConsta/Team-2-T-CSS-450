@@ -31,4 +31,9 @@
         android:name="com.example.cultivate_chat_app.ui.authorization.register.EmailVerificationFragment"
         android:label="Email Verification"
         tools:layout="@layout/fragment_email_verification" />
+    <activity
+        android:id="@+id/settingsFragment"
+        android:name="com.example.cultivate_chat_app.MainActivity"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

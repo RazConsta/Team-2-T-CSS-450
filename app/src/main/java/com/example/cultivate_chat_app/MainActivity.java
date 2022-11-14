@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -50,4 +51,28 @@ public class MainActivity extends AppCompatActivity {
         return true;
         // return super.onCreateOptionsMenu(menu);
     }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.settingsFragment:
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.settingsFragment);
+                break;
+            // case R.id.action_sign_out:
+                // signOut();
+                // break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
