@@ -22,27 +22,45 @@
 
         <TextView
             android:id="@+id/contact_card_nickname"
-            android:layout_width="290dp"
-            android:layout_height="40dp"
+            android:layout_width="190dp"
+            android:layout_height="39dp"
             android:text="Contact Name"
             android:textColor="#212121"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/image_contact"
-            tools:layout_editor_absoluteY="0dp"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
 
         <TextView
             android:id="@+id/contact_card_fullname"
-            android:layout_width="284dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="0dp"
+            android:layout_width="193dp"
+            android:layout_height="45dp"
             android:text="full name"
             android:textSize="16sp"
             android:textStyle="italic"
             app:layout_constraintStart_toEndOf="@id/image_contact"
-            tools:layout_editor_absoluteY="40dp"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="39dp" />
+
+        <ImageView
+            android:id="@+id/contact_card_message_friend_button"
+            android:layout_width="43dp"
+            android:layout_height="46dp"
+            app:srcCompat="@drawable/ic_contact_card_message_24"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="281dp"
+            tools:layout_editor_absoluteY="20dp" />
+
+        <ImageView
+            android:id="@+id/contact_card_more_setting"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_contact_card_more_setting_24"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="339dp"
+            tools:layout_editor_absoluteY="20dp" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
