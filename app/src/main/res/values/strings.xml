@@ -5,6 +5,7 @@
 
     <!-- Register Fragment Names -->>
     <string name="cap_register">Create New Account</string>
+    <string name="hint_nick">Nick Name</string>
     <string name="hint_first">First Name</string>
     <string name="hint_last">Last Name</string>
     <string name="hint_email">Email</string>

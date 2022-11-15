@@ -64,8 +64,8 @@
         android:layout_marginStart="8dp"
         android:autofillHints=""
         android:ems="10"
-
-        android:hint="Nickname"
+        android:hint="first/last/nickname/email"
+        android:textStyle="italic"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_search_people" />
