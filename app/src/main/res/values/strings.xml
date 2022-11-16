@@ -5,13 +5,13 @@
 
     <!-- Register Fragment Names -->>
     <string name="cap_register">Create New Account</string>
+    <string name="hint_nick">Nick Name</string>
     <string name="hint_first">First Name</string>
     <string name="hint_last">Last Name</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="action_register">REGISTER</string>
     <string name="hint_retype_password">Retype Password</string>
-
 
     <!-- Sign in Fragment Names -->>
     <string name="action_login">SIGN IN</string>
@@ -36,10 +36,16 @@
     <!-- Password Reset - Input New Password -->
     <string name="hint_new_password">New password</string>
 
-    <!-- Dropdown Menu -->
-    <string name="dropdown_settings">Settings</string>
-    <string name="dropdown_about_us">About us</string>
-    <string name="dropdown_logout">Logout</string>
+    <!-- Contact -->
+    <string name="hint_search_people">first/last/nickname/email</string>
+    <string name="title_search_people">Search People</string>
+    <string name="title_request_received">Requests Received</string>
+    <string name="button_add_friend_search">Search</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="title_add_people_to_chat">Add People to Chat</string>
+    <string name="hint_chat_name">Chat Name</string>
+    <string name="button_create_chat">Create</string>
 
     <!-- Settings Page -->
     <string name="change_nickname"><u>Change nickname</u></string>
@@ -56,6 +62,11 @@
     <string name="new_nickname">New nickname</string>
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
+
+    <!-- Dropdown Menu -->
+    <string name="dropdown_settings">Settings</string>
+    <string name="dropdown_about_us">About us</string>
+    <string name="dropdown_logout">Logout</string>
 
     <!-- Bottom Navigation Bar Text -->>
     <string name="title_home">Home</string>

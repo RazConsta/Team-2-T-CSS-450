@@ -79,7 +79,14 @@ public class RegisterFragment extends Fragment {
     }
 
     private void attemptRegister(final View button) {
-        validateFirst();
+        validateNick();
+    }
+
+    private void validateNick() {
+        mNameValidator.processResult(
+                mNameValidator.apply(mBinding.editNickname.getText().toString().trim()),
+                this::validateFirst,
+                result -> mBinding.editNickname.setError("Please enter a nickname."));
     }
 
     private void validateFirst() {

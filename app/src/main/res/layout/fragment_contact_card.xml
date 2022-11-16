@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_card_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/contact_card_layout_inner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_contact"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_profile_foreground"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/contact_card_nickname"
+            android:layout_width="190dp"
+            android:layout_height="39dp"
+            android:text="Contact Name"
+            android:textColor="#212121"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/image_contact"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:id="@+id/contact_card_fullname"
+            android:layout_width="193dp"
+            android:layout_height="45dp"
+            android:text="full name"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            app:layout_constraintStart_toEndOf="@id/image_contact"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="39dp" />
+
+        <ImageView
+            android:id="@+id/contact_card_message_friend_button"
+            android:layout_width="43dp"
+            android:layout_height="46dp"
+            app:srcCompat="@drawable/ic_contact_card_message_24"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="281dp"
+            tools:layout_editor_absoluteY="20dp" />
+
+        <ImageView
+            android:id="@+id/contact_card_option_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_contact_card_more_setting_24"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="339dp"
+            tools:layout_editor_absoluteY="20dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
