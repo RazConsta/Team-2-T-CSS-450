@@ -3,16 +3,20 @@ package com.example.cultivate_chat_app;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+// import androidx.navigation.NavControllerViewModel;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
+import com.example.cultivate_chat_app.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 // signOut();
                 // break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

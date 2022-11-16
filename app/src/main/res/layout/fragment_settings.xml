@@ -6,27 +6,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:padding="14dp"
-            android:src="@drawable/ic_baseline_arrow_back_24" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Settings"
-            android:textColor="@color/green"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
+    tools:context=".ui.settings.SettingsFragment">
+<!--    changed above from Main Activity-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,27 +29,30 @@
         android:paddingLeft="15dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Color Theme:         "></TextView>
+            android:layout_weight="1"
+            android:text="@string/color_theme"></TextView>
 
         <RadioButton
             android:id="@+id/spring_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:buttonTint="@color/gray_text_color"
             android:checked="true"
             android:onClick="checkButton"
-            android:text="Spring Theme"
+            android:text="@string/spring"
             android:textColor="@color/gray_text_color" />
 
         <RadioButton
             android:id="@+id/fall_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:buttonTint="@color/gray_text_color"
             android:onClick="checkButton"
-            android:text="Fall Theme"
+            android:text="@string/fall"
             android:textColor="@color/gray_text_color" />
     </RadioGroup>
 
@@ -80,49 +64,53 @@
         android:paddingLeft="15dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Temperature unit: "></TextView>
+            android:layout_weight="1"
+            android:text="@string/temp_unit"></TextView>
 
         <RadioButton
             android:id="@+id/radio_celsius"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:buttonTint="@color/gray_text_color"
             android:checked="true"
             android:onClick="checkButton"
-            android:text="Celsius            "
+            android:text="@string/celsius"
             android:textColor="@color/gray_text_color" />
 
         <RadioButton
             android:id="@+id/radio_fahrenheit"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:buttonTint="@color/gray_text_color"
             android:onClick="checkButton"
-            android:text="Fahrenheit"
+            android:text="@string/fahrenheit"
             android:textColor="@color/gray_text_color" />
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/nickname_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Change nickname" />
+        android:text="@string/change_nickname" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/password_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Change password" />
+        android:text="@string/change_password" />
 
     <ImageView
+        android:layout_margin="30dp"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
@@ -136,7 +124,7 @@
         android:gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="Change profile picture" />
+        android:text="@string/change_picture" />
 
 </LinearLayout>
 

@@ -41,6 +41,21 @@
     <string name="dropdown_about_us">About us</string>
     <string name="dropdown_logout">Logout</string>
 
+    <!-- Settings Page -->
+    <string name="change_nickname"><u>Change nickname</u></string>
+    <string name="change_password"><u>Change password</u></string>
+    <string name="change_picture"><u>Change profile picture</u> (I don\'t work)</string>
+    <string name="color_theme">Color Theme:</string>
+    <string name="spring">Spring</string>
+    <string name="fall">Fall</string>
+    <string name="temp_unit">Temp Unit:</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+
+    <!-- Nickname and Password Dialogues -->
+    <string name="new_nickname">New nickname</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
 
     <!-- Bottom Navigation Bar Text -->>
     <string name="title_home">Home</string>

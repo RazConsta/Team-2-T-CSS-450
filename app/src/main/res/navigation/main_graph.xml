@@ -31,9 +31,24 @@
         android:name="com.example.cultivate_chat_app.ui.authorization.register.EmailVerificationFragment"
         android:label="Email Verification"
         tools:layout="@layout/fragment_email_verification" />
-    <activity
+    <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.cultivate_chat_app.MainActivity"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        android:name="com.example.cultivate_chat_app.ui.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_nicknameDialog"
+            app:destination="@id/nicknameDialog" />
+        <action
+            android:id="@+id/action_settingsFragment_to_passwordDialog"
+            app:destination="@id/passwordDialog" />
+    </fragment>
+    <dialog
+        android:id="@+id/nicknameDialog"
+        android:name="com.example.cultivate_chat_app.ui.settings.NicknameDialog"
+        android:label="NicknameDialog" />
+    <dialog
+        android:id="@+id/passwordDialog"
+        android:name="com.example.cultivate_chat_app.ui.settings.PasswordDialog"
+        android:label="PasswordDialog" />
 </navigation>

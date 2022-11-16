@@ -16,8 +16,8 @@ import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentPasswordReset1Binding;
-import com.example.cultivate_chat_app.ui.authorization.register.EmailVerificationFragmentDirections;
-import com.example.cultivate_chat_app.ui.authorization.register.RegisterViewModel;
+// import com.example.cultivate_chat_app.ui.authorization.register.EmailVerificationFragmentDirections;
+// import com.example.cultivate_chat_app.ui.authorization.register.RegisterViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
