@@ -56,9 +56,9 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
         // contact card message button action
         holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
-                (R.id.action_contactsFragment_to_createNewChatFragment));
+                (R.id.action_contactsFragment_to_chatsFragment));
         holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
-                (R.id.action_addFriendsFragment_to_createNewChatFragment));
+                (R.id.action_contactsFragment_to_chatsFragment));
 
         // contact card option button action
         holder.optionButton.setOnClickListener(new View.OnClickListener(){
