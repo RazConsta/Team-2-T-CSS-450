@@ -74,6 +74,7 @@ public class SignInFragment extends Fragment {
                       SignInFragmentDirections.actionSignInFragmentToPasswordResetFragment()
               ));
 
+      //On sign in button click, verify account and then navigate to main activity
       mBinding.buttonToLogin.setOnClickListener(this::attemptSignIn);
 
       mSignInModel.addResponseObserver(
@@ -83,6 +84,7 @@ public class SignInFragment extends Fragment {
       SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
       mBinding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
       mBinding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+
    }
 
    private void attemptSignIn(final View button) {

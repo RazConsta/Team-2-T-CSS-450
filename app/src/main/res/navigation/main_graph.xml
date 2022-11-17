@@ -13,7 +13,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.example.cultivate_chat_app.ui.chats.ChatsFragment"
+        android:name="com.example.cultivate_chat_app.ui.chats.ChatFragment"
         android:label="Chats"
         tools:layout="@layout/fragment_chats" />
     <fragment
@@ -25,8 +25,8 @@
             android:id="@+id/action_contactsFragment_to_addFriendsFragment"
             app:destination="@id/addFriendsFragment" />
         <action
-            android:id="@+id/action_contactsFragment_to_createNewChatFragment"
-            app:destination="@id/createNewChatFragment" />
+            android:id="@+id/action_contactsFragment_to_chatsFragment"
+            app:destination="@id/chatsFragment" />
     </fragment>
     <fragment
         android:id="@+id/weatherFragment"
@@ -64,11 +64,7 @@
         android:label="Add Friends"
         tools:layout="@layout/fragment_add_friends" >
         <action
-            android:id="@+id/action_addFriendsFragment_to_createNewChatFragment"
-            app:destination="@id/createNewChatFragment" />
+            android:id="@+id/action_addFriendsFragment_to_chatsFragment"
+            app:destination="@id/chatsFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/createNewChatFragment"
-        android:name="com.example.cultivate_chat_app.ui.chats.CreateNewChatFragment"
-        android:label="CreateNewChatFragment" />
 </navigation>

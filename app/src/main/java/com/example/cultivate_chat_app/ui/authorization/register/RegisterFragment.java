@@ -145,7 +145,6 @@ public class RegisterFragment extends Fragment {
                         mBinding.editPassword.getText().toString());
 
         Navigation.findNavController(getView()).navigate(directions);
-
     }
 
     /**
