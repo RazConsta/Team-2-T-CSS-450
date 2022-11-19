@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentRegisterBinding;
+import com.example.cultivate_chat_app.ui.contacts.ContactsFragmentDirections;
 import com.example.cultivate_chat_app.utils.PasswordValidator;
 
 import org.json.JSONException;
@@ -72,10 +73,19 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        mBinding.registerGobackButton.setOnClickListener(button -> navigateToLogin());
         mBinding.buttonRegister.setOnClickListener(this::attemptRegister);
         mRegisterModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observeResponse);
+    }
+
+    /**
+     * Navigate the user back to login
+     */
+    private void navigateToLogin() {
+        Navigation.findNavController(getView())
+                .navigate(RegisterFragmentDirections
+                        .actionRegisterFragmentToSignInFragment());
     }
 
      private void attemptRegister(final View button) {

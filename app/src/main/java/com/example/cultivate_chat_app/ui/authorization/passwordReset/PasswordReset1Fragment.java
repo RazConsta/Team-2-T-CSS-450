@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentPasswordReset1Binding;
+import com.example.cultivate_chat_app.ui.authorization.register.RegisterFragmentDirections;
 // import com.example.cultivate_chat_app.ui.authorization.register.EmailVerificationFragmentDirections;
 // import com.example.cultivate_chat_app.ui.authorization.register.RegisterViewModel;
 
@@ -48,8 +49,18 @@ public class PasswordReset1Fragment extends Fragment {
       super.onViewCreated(view, savedInstanceState);
 
       mBinding.buttonToResetPassword.setOnClickListener(this::attemptSend);
+      mBinding.forgotPasswordGobackButton.setOnClickListener(button -> navigateToLogin());
       mPasswordResetModel.addResponseObserver(getViewLifecycleOwner(),
               this::observeResponse);
+   }
+
+   /**
+    * Navigate the user back to login
+    */
+   private void navigateToLogin() {
+      Navigation.findNavController(getView())
+              .navigate(PasswordReset1FragmentDirections
+                      .actionPasswordReset1FragmentToSignInFragment());
    }
 
    private void attemptSend(final View button) {

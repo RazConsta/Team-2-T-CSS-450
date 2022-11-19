@@ -77,6 +77,9 @@
         <action
             android:id="@+id/action_passwordReset1Fragment_to_passwordReset2Fragment"
             app:destination="@id/passwordReset2Fragment" />
+        <action
+            android:id="@+id/action_passwordReset1Fragment_to_SignInFragment"
+            app:destination="@id/SignInFragment" />
     </fragment>
     <fragment
         android:id="@+id/passwordReset2Fragment"
