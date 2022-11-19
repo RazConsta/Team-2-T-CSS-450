@@ -49,18 +49,8 @@ public class PasswordReset1Fragment extends Fragment {
       super.onViewCreated(view, savedInstanceState);
 
       mBinding.buttonToResetPassword.setOnClickListener(this::attemptSend);
-      mBinding.forgotPasswordGobackButton.setOnClickListener(button -> navigateToLogin());
       mPasswordResetModel.addResponseObserver(getViewLifecycleOwner(),
               this::observeResponse);
-   }
-
-   /**
-    * Navigate the user back to login
-    */
-   private void navigateToLogin() {
-      Navigation.findNavController(getView())
-              .navigate(PasswordReset1FragmentDirections
-                      .actionPasswordReset1FragmentToSignInFragment());
    }
 
    private void attemptSend(final View button) {

@@ -73,19 +73,9 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mBinding.registerGobackButton.setOnClickListener(button -> navigateToLogin());
         mBinding.buttonRegister.setOnClickListener(this::attemptRegister);
         mRegisterModel.addResponseObserver(getViewLifecycleOwner(),
                 this::observeResponse);
-    }
-
-    /**
-     * Navigate the user back to login
-     */
-    private void navigateToLogin() {
-        Navigation.findNavController(getView())
-                .navigate(RegisterFragmentDirections
-                        .actionRegisterFragmentToSignInFragment());
     }
 
      private void attemptRegister(final View button) {
