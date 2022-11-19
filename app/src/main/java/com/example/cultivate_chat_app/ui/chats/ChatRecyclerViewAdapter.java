@@ -1,6 +1,7 @@
 package com.example.cultivate_chat_app.ui.chats;
 
 import android.content.res.Resources;
+import android.os.Build;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,7 @@ import com.google.android.material.shape.CornerFamily;
 import java.util.List;
 
 import com.example.cultivate_chat_app.R;
-//import com.example.cultivate_chat_app.R.databinding.FragmentChatMessageBinding;
+import com.example.cultivate_chat_app.databinding.FragmentChatMessageBinding;
 
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.MessageViewHolder> {
 
@@ -76,17 +77,23 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 ((FrameLayout.LayoutParams) card.getLayoutParams()).gravity =
                         Gravity.END;
 
-                card.setCardBackgroundColor(
-                        ColorUtils.setAlphaComponent(
-                                res.getColor(R.color.primaryLightColor, null),
-                                16));
-                binding.textMessage.setTextColor(
-                        res.getColor(R.color.secondaryTextColorFade, null));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    card.setCardBackgroundColor(
+                            ColorUtils.setAlphaComponent(
+                                    res.getColor(R.color.primaryLightColor, null),
+                                    16));
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.textMessage.setTextColor(
+                            res.getColor(R.color.secondaryTextColorFade, null));
+                }
 
                 card.setStrokeWidth(standard / 5);
-                card.setStrokeColor(ColorUtils.setAlphaComponent(
-                        res.getColor(R.color.primaryLightColor, null),
-                        200));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    card.setStrokeColor(ColorUtils.setAlphaComponent(
+                            res.getColor(R.color.primaryLightColor, null),
+                            200));
+                }
 
                 //Round the corners on the left side
                 card.setShapeAppearanceModel(
@@ -112,18 +119,24 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 ((FrameLayout.LayoutParams) card.getLayoutParams()).gravity =
                         Gravity.START;
 
-                card.setCardBackgroundColor(
-                        ColorUtils.setAlphaComponent(
-                                res.getColor(R.color.secondaryLightColor, null),
-                                16));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    card.setCardBackgroundColor(
+                            ColorUtils.setAlphaComponent(
+                                    res.getColor(R.color.secondaryLightColor, null),
+                                    16));
+                }
 
                 card.setStrokeWidth(standard / 5);
-                card.setStrokeColor(ColorUtils.setAlphaComponent(
-                        res.getColor(R.color.secondaryLightColor, null),
-                        200));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    card.setStrokeColor(ColorUtils.setAlphaComponent(
+                            res.getColor(R.color.secondaryLightColor, null),
+                            200));
+                }
 
-                binding.textMessage.setTextColor(
-                        res.getColor(R.color.secondaryTextColorFade, null));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    binding.textMessage.setTextColor(
+                            res.getColor(R.color.secondaryTextColorFade, null));
+                }
 
                 //Round the corners on the right side
                 card.setShapeAppearanceModel(
