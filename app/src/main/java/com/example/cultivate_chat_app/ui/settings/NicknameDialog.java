@@ -2,6 +2,7 @@ package com.example.cultivate_chat_app.ui.settings;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import com.example.cultivate_chat_app.R;
 public class NicknameDialog extends AppCompatDialogFragment {
 
     private EditText editTextNickname;
+    private NicknameDialogListener listener;
 
     @NonNull
     @Override
@@ -35,11 +37,28 @@ public class NicknameDialog extends AppCompatDialogFragment {
                 })
                 .setPositiveButton(("ok"), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        String nickname = editTextNickname.getText().toString();
+                        listener.changeNickname(nickname);
                     }
                 });
 
         editTextNickname = view.findViewById(R.id.edit_nickname);
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            listener = (NicknameDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() +
+                    "must implement ExampleDialogListener");
+        }
+    }
+
+    public interface NicknameDialogListener {
+        void changeNickname(String nickname);
     }
 }

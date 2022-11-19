@@ -25,6 +25,8 @@ import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 import com.example.cultivate_chat_app.ui.authorization.signin.SignInFragmentArgs;
 import com.example.cultivate_chat_app.ui.authorization.signin.SignInFragmentDirections;
 
+import org.w3c.dom.Text;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SettingsFragment} factory method to
@@ -32,9 +34,9 @@ import com.example.cultivate_chat_app.ui.authorization.signin.SignInFragmentDire
  */
 public class SettingsFragment extends Fragment {
 
-    private UserInfoViewModel mUser;
     private SettingsViewModel mSettings;
     private FragmentSettingsBinding mBinding;
+    private NicknameViewModel nicknameViewModel;
 
     public SettingsFragment() {
         // Required empty public constructor\

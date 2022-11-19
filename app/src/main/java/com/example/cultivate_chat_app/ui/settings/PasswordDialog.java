@@ -2,6 +2,7 @@ package com.example.cultivate_chat_app.ui.settings;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ public class PasswordDialog extends AppCompatDialogFragment {
 
     private EditText editTextCurrentPassword;
     private EditText editTextNewPassword;
+    private PasswordDialogListener listener;
 
     @NonNull
     @Override
@@ -36,12 +38,30 @@ public class PasswordDialog extends AppCompatDialogFragment {
                 })
                 .setPositiveButton(("ok"), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
-
+                        String currentPass = editTextCurrentPassword.getText().toString();
+                        String newPass = editTextNewPassword.getText().toString();
+                        listener.changePassword(currentPass, newPass);
                     }
                 });
 
         editTextCurrentPassword = view.findViewById(R.id.edit_current_password);
         editTextNewPassword = view.findViewById(R.id.edit_new_password);
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            listener = (PasswordDialogListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() +
+                    "must implement ExampleDialogListener");
+        }
+    }
+
+    public interface PasswordDialogListener {
+        void changePassword(String oldPass, String newPass);
     }
 }
