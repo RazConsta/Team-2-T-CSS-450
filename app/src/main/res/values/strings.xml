@@ -12,6 +12,14 @@
     <string name="hint_password">Password</string>
     <string name="action_register">REGISTER</string>
     <string name="hint_retype_password">Retype Password</string>
+    <string name="pw_req">Password requirements:
+        \n- at least 8 characters
+        \n- at least one uppercase letter
+        \n- at least one lowercase letter
+        \n- at least one digit
+        \n- at least one special character
+        \n(@#$%&amp;*!?)
+        </string>
 
     <!-- Sign in Fragment Names -->>
     <string name="action_login">SIGN IN</string>
