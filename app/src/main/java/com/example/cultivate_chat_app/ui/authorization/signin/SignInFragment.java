@@ -34,11 +34,11 @@ public class SignInFragment extends Fragment {
    private SignInViewModel mSignInModel;
    private UserInfoViewModel mUserViewModel;
 
-   private PasswordValidator mEmailValidator = checkPwdLength(2)
+   private final PasswordValidator mEmailValidator = checkPwdLength(2)
            .and(checkExcludeWhiteSpace())
            .and(checkPwdSpecialChar("@"));
 
-   private PasswordValidator mPassWordValidator = checkPwdLength(1)
+   private final PasswordValidator mPassWordValidator = checkPwdLength(1)
            .and(checkExcludeWhiteSpace());
 
    public SignInFragment() {
@@ -56,7 +56,7 @@ public class SignInFragment extends Fragment {
    }
 
    @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
+   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       mBinding = FragmentSignInBinding.inflate(inflater);
       // Inflate the layout for this fragment
@@ -85,7 +85,7 @@ public class SignInFragment extends Fragment {
 
       mSignInModel.addResponseObserver(
               getViewLifecycleOwner(),
-              this::observeResponse);
+              this::observeSignInResponse);
 
       SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
       mBinding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
@@ -177,27 +177,24 @@ public class SignInFragment extends Fragment {
     *
     * @param response the Response from the server
     */
-   private void observeResponse(final JSONObject response) {
+   private void observeSignInResponse(final JSONObject response) {
       if (response.length() > 0) {
          if (response.has("code")) {
             try {
-               String errorMessage = response.getJSONObject("data").getString("message");
-               if (errorMessage.contains("password")) {
-                  mBinding.editPassword.setError(errorMessage);
-                  mBinding.editPassword.requestFocus();
-               } else {
-                  mBinding.editEmail.setError(errorMessage);
-                  mBinding.editEmail.requestFocus();
-               }
+               mBinding.editEmail.setError(
+                       "Error Authenticating: " +
+                               response.getJSONObject("data").getString("message"));
             } catch (JSONException e) {
                Log.e("JSON Parse Error", e.getMessage());
             }
          } else {
             try {
-               navigateToSuccess(
-                       mBinding.editEmail.getText().toString(),
-                       response.getString("token")
-               );
+               mUserViewModel = new ViewModelProvider(getActivity(),
+                       new UserInfoViewModel.UserInfoViewModelFactory(
+                               mBinding.editEmail.getText().toString(),
+                               response.getString("token")
+                       )).get(UserInfoViewModel.class);
+               sendPushyToken();
             } catch (JSONException e) {
                Log.e("JSON Parse Error", e.getMessage());
             }
