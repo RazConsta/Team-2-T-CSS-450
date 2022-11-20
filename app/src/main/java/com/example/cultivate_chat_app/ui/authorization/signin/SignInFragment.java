@@ -148,9 +148,13 @@ public class SignInFragment extends Fragment {
    private void observePushyPutResponse(final JSONObject response) {
       if (response.length() > 0) {
          if (response.has("code")) {
-            //this error cannot be fixed by the user changing credentials...
-            mBinding.editEmail.setError(
-                    "Error Authenticating on Push Token. Please contact support");
+            try {
+               mBinding.editEmail.setError(
+                       "Error Authenticating: " +
+                               response.getJSONObject("data").getString("message"));
+            } catch (JSONException e) {
+               Log.e("JSON Parse Error", e.getMessage());
+            }
          } else {
             navigateToSuccess(
                     mBinding.editEmail.getText().toString(),
