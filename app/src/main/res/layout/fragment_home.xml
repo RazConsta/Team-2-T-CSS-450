@@ -8,13 +8,14 @@
     tools:context=".ui.home.HomeFragment">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/welcomeHome"
         android:layout_width="wrap_content"
         android:layout_height="89dp"
-        android:text="Welcome to the Home page!"
-        android:textSize="20dp"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
 </androidx.constraintlayout.widget.ConstraintLayout>
