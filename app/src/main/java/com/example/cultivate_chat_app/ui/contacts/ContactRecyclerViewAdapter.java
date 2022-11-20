@@ -1,5 +1,6 @@
 package com.example.cultivate_chat_app.ui.contacts;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -11,17 +12,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.R;
 
 import java.util.HashMap;
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.ViewHolder> {
 
-    protected final HashMap<Integer,Contact> mContacts;
-    protected final Context mContext;
+    private final HashMap<Integer,Contact> mContacts;
+    private final Context mContext;
+    private ManagerFriendViewModel mManage;
 
 
     /**
@@ -44,6 +49,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.fragment_contact_card,parent,false);
 
+        mManage = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity()).get(ManagerFriendViewModel.class);
         return new ViewHolder(view);
     }
 
@@ -71,10 +77,10 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.add_friend:
-                                //handle addfriend click
+                                showAddDialog(contact,holder.view,position);
                                 break;
                             case R.id.remove_friend:
-                                //handle remove friend click
+                                showRemoveDialog(contact,holder.view,position);
                                 break;
                         }
                         return false;
@@ -85,6 +91,64 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
 
     }
 
+    /**
+     * Show Remove Dialog for removing friends
+     *  @param contact the contact
+     * @param view the view for it to appear
+     * @param position position of the contact
+     */
+    void showAddDialog(Contact contact, View view, int position) {
+        Dialog dialog = new Dialog(view.getContext());
+        dialog.setCancelable(true);
+
+        dialog.setContentView(R.layout.dialog_contact_card_add_friend);
+        dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
+            dialog.dismiss();
+            switch (mContacts.get(position).getStatus()){
+                case NOT_FRIENDS:
+                    mManage.connectSendRequest(contact.getId());
+                    break;
+                case RECEIVED_REQUEST:
+                    mManage.connectAcceptRequest(contact.getId());
+            }
+
+            removeFromView(position);
+        });
+        dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
+        dialog.show();
+    }
+
+
+    /**
+     * Show Remove Dialog for removing friends
+     *  @param contact the contact
+     * @param view the view for it to appear
+     * @param position position of the contact
+     */
+    void showRemoveDialog(Contact contact, View view, int position) {
+        Dialog dialog = new Dialog(view.getContext());
+        dialog.setCancelable(true);
+
+        dialog.setContentView(R.layout.dialog_contact_card_remove_friend);
+        dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
+            dialog.dismiss();
+            mManage.connectRemoveFriend(contact.getId());
+
+            removeFromView(position);
+        });
+        dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
+        dialog.show();
+    }
+
+    /**
+     * Remove contact from list
+     * @param position position of the contact
+     */
+    private void removeFromView(int position){
+        mContacts.remove(position);
+        notifyItemRemoved(position);
+        notifyItemChanged(position, mContacts.size());
+    }
 
     @Override
     public int getItemCount() {

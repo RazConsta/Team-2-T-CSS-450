@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Contact implements Serializable {
 
     private final String mId, mNickname, mFirstname, mLastname, mEmail;
+    private FriendStatus mStatus;
 
     /**
      * constructor
@@ -16,13 +17,15 @@ public class Contact implements Serializable {
      * @param firstname First Name
      * @param lastname Last Name
      * @param email Email
+     * @param status
      */
-    public Contact(String id, String nickname, String firstname, String lastname, String email){
+    public Contact(String id, String nickname, String firstname, String lastname, String email, FriendStatus status){
         this.mId = id;
         this.mNickname = nickname;
         this.mFirstname = firstname;
         this.mLastname = lastname;
         this.mEmail = email;
+        this.mStatus = status;
     }
 
     /**
@@ -60,6 +63,12 @@ public class Contact implements Serializable {
         return mEmail;
     }
 
+    /**
+     * @return Status
+     */
+    public FriendStatus getStatus() {
+        return mStatus;
+    }
 
     @Override
     public boolean equals(Object o) {

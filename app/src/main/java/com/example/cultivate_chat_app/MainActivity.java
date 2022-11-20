@@ -20,6 +20,7 @@ import com.example.cultivate_chat_app.ui.settings.PasswordViewModel;
 import com.example.cultivate_chat_app.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,10 +38,12 @@ public class MainActivity
     private NicknameViewModel nicknameViewModel;
     private PasswordViewModel passwordViewModel;
     private UserInfoViewModel mUser;
+    private static Activity mMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mMainActivity = this;
         nicknameViewModel = new ViewModelProvider(this).get(NicknameViewModel.class);
         passwordViewModel = new ViewModelProvider(this).get(PasswordViewModel.class);
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
@@ -85,6 +88,9 @@ public class MainActivity
         passwordViewModel.connect(mUser.getEmail(), oldPass, newPass);
     }
 
+    public static Activity getActivity(){
+        return mMainActivity;
+    }
     /*
     enable the go back function for the go back icon on the title.
      */
