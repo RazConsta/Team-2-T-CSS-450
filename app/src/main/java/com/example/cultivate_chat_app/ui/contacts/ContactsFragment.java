@@ -63,10 +63,16 @@ public class ContactsFragment extends Fragment {
      */
     private void setAdapter(List<Contact> contacts) {
         HashMap<Integer, Contact> contactMap = new HashMap<>();
-        for (Contact contact : contacts){
-            contactMap.put(contacts.indexOf(contact), contact);
 
-        }
+        //TODO hardcode the contact to display first
+//        for (Contact contact : contacts){
+//            contactMap.put(contacts.indexOf(contact), contact);
+//        }
+
+        //TODO if I hardcode like below, while clicking the contact icon, the app stops
+//        contactMap.put(1, new Contact("58","Qinyu Tao",
+//                "Qinyu","Tao","tqy20202@gmail.com", FriendStatus.FRIENDS));
+
         mRecyclerView.setAdapter(new ContactRecyclerViewAdapter(getActivity(), contactMap));
     }
 

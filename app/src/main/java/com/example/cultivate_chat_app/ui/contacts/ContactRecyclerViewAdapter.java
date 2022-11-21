@@ -1,5 +1,6 @@
 package com.example.cultivate_chat_app.ui.contacts;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -56,99 +57,100 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contact contact = mContacts.get(position);
-        holder.nickname.setText(mContacts.get(position).getNickname());
-        holder.fullName.setText(mContacts.get(position).getFirstname()
-                +" "+mContacts.get(position).getLastname());
+        holder.nickname.setText(contact.getNickname());
+        holder.fullName.setText(contact.getFirstname() +" "+contact.getLastname());
 
-        // contact card message button action
-        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
-                (R.id.action_contactsFragment_to_chatsFragment));
-        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
-                (R.id.action_contactsFragment_to_chatsFragment));
+        // TODO uncomment first, will need them later //contact card message button action
+//        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
+//                (R.id.action_contactsFragment_to_chatsFragment));
+//        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
+//                (R.id.action_contactsFragment_to_chatsFragment));
 
-        // contact card option button action
-        holder.optionButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                PopupMenu popup = new PopupMenu(mContext, holder.messageButton);
-                popup.inflate(R.menu.concact_card_menu);
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.add_friend:
-                                showAddDialog(contact,holder.view,position);
-                                break;
-                            case R.id.remove_friend:
-                                showRemoveDialog(contact,holder.view,position);
-                                break;
-                        }
-                        return false;
-                    }
-                });
-            }
-        });
+        // TODO uncomment first, will need them later  // contact card option button action
+//        holder.optionButton.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                PopupMenu popup = new PopupMenu(mContext, holder.messageButton);
+//                popup.inflate(R.menu.concact_card_menu);
+//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+//                    @Override
+//                    public boolean onMenuItemClick(MenuItem item) {
+//                        switch (item.getItemId()){
+//                            case R.id.add_friend:
+//                                showAddDialog(contact,holder.view,position);
+//                                break;
+//                            case R.id.remove_friend:
+//                                showRemoveDialog(contact,holder.view,position);
+//                                break;
+//                        }
+//                        return false;
+//                    }
+//                });
+//            }
+//        });
 
     }
 
-    /**
-     * Show Remove Dialog for removing friends
-     *  @param contact the contact
-     * @param view the view for it to appear
-     * @param position position of the contact
-     */
-    void showAddDialog(Contact contact, View view, int position) {
-        Dialog dialog = new Dialog(view.getContext());
-        dialog.setCancelable(true);
+    //TODO uncomment first, will need it later
+//    /**
+//     * Show Remove Dialog for removing friends
+//     *  @param contact the contact
+//     * @param view the view for it to appear
+//     * @param position position of the contact
+//     */
+//    void showAddDialog(Contact contact, View view, int position) {
+//        Dialog dialog = new Dialog(view.getContext());
+//        dialog.setCancelable(true);
+//
+//        dialog.setContentView(R.layout.dialog_contact_card_add_friend);
+//        dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
+//            dialog.dismiss();
+//            switch (mContacts.get(position).getStatus()){
+//                case NOT_FRIENDS:
+//                    mManage.connectSendRequest(contact.getId());
+//                    break;
+//                case RECEIVED_REQUEST:
+//                    mManage.connectAcceptRequest(contact.getId());
+//            }
+//
+//            removeFromView(position);
+//        });
+//        dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
+//        dialog.show();
+//    }
 
-        dialog.setContentView(R.layout.dialog_contact_card_add_friend);
-        dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
-            dialog.dismiss();
-            switch (mContacts.get(position).getStatus()){
-                case NOT_FRIENDS:
-                    mManage.connectSendRequest(contact.getId());
-                    break;
-                case RECEIVED_REQUEST:
-                    mManage.connectAcceptRequest(contact.getId());
-            }
+    //TODO uncomment first, will need it later
+//    /**
+//     * Show Remove Dialog for removing friends
+//     *  @param contact the contact
+//     * @param view the view for it to appear
+//     * @param position position of the contact
+//     */
+//    void showRemoveDialog(Contact contact, View view, int position) {
+//        Dialog dialog = new Dialog(view.getContext());
+//        dialog.setCancelable(true);
+//
+//        dialog.setContentView(R.layout.dialog_contact_card_remove_friend);
+//        dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
+//            dialog.dismiss();
+//            mManage.connectRemoveFriend(contact.getId());
+//
+//            removeFromView(position);
+//        });
+//        dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
+//        dialog.show();
+//    }
 
-            removeFromView(position);
-        });
-        dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
-        dialog.show();
-    }
-
-
-    /**
-     * Show Remove Dialog for removing friends
-     *  @param contact the contact
-     * @param view the view for it to appear
-     * @param position position of the contact
-     */
-    void showRemoveDialog(Contact contact, View view, int position) {
-        Dialog dialog = new Dialog(view.getContext());
-        dialog.setCancelable(true);
-
-        dialog.setContentView(R.layout.dialog_contact_card_remove_friend);
-        dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
-            dialog.dismiss();
-            mManage.connectRemoveFriend(contact.getId());
-
-            removeFromView(position);
-        });
-        dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
-        dialog.show();
-    }
-
-    /**
-     * Remove contact from list
-     * @param position position of the contact
-     */
-    private void removeFromView(int position){
-        mContacts.remove(position);
-        notifyItemRemoved(position);
-        notifyItemChanged(position, mContacts.size());
-    }
+    //TODO uncomment first, will need it later
+//    /**
+//     * Remove contact from list
+//     * @param position position of the contact
+//     */
+//    private void removeFromView(int position){
+//        mContacts.remove(position);
+//        notifyItemRemoved(position);
+//        notifyItemChanged(position, mContacts.size());
+//    }
 
     @Override
     public int getItemCount() {
