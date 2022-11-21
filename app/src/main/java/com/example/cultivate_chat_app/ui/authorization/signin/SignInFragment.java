@@ -156,7 +156,7 @@ public class SignInFragment extends Fragment {
     * @param email users email
     * @param jwt the JSON Web Token supplied by the server
     */
-   private void navigateToSuccess(final String email, final String jwt) {
+   private void navigateToSuccess(final String email, final String jwt, final String first, final String last, final String nick, final int id) {
       Navigation.findNavController(requireView())
               .navigate(SignInFragmentDirections
                       .actionSignInFragmentToMainActivity(email, jwt, first, last, nick, id));
@@ -180,7 +180,7 @@ public class SignInFragment extends Fragment {
          } else {
             navigateToSuccess(
                     mBinding.editEmail.getText().toString(),
-                    mUserViewModel.getJwt()
+                    mUserViewModel.getJwt(), mUserViewModel.getFirst(), mUserViewModel.getLast(), mUserViewModel.getNick(), mUserViewModel.getId()
             );
          }
       }
