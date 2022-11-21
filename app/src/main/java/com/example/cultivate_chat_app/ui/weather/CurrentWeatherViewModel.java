@@ -22,15 +22,15 @@ import org.json.JSONObject;
 
 public class CurrentWeatherViewModel extends AndroidViewModel{
 
-   public MutableLiveData<Integer> mResponse;
+   public MutableLiveData<JSONObject> mResponse;
    public String mTestCurrentWeather;
 
    public CurrentWeatherViewModel(@NonNull Application application) {
       super(application);
-      mResponse = new MutableLiveData<Integer>();
+      mResponse = new MutableLiveData<JSONObject>();
    }
    public void addResponseObserver(@NonNull LifecycleOwner owner,
-                                   @NonNull Observer<? super Integer> observer) {
+                                   @NonNull Observer<? super JSONObject> observer) {
       mResponse.observe(owner, observer);
    }
 
@@ -44,7 +44,10 @@ public class CurrentWeatherViewModel extends AndroidViewModel{
       try {
          String temperatureResult = result.getString("temperature");
          int temperature = (int) Math.round(Double.parseDouble(temperatureResult));
-         mResponse.setValue(temperature);
+         JSONObject response = new JSONObject();
+         response.put("temperature", temperature);
+         response.put("conditions", result.getString("conditions"));
+         mResponse.setValue(response);
          System.out.println("HANDLE RESULT ACTIVATES, Current weather: " + mResponse.getValue());
       } catch (JSONException ex) {
          ex.printStackTrace();

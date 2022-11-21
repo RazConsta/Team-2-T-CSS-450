@@ -10,10 +10,9 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:id="@+id/weatherConditionsTextView"
+        android:id="@+id/currentWeatherConditionsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cloudy"
         android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/currentTemperatureTextView"
         app:layout_constraintEnd_toEndOf="parent"

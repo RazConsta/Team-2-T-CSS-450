@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.databinding.FragmentWeatherBinding;
 
+import org.json.JSONException;
+
 public class WeatherFragment extends Fragment {
 
     private FragmentWeatherBinding mBinding;
@@ -43,9 +45,16 @@ public class WeatherFragment extends Fragment {
         //Obtain access to the ViewModel. If this fragment object is new, the ViewModel
         //will be re/created. Note the parameter to the ViewModelProvider constructor - this.
         //mCurrentWeatherViewModel = new ViewModelProvider(getActivity()).get(CurrentWeatherViewModel.class);
-
         mCurrentWeatherViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
+        {
+            try {
                 mBinding.currentTemperatureTextView
-                        .setText(mCurrentWeatherViewModel.mResponse.getValue() + "°F"));
+                        .setText(mCurrentWeatherViewModel.mResponse.getValue().getString("temperature") + "°F");
+                mBinding.currentWeatherConditionsTextView
+                        .setText(mCurrentWeatherViewModel.mResponse.getValue().getString("conditions") );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
