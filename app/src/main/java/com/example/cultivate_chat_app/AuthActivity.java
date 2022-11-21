@@ -2,18 +2,11 @@ package com.example.cultivate_chat_app;
 
 import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 import static com.example.cultivate_chat_app.utils.ThemeManager.setCustomizedThemes;
-import static com.example.cultivate_chat_app.utils.ThemeManager.setThemeColor;
-
+import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
-import android.os.Bundle;
-import android.view.View;
-
 import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
-
 import java.util.Objects;
-
 import me.pushy.sdk.Pushy;
 
 public class AuthActivity extends AppCompatActivity {

@@ -3,44 +3,39 @@ package com.example.cultivate_chat_app;
 import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 import static com.example.cultivate_chat_app.utils.ThemeManager.setCustomizedThemes;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-// import androidx.navigation.NavControllerViewModel;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.example.cultivate_chat_app.databinding.ActivityMainBinding;
 import com.example.cultivate_chat_app.services.PushReceiver;
 import com.example.cultivate_chat_app.ui.authorization.model.NewMessageCountViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
-import com.example.cultivate_chat_app.ui.authorization.signin.SignInViewModel;
 import com.example.cultivate_chat_app.ui.chats.ChatMessage;
 import com.example.cultivate_chat_app.ui.chats.ChatViewModel;
 import com.example.cultivate_chat_app.ui.settings.NicknameDialog;
 import com.example.cultivate_chat_app.ui.settings.NicknameViewModel;
 import com.example.cultivate_chat_app.ui.settings.PasswordDialog;
 import com.example.cultivate_chat_app.ui.settings.PasswordViewModel;
-import com.example.cultivate_chat_app.ui.settings.SettingsFragment;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.util.AttributeSet;
-import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity
         extends AppCompatActivity
@@ -53,6 +48,7 @@ public class MainActivity
     private NicknameViewModel nicknameViewModel;
     private PasswordViewModel passwordViewModel;
     private UserInfoViewModel mUser;
+    @SuppressLint("StaticFieldLeak")
     private static Activity mMainActivity;
     private ActivityMainBinding binding;
     private MainPushMessageReceiver mPushMessageReceiver;
@@ -156,6 +152,7 @@ public class MainActivity
         return super.onPrepareOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case R.id.settingsFragment:
@@ -177,7 +174,7 @@ public class MainActivity
      * A BroadcastReceiver that listens for messages sent from PushReceiver
      */
     private class MainPushMessageReceiver extends BroadcastReceiver {
-        private ChatViewModel mModel =
+        private final ChatViewModel mModel =
                 new ViewModelProvider(MainActivity.this)
                         .get(ChatViewModel.class);
         @Override
@@ -190,6 +187,7 @@ public class MainActivity
                 ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
                 //If the user is not on the chat screen, update the
                 // NewMessageCountView Model
+                assert nd != null;
                 if (nd.getId() != R.id.chatsFragment) {
                     mNewMessageModel.increment();
                 }
