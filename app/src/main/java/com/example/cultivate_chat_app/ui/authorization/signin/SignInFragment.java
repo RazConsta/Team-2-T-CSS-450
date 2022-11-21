@@ -1,26 +1,23 @@
 package com.example.cultivate_chat_app.ui.authorization.signin;
 
+import static com.example.cultivate_chat_app.utils.PasswordValidator.checkExcludeWhiteSpace;
+import static com.example.cultivate_chat_app.utils.PasswordValidator.checkPwdLength;
+import static com.example.cultivate_chat_app.utils.PasswordValidator.checkPwdSpecialChar;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import static com.example.cultivate_chat_app.utils.PasswordValidator.*;
-
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentSignInBinding;
-import com.example.cultivate_chat_app.ui.authorization.register.RegisterFragmentDirections;
+import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
+import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 import com.example.cultivate_chat_app.utils.PasswordValidator;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,13 +26,14 @@ public class SignInFragment extends Fragment {
 
    private FragmentSignInBinding mBinding;
    private SignInViewModel mSignInModel;
+   private UserInfoViewModel mUserViewModel;
+   private PushyTokenViewModel mPushyTokenViewModel;
 
-
-   private PasswordValidator mEmailValidator = checkPwdLength(2)
+   private final PasswordValidator mEmailValidator = checkPwdLength(2)
            .and(checkExcludeWhiteSpace())
            .and(checkPwdSpecialChar("@"));
 
-   private PasswordValidator mPassWordValidator = checkPwdLength(1)
+   private final PasswordValidator mPassWordValidator = checkPwdLength(1)
            .and(checkExcludeWhiteSpace());
 
    public SignInFragment() {
@@ -45,12 +43,15 @@ public class SignInFragment extends Fragment {
    @Override
    public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      mSignInModel = new ViewModelProvider(getActivity())
+      mSignInModel = new ViewModelProvider(requireActivity())
               .get(SignInViewModel.class);
+      //gain a reference to the PushyTokenViewModel
+      mPushyTokenViewModel = new ViewModelProvider(requireActivity())
+              .get(PushyTokenViewModel.class);
    }
 
    @Override
-   public View onCreateView(LayoutInflater inflater, ViewGroup container,
+   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       mBinding = FragmentSignInBinding.inflate(inflater);
       // Inflate the layout for this fragment
@@ -64,13 +65,13 @@ public class SignInFragment extends Fragment {
 
       //On register button click, navigate to register
       mBinding.buttonToRegister.setOnClickListener(button ->
-              Navigation.findNavController(getView()).navigate(
+              Navigation.findNavController(requireView()).navigate(
                       SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
               ));
 
       //On "Forgot passsword?" button click, navigate to PasswordResetFragment
       mBinding.forgotPassword.setOnClickListener(button ->
-              Navigation.findNavController(getView()).navigate(
+              Navigation.findNavController(requireView()).navigate(
                       SignInFragmentDirections.actionSignInFragmentToPasswordResetFragment()
               ));
 
@@ -79,12 +80,18 @@ public class SignInFragment extends Fragment {
 
       mSignInModel.addResponseObserver(
               getViewLifecycleOwner(),
-              this::observeResponse);
+              this::observeSignInResponse);
 
       SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
       mBinding.editEmail.setText(args.getEmail().equals("default") ? "test1@test.com" : args.getEmail());
       mBinding.editPassword.setText(args.getPassword().equals("default") ? "test12345" : args.getPassword());
-
+      //don't allow sign in until pushy token retrieved
+      mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(), token ->
+              mBinding.buttonToLogin.setEnabled(!token.isEmpty()));
+      //add an observer to the PushyViewModel response
+      mPushyTokenViewModel.addResponseObserver(
+              getViewLifecycleOwner(),
+              this::observePushyPutResponse);
    }
 
    private void attemptSignIn(final View button) {
@@ -121,15 +128,46 @@ public class SignInFragment extends Fragment {
       //result of connect().
    }
 
+   /*
+    * Helper to abstract the request to send the pushy token to the web service.
+    */
+   private void sendPushyToken() {
+      mPushyTokenViewModel.sendTokenToWebservice(mUserViewModel.getJwt());
+   }
+
    /**
     * Helper to abstract the navigation to the Activity past Authentication.
     * @param email users email
     * @param jwt the JSON Web Token supplied by the server
     */
    private void navigateToSuccess(final String email, final String jwt) {
-      Navigation.findNavController(getView())
+      Navigation.findNavController(requireView())
               .navigate(SignInFragmentDirections
                       .actionSignInFragmentToMainActivity(email, jwt));
+   }
+
+   /**
+    *  An observer on the HTTP Response from the web server. This observer should be
+    *  attached to PushyTokenViewModel.
+    * @param response the Response from the server
+    */
+   private void observePushyPutResponse(final JSONObject response) {
+      if (response.length() > 0) {
+         if (response.has("code")) {
+            try {
+               mBinding.editEmail.setError(
+                       "Error Authenticating: " +
+                               response.getJSONObject("data").getString("message"));
+            } catch (JSONException e) {
+               Log.e("JSON Parse Error", e.getMessage());
+            }
+         } else {
+            navigateToSuccess(
+                    mBinding.editEmail.getText().toString(),
+                    mUserViewModel.getJwt()
+            );
+         }
+      }
    }
 
    /**
@@ -138,27 +176,24 @@ public class SignInFragment extends Fragment {
     *
     * @param response the Response from the server
     */
-   private void observeResponse(final JSONObject response) {
+   private void observeSignInResponse(final JSONObject response) {
       if (response.length() > 0) {
          if (response.has("code")) {
             try {
-               String errorMessage = response.getJSONObject("data").getString("message");
-               if (errorMessage.contains("password")) {
-                  mBinding.editPassword.setError(errorMessage);
-                  mBinding.editPassword.requestFocus();
-               } else {
-                  mBinding.editEmail.setError(errorMessage);
-                  mBinding.editEmail.requestFocus();
-               }
+               mBinding.editEmail.setError(
+                       "Error Authenticating: " +
+                               response.getJSONObject("data").getString("message"));
             } catch (JSONException e) {
                Log.e("JSON Parse Error", e.getMessage());
             }
          } else {
             try {
-               navigateToSuccess(
-                       mBinding.editEmail.getText().toString(),
-                       response.getString("token")
-               );
+               mUserViewModel = new ViewModelProvider(requireActivity(),
+                       new UserInfoViewModel.UserInfoViewModelFactory(
+                               mBinding.editEmail.getText().toString(),
+                               response.getString("token"), "", "", "",0
+                       )).get(UserInfoViewModel.class);
+               sendPushyToken();
             } catch (JSONException e) {
                Log.e("JSON Parse Error", e.getMessage());
             }
