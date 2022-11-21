@@ -18,6 +18,7 @@ public class Weather {
          this.mTemperature = temperature;
          this.mConditions = conditions;
       }
+
    }
 
    private Weather(final Builder builder) {
