@@ -5,19 +5,27 @@ import static com.example.cultivate_chat_app.utils.PasswordValidator.checkPwdLen
 import static com.example.cultivate_chat_app.utils.PasswordValidator.checkPwdSpecialChar;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+
+import static com.example.cultivate_chat_app.utils.PasswordValidator.*;
+import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentSignInBinding;
+import com.example.cultivate_chat_app.ui.authorization.register.RegisterFragmentDirections;
+import com.example.cultivate_chat_app.utils.PasswordValidator;
 import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
-import com.example.cultivate_chat_app.utils.PasswordValidator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,7 +59,7 @@ public class SignInFragment extends Fragment {
    }
 
    @Override
-   public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                             Bundle savedInstanceState) {
       mBinding = FragmentSignInBinding.inflate(inflater);
       // Inflate the layout for this fragment
@@ -62,6 +70,18 @@ public class SignInFragment extends Fragment {
    public void onViewCreated (@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
       mBinding = FragmentSignInBinding.bind(requireView());
+
+      System.out.println("Theme color is " + getThemeColor(this.getActivity()));
+
+      if (getThemeColor(this.getActivity()) == "yellow") {
+         mBinding.yellowColoredRectangle.setVisibility(View.VISIBLE);
+         mBinding.greenColoredRectangle.setVisibility(View.INVISIBLE);
+      } else if (getThemeColor(this.getActivity()) == "green") {
+         mBinding.greenColoredRectangle.setVisibility(View.VISIBLE);
+         mBinding.yellowColoredRectangle.setVisibility(View.INVISIBLE);
+      }
+
+      System.out.println("Login activity theme is " + getThemeColor(this.getActivity()));
 
       //On register button click, navigate to register
       mBinding.buttonToRegister.setOnClickListener(button ->
