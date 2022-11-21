@@ -35,7 +35,6 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mBinding;
     private UserInfoViewModel mUserModel;
     private HomeViewModel mHomeViewModel;
-    private String mNickname;
 
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -65,47 +64,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
-        JWT jwt = new JWT( mUserModel.getJwt());
+        // JWT jwt = new JWT( mUserModel.getJwt());
         mBinding.welcomeHome.setText("Welcome, " + mUserModel.getNick() + "!");
     }
-
-//    public void getNickname(final String email) {
-//        String url = "https://cultivate-app-web-service.herokuapp.com/getNickname";
-//        JSONObject body = new JSONObject();
-//        try {
-//            body.put("email", email);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        Request request = new JsonObjectRequest(
-//                Request.Method.GET,
-//                url,
-//                body,
-//                this::handleResult,
-//                this::handleError);
-//        request.setRetryPolicy(new DefaultRetryPolicy(
-//                10_000,
-//                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        //Instantiate the RequestQueue and add the request to the queue
-//        Volley.newRequestQueue(getActivity())
-//                .add(request);
-//    }
-//
-//    public void handleResult(final JSONObject jsonResponse) {
-//        System.out.println("entered handle nickname");
-//        try {
-//            // System.out.println("NICKNAME JSON RESPONSE" + jsonResponse);
-//            // mNickname = jsonResponse.getString("nickname");
-//            System.out.println("PRINTING JSON" + jsonResponse);
-//            mBinding.welcomeHome.setText("Welcome, " + jsonResponse.getString("nickname") + "!");
-//        } catch (JSONException e) {
-//            System.out.println("could not handle nickname JSON response");
-//        }
-//    }
-//
-//    public void handleError(final VolleyError error) {
-//        System.out.println("HANDLE NICKNAME ERROR");
-//    }
-
 }
