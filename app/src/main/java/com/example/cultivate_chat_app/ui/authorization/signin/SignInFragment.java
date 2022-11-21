@@ -159,7 +159,7 @@ public class SignInFragment extends Fragment {
    private void navigateToSuccess(final String email, final String jwt) {
       Navigation.findNavController(requireView())
               .navigate(SignInFragmentDirections
-                      .actionSignInFragmentToMainActivity(email, jwt));
+                      .actionSignInFragmentToMainActivity(email, jwt, first, last, nick, id));
    }
 
    /**
@@ -207,7 +207,11 @@ public class SignInFragment extends Fragment {
                mUserViewModel = new ViewModelProvider(requireActivity(),
                        new UserInfoViewModel.UserInfoViewModelFactory(
                                mBinding.editEmail.getText().toString(),
-                               response.getString("token"), "", "", "",0
+                               response.getString("token"),
+                               response.getString(("firstname")),
+                               response.getString("lastname"),
+                               response.getString("nickname"),
+                               response.getInt("memberid")
                        )).get(UserInfoViewModel.class);
                sendPushyToken();
             } catch (JSONException e) {

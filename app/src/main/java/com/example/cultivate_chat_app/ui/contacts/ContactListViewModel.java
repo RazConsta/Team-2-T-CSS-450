@@ -146,7 +146,7 @@ public class ContactListViewModel extends AndroidViewModel {
      * @param type type of contacts
      */
     public void connectContacts(int memberId, String jwt, String type) {
-        String url = "https://cultivate-app-web-service.herokuapp.com"
+        String url = "https://cultivate-app-web-service.herokuapp.com/"
                 + "friendsList/" + memberId + "/";
 
         Request<JSONObject> request = new JsonObjectRequest(

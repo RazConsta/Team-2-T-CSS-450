@@ -66,7 +66,9 @@ public class MainActivity
         passwordViewModel = new ViewModelProvider(this).get(PasswordViewModel.class);
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
         mUser = new ViewModelProvider(this,
-                new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt(), "", "", "", 0)
+                new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt(),
+                        args.getFirst(),args.getLast(),args.getNick(),args.getId())
+
         ).get(UserInfoViewModel.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
