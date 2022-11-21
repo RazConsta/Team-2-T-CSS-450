@@ -66,7 +66,7 @@ public class HomeFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         JWT jwt = new JWT( mUserModel.getJwt());
-        mBinding.welcomeHome.setText("Welcome, " + mUserModel.getEmail() + "!");
+        mBinding.welcomeHome.setText("Welcome, " + mUserModel.getNick() + "!");
     }
 
 //    public void getNickname(final String email) {
