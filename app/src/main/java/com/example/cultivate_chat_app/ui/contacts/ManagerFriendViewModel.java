@@ -79,7 +79,7 @@ public class ManagerFriendViewModel extends AndroidViewModel {
      * @param friendId id of friend
      */
     public void connectRemoveFriend(String friendId) {
-        String url = "https://cultivate-app-web-service.herokuapp.com"+
+        String url = "https://cultivate-app-web-service.herokuapp.com/"+
                 "friendsList/delete/" + mUser.getId() + "/" + friendId;
         Request request = new JsonObjectRequest(
                 Request.Method.DELETE,
@@ -110,7 +110,7 @@ public class ManagerFriendViewModel extends AndroidViewModel {
      * @param friendId id of the friend
      */
     public void connectAcceptRequest(String friendId) {
-        String url = "https://cultivate-app-web-service.herokuapp.com" +
+        String url = "https://cultivate-app-web-service.herokuapp.com/" +
                 "friendsList/verify/" + mUser.getId();
         JSONObject body = new JSONObject();
         try {
@@ -147,7 +147,7 @@ public class ManagerFriendViewModel extends AndroidViewModel {
      * @param friendId id of the friend
      */
     public void connectSendRequest(String friendId) {
-        String url = "https://cultivate-app-web-service.herokuapp.com"+
+        String url = "https://cultivate-app-web-service.herokuapp.com/"+
                 "friendsList/request";
         JSONObject body = new JSONObject();
         try {

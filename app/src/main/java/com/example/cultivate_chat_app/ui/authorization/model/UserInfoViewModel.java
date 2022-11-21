@@ -13,7 +13,7 @@ public class UserInfoViewModel extends ViewModel {
     private String mLast;
     private String mNick;
 
-    private UserInfoViewModel(String email, String jwt, String first, String last, String nick, int id) {
+    public UserInfoViewModel(String email, String jwt, String first, String last, String nick, int id) {
         mEmail = email;
         mJwt = jwt;
         mFirst = first;

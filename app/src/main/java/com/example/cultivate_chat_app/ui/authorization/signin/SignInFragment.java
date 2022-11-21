@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentSignInBinding;
+import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 import com.example.cultivate_chat_app.ui.authorization.register.RegisterFragmentDirections;
 import com.example.cultivate_chat_app.utils.PasswordValidator;
 
@@ -30,6 +31,7 @@ public class SignInFragment extends Fragment {
 
    private FragmentSignInBinding mBinding;
    private SignInViewModel mSignInModel;
+   private UserInfoViewModel mUser;
 
 
    private PasswordValidator mEmailValidator = checkPwdLength(2)
@@ -139,10 +141,10 @@ public class SignInFragment extends Fragment {
     * @param email users email
     * @param jwt the JSON Web Token supplied by the server
     */
-   private void navigateToSuccess(final String email, final String jwt) {
+   private void navigateToSuccess(final String email, final String jwt, String first, String last, String nick, int id) {
       Navigation.findNavController(getView())
               .navigate(SignInFragmentDirections
-                      .actionSignInFragmentToMainActivity(email, jwt));
+                      .actionSignInFragmentToMainActivity(email, jwt, first, last, nick, id));
    }
 
    /**
@@ -170,7 +172,11 @@ public class SignInFragment extends Fragment {
             try {
                navigateToSuccess(
                        mBinding.editEmail.getText().toString(),
-                       response.getString("token")
+                       response.getString("token"),
+                       response.getString(("firstname")),
+                       response.getString("lastname"),
+                       response.getString("nickname"),
+                       response.getInt("memberid")
                );
             } catch (JSONException e) {
                Log.e("JSON Parse Error", e.getMessage());

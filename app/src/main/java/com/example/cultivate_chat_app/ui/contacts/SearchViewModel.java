@@ -66,7 +66,7 @@ public class SearchViewModel extends AndroidViewModel {
     public void connectSearch(String jwt, String searched) {
         resetSearchResults();
 
-        String url = "https://cultivate-app-web-service.herokuapp.com"
+        String url = "https://cultivate-app-web-service.herokuapp.com/"
                 + "search/" + searched;
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
