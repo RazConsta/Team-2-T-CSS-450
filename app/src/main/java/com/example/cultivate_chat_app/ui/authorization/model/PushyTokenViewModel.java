@@ -112,7 +112,7 @@ public class PushyTokenViewModel extends AndroidViewModel{
         }
 
         String url = getApplication().getResources().getString(R.string.base_url_service) +
-                "authPushy";
+                "auth";
 
         JSONObject body = new JSONObject();
         try {
