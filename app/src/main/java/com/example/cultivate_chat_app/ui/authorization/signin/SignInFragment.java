@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import static com.example.cultivate_chat_app.utils.PasswordValidator.*;
+import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,6 +62,18 @@ public class SignInFragment extends Fragment {
    public void onViewCreated (@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
       mBinding = FragmentSignInBinding.bind(requireView());
+
+      System.out.println("Theme color is " + getThemeColor(this.getActivity()));
+
+      if (getThemeColor(this.getActivity()) == "yellow") {
+         mBinding.yellowColoredRectangle.setVisibility(View.VISIBLE);
+         mBinding.greenColoredRectangle.setVisibility(View.INVISIBLE);
+      } else if (getThemeColor(this.getActivity()) == "green") {
+         mBinding.greenColoredRectangle.setVisibility(View.VISIBLE);
+         mBinding.yellowColoredRectangle.setVisibility(View.INVISIBLE);
+      }
+
+      System.out.println("Login activity theme is " + getThemeColor(this.getActivity()));
 
       //On register button click, navigate to register
       mBinding.buttonToRegister.setOnClickListener(button ->

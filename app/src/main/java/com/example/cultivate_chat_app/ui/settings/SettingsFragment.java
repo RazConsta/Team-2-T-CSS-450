@@ -1,31 +1,20 @@
 package com.example.cultivate_chat_app.ui.settings;
 
+import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
+import static com.example.cultivate_chat_app.utils.ThemeManager.setThemeColor;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.cultivate_chat_app.MainActivity;
-import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentSettingsBinding;
-import com.example.cultivate_chat_app.databinding.FragmentSignInBinding;
-import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
-import com.example.cultivate_chat_app.ui.authorization.signin.SignInFragmentArgs;
-import com.example.cultivate_chat_app.ui.authorization.signin.SignInFragmentDirections;
-
-import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +27,7 @@ public class SettingsFragment extends Fragment {
     private FragmentSettingsBinding mBinding;
     private NicknameViewModel nicknameViewModel;
 
+
     public SettingsFragment() {
         // Required empty public constructor\
     }
@@ -45,7 +35,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
         // mSettings = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
     }
@@ -78,6 +67,24 @@ public class SettingsFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(
                         SettingsFragmentDirections.actionSettingsFragmentToPasswordDialog()
                 ));
+
+        mBinding.springButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetColor("green");
+            }
+        });
+        mBinding.fallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SetColor("yellow");
+            }
+        });
+    }
+
+    public void SetColor(String color) {
+        setThemeColor(getActivity(), color);
+        getActivity().recreate();
     }
 
 //    @Override

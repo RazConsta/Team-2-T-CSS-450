@@ -1,5 +1,8 @@
 package com.example.cultivate_chat_app;
 
+import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
+import static com.example.cultivate_chat_app.utils.ThemeManager.setCustomizedThemes;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,34 +14,35 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.cultivate_chat_app.databinding.ActivityMainBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
-import com.example.cultivate_chat_app.ui.authorization.signin.SignInViewModel;
 import com.example.cultivate_chat_app.ui.settings.NicknameDialog;
 import com.example.cultivate_chat_app.ui.settings.NicknameViewModel;
 import com.example.cultivate_chat_app.ui.settings.PasswordDialog;
 import com.example.cultivate_chat_app.ui.settings.PasswordViewModel;
-import com.example.cultivate_chat_app.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.lifecycle.ViewModelProvider;
-
 public class MainActivity
         extends AppCompatActivity
         implements NicknameDialog.NicknameDialogListener,
-                   PasswordDialog.PasswordDialogListener {
+                   PasswordDialog.PasswordDialogListener
+                    {
 
     private AppBarConfiguration mAppBarConfiguration;
     private NicknameViewModel nicknameViewModel;
     private PasswordViewModel passwordViewModel;
     private UserInfoViewModel mUser;
     private static Activity mMainActivity;
+    private ActivityMainBinding mBinding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,8 @@ public class MainActivity
                 new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt(), "", "", "", 0)
         ).get(UserInfoViewModel.class);
 
+//        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+//        setContentView(mBinding.getRoot());
         setContentView(R.layout.activity_main);
         // getSupportActionBar().hide(); // Had to delete otherwise top bar would not show up
         // Make sure the new statements go BELOW setContentView
@@ -64,11 +70,13 @@ public class MainActivity
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        getActionBar().hide();
+
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller,
                                              @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if(destination.getId() == R.id.settingsFragment) {
+                if (destination.getId() == R.id.settingsFragment) {
                     // toolbar.setVisibility(View.GONE);
                     navView.setVisibility(View.GONE);
                     invalidateOptionsMenu(); // useless
@@ -78,6 +86,14 @@ public class MainActivity
                 }
             }
         });
+    }
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        setCustomizedThemes(this, getThemeColor(this));
+        return super.onCreateView(name, context, attrs);
     }
 
     public void changeNickname(String nickname) {
@@ -119,11 +135,16 @@ public class MainActivity
             case R.id.settingsFragment:
                 Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.settingsFragment);
                 break;
-            // case R.id.action_sign_out:
-                // signOut();
-                // break;
+            case R.id.logout_button:
+                signOut();
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void signOut() {
+        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.auth_graph);
+        this.finish();
     }
 }
 

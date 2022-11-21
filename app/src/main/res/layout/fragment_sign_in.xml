@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".ui.authorization.signin.SignInFragment">
 
+    <View
+        android:id="@+id/green_colored_rectangle"
+        android:layout_width="411dp"
+        android:layout_height="270dp"
+        android:background="@color/green"
+        app:layout_constraintBottom_toTopOf="@+id/edit_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/yellow_colored_rectangle"
+        android:layout_width="411dp"
+        android:layout_height="270dp"
+        android:background="@color/yellow"
+        app:layout_constraintBottom_toTopOf="@+id/edit_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
     <EditText
         android:id="@+id/edit_email"
         android:layout_width="wrap_content"
@@ -51,17 +75,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.941" />
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="411dp"
-        android:layout_height="270dp"
-        android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/edit_email"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+<!--    <ImageView-->
+<!--        android:id="@+id/logo"-->
+<!--        android:layout_width="411dp"-->
+<!--        android:layout_height="270dp"-->
+<!--        android:src="@drawable/logo"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/edit_email"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.5"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <Button
         android:id="@+id/button_to_login"
@@ -109,7 +133,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:backgroundTint="#8BC34A"
-        android:buttonTint="#8BC34A"
+        android:buttonTint="#9e9e9e"
         android:checked="true"
         android:text="@string/remember_me"
         android:textColor="#9e9e9e"
@@ -119,5 +143,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.72"
         app:useMaterialThemeColors="false" />
+
+    <ImageView
+        android:id="@+id/logo_image_view"
+        android:layout_width="411dp"
+        android:layout_height="270dp"
+        android:src="@drawable/logo_png"
+        app:layout_constraintBottom_toTopOf="@+id/edit_email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
