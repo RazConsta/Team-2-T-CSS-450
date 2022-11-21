@@ -1,26 +1,51 @@
 package com.example.cultivate_chat_app.ui.weather;
 
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cultivate_chat_app.R;
+import com.example.cultivate_chat_app.databinding.FragmentWeatherBinding;
 
 public class WeatherFragment extends Fragment {
 
+    private FragmentWeatherBinding mBinding;
+    private CurrentWeatherViewModel mCurrentWeatherViewModel;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
+        mCurrentWeatherViewModel.connectGet();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_weather, container, false);
+        mBinding = FragmentWeatherBinding.inflate(inflater);
+        return mBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //Obtain access to the ViewModel. If this fragment object is new, the ViewModel
+        //will be re/created. Note the parameter to the ViewModelProvider constructor - this.
+        //mCurrentWeatherViewModel = new ViewModelProvider(getActivity()).get(CurrentWeatherViewModel.class);
+
+        mCurrentWeatherViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
+                mBinding.currentTemperatureTextView
+                        .setText(mCurrentWeatherViewModel.mResponse.getValue() + "°F"));
     }
 }
