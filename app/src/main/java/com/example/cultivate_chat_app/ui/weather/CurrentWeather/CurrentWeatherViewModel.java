@@ -1,4 +1,4 @@
-package com.example.cultivate_chat_app.ui.weather;
+package com.example.cultivate_chat_app.ui.weather.CurrentWeather;
 
 import android.app.Application;
 import android.os.Build;

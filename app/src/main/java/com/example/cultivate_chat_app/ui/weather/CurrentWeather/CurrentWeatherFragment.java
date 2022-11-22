@@ -1,4 +1,4 @@
-package com.example.cultivate_chat_app.ui.weather;
+package com.example.cultivate_chat_app.ui.weather.CurrentWeather;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -13,13 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cultivate_chat_app.databinding.FragmentWeatherBinding;
+import com.example.cultivate_chat_app.databinding.FragmentCurrentWeatherBinding;
 
 import org.json.JSONException;
 
-public class WeatherFragment extends Fragment {
+public class CurrentWeatherFragment extends Fragment {
 
-    private FragmentWeatherBinding mBinding;
+    private FragmentCurrentWeatherBinding mBinding;
     private CurrentWeatherViewModel mCurrentWeatherViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -34,7 +34,7 @@ public class WeatherFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mBinding = FragmentWeatherBinding.inflate(inflater);
+        mBinding = FragmentCurrentWeatherBinding.inflate(inflater);
         return mBinding.getRoot();
     }
 

@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherFragment">
+    tools:context=".ui.weather.CurrentWeather.CurrentWeatherFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -13,29 +13,22 @@
         android:id="@+id/currentWeatherConditionsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/currentTemperatureTextView"
+        android:layout_marginTop="2dp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/currentTemperatureTextView" />
 
     <TextView
         android:id="@+id/currentTemperatureTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="100dp"
         android:textSize="96sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="410dp"
-        android:layout_height="198dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currentTemperatureTextView"
-        tools:layout_editor_absoluteX="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
