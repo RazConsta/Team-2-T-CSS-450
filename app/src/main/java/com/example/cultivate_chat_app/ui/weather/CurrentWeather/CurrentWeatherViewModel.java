@@ -23,7 +23,6 @@ import org.json.JSONObject;
 public class CurrentWeatherViewModel extends AndroidViewModel{
 
    public MutableLiveData<JSONObject> mResponse;
-   public String mTestCurrentWeather;
 
    public CurrentWeatherViewModel(@NonNull Application application) {
       super(application);
@@ -69,7 +68,6 @@ public class CurrentWeatherViewModel extends AndroidViewModel{
               10_000,
               DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
               DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-      //Instantiate the RequestQueue and add the request to the queue
       Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
    }
 }
