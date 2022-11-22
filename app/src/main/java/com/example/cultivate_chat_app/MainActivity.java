@@ -82,7 +82,9 @@ public class MainActivity
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) ->{
-            if(destination.getId() == R.id.settingsFragment && destination.getId() == R.id.chatsFragment) {
+            if(destination.getId() == R.id.settingsFragment
+                    // || destination.getId() == R.id.chatsFragment
+                    || destination.getId() == R.id.aboutUsFragment ) {
                 // toolbar.setVisibility(View.GONE);
                 navView.setVisibility(View.GONE);
                 invalidateOptionsMenu(); // useless
@@ -158,6 +160,9 @@ public class MainActivity
             case R.id.settingsFragment:
                 Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.settingsFragment);
                 break;
+            case R.id.aboutUsFragment:
+                Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.aboutUsFragment);
+                break;
             case R.id.logout_button:
                 signOut();
                 break;
@@ -166,6 +171,7 @@ public class MainActivity
     }
 
     private void signOut() {
+        // changed from R.id.nav_host_fragment
         Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.auth_graph);
         this.finish();
     }

@@ -4,6 +4,7 @@ import static com.example.cultivate_chat_app.utils.PasswordValidator.checkExclud
 import static com.example.cultivate_chat_app.utils.PasswordValidator.checkPwdLength;
 import static com.example.cultivate_chat_app.utils.PasswordValidator.checkPwdSpecialChar;
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import static com.example.cultivate_chat_app.utils.PasswordValidator.*;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+
 import com.example.cultivate_chat_app.databinding.FragmentSignInBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
@@ -67,17 +69,11 @@ public class SignInFragment extends Fragment {
       super.onViewCreated(view, savedInstanceState);
       mBinding = FragmentSignInBinding.bind(requireView());
 
-      System.out.println("Theme color is " + getThemeColor(this.getActivity()));
-
-      if (getThemeColor(this.getActivity()) == "yellow") {
-         mBinding.yellowColoredRectangle.setVisibility(View.VISIBLE);
-         mBinding.greenColoredRectangle.setVisibility(View.INVISIBLE);
-      } else if (getThemeColor(this.getActivity()) == "green") {
-         mBinding.greenColoredRectangle.setVisibility(View.VISIBLE);
-         mBinding.yellowColoredRectangle.setVisibility(View.INVISIBLE);
+      if (getThemeColor(this.getActivity()).equals("green")) {
+         mBinding.coloredRectangle.setBackgroundColor(Color.rgb(114, 173, 89));
+      } else {
+         mBinding.coloredRectangle.setBackgroundColor(Color.rgb(208, 189, 19));
       }
-
-      System.out.println("Login activity theme is " + getThemeColor(this.getActivity()));
 
       //On register button click, navigate to register
       mBinding.buttonToRegister.setOnClickListener(button ->

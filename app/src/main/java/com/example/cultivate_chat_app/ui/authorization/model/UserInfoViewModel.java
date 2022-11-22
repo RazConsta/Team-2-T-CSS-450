@@ -12,6 +12,7 @@ public class UserInfoViewModel extends ViewModel {
     private String mFirst;
     private String mLast;
     private String mNick;
+    private String mTheme;
 
     public UserInfoViewModel(String email, String jwt, String first, String last, String nick, int id) {
         mEmail = email;

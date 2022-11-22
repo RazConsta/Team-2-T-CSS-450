@@ -91,4 +91,7 @@
 
     <!-- weather -->
     <string name="current_weather_temp_text_view"> </string>
+
+    <!-- About us -->
+    <string name="about_us">Wow, this page is amazing. \nIt is also completely useless.</string>
 </resources>
