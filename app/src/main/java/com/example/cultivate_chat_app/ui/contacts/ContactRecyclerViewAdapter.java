@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
@@ -20,26 +22,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.R;
+import com.example.cultivate_chat_app.databinding.FragmentContactCardBinding;
 
 import java.util.HashMap;
 
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.ViewHolder> {
 
     private final HashMap<Integer,Contact> mContacts;
-    private final Context mContext;
-    private ManagerFriendViewModel mManage;
+//    private final Context mContext;
+//    private ManagerFriendViewModel mManage;
 
 
     /**
      * Constructor
-     * @param context current context
+    // * @param context current context
      * @param contacts current contacts
      */
-    public ContactRecyclerViewAdapter(Context context, HashMap<Integer,Contact> contacts){
+    public ContactRecyclerViewAdapter( HashMap<Integer,Contact> contacts){
 
 
-        mContacts = contacts;
-        mContext = context;
+        this.mContacts = contacts;
+       // mContext = context;
 
     }
 
@@ -47,17 +50,17 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(mContext);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.fragment_contact_card,parent,false);
 
-        mManage = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity()).get(ManagerFriendViewModel.class);
+        //mManage = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity()).get(ManagerFriendViewModel.class);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Contact contact = mContacts.get(position);
-        holder.nickname.setText(contact.getNickname());
+       Contact contact = mContacts.get(position);
+       holder.nickname.setText(contact.getNickname());
         holder.fullName.setText(contact.getFirstname() +" "+contact.getLastname());
 
         // TODO uncomment first, will need them later //contact card message button action
@@ -160,9 +163,9 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView nickname, fullName;
         ImageView messageButton, optionButton;
-        ConstraintLayout cardLayout;
+        CardView cardLayout;
         View view;
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             nickname = itemView.findViewById(R.id.contact_card_nickname);
             fullName = itemView.findViewById(R.id.contact_card_fullname);

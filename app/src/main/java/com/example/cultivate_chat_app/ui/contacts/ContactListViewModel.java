@@ -113,6 +113,7 @@ public class ContactListViewModel extends AndroidViewModel {
                 list = mPendingList;
             }
 
+
             if (response.has("rows")) {
                 JSONArray rows = response.getJSONArray("rows");
                 for (int i = 0; i< rows.length(); i++){
@@ -147,7 +148,12 @@ public class ContactListViewModel extends AndroidViewModel {
      */
     public void connectContacts(int memberId, String jwt, String type) {
         String url = "https://cultivate-app-web-service.herokuapp.com/"
-                + "friendsList/" + memberId + "/";
+                + "friendsList/" + memberId +"/";
+
+        if (type.equals("request"))
+            url += 0;
+        else
+            url += 1;
 
         Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.GET,

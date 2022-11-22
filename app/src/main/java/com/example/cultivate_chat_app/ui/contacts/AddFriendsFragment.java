@@ -49,7 +49,6 @@ public class AddFriendsFragment extends Fragment {
 
         mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
-        // TODO     ContactListViewModel--connectContacts method has bug
 //       ContactListViewModel getRequests = new ViewModelProvider(
 //               (ViewModelStoreOwner) MainActivity.getActivity()).get(ContactListViewModel.class);
 //       getRequests.addPendingListObserver(getViewLifecycleOwner(), this::setAdapterForRequests);
@@ -81,7 +80,7 @@ public class AddFriendsFragment extends Fragment {
         HashMap<Integer, Contact> contactMap = new HashMap<>();
         for (Contact contact : contacts)
             contactMap.put(contacts.indexOf(contact), contact);
-        mSearchedRecyclerView.setAdapter(new ContactRecyclerViewAdapter(getActivity(), contactMap));
+        mSearchedRecyclerView.setAdapter(new ContactRecyclerViewAdapter( contactMap));
     }
 
     /**
@@ -92,6 +91,6 @@ public class AddFriendsFragment extends Fragment {
         HashMap<Integer, Contact> contactMap = new HashMap<>();
         for (Contact contact : contacts)
             contactMap.put(contacts.indexOf(contact), contact);
-        mReceivedRecyclerView.setAdapter(new ContactRecyclerViewAdapter(getActivity(), contactMap));
+        mReceivedRecyclerView.setAdapter(new ContactRecyclerViewAdapter( contactMap));
     }
 }
