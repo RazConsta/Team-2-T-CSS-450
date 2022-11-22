@@ -61,13 +61,13 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
        Contact contact = mContacts.get(position);
        holder.nickname.setText(contact.getNickname());
-        holder.fullName.setText(contact.getFirstname() +" "+contact.getLastname());
+       holder.fullName.setText(contact.getFirstname() +" "+contact.getLastname());
 
-        // TODO uncomment first, will need them later //contact card message button action
+       //contact card message button action
+        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
+                (R.id.action_contactsFragment_to_chatsFragment));
 //        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
-//                (R.id.action_contactsFragment_to_chatsFragment));
-//        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
-//                (R.id.action_contactsFragment_to_chatsFragment));
+//                (R.id.action_addFriendsFragment_to_chatsFragment));
 
         // TODO uncomment first, will need them later  // contact card option button action
 //        holder.optionButton.setOnClickListener(new View.OnClickListener(){

@@ -69,8 +69,8 @@ public class AddFriendsFragment extends Fragment {
 
         SearchViewModel searchResult = new ViewModelProvider(getActivity()).get(SearchViewModel.class);
         Log.d("TTT", mBinding.editSearchPeople.getText().toString());
-        searchResult.addSearchListObserver(getViewLifecycleOwner(), this::setAdapterForSearch);
         searchResult.connectSearch(mUser.getJwt(), mBinding.editSearchPeople.getText().toString());
+        searchResult.addSearchListObserver(getViewLifecycleOwner(), this::setAdapterForSearch);
     }
 
     /**

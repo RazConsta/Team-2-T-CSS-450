@@ -67,7 +67,7 @@ public class SearchViewModel extends AndroidViewModel {
         resetSearchResults();
 
         String url = "https://cultivate-app-web-service.herokuapp.com/"
-                + "search/" + searched;
+                + "search/nickname/" + searched;
         Request request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -77,8 +77,6 @@ public class SearchViewModel extends AndroidViewModel {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
-                // add headers <key,value>
-                // anything works for the jwt for now
                 headers.put("Authorization", jwt);
                 return headers;
             }
