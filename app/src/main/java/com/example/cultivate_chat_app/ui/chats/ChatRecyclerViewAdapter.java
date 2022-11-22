@@ -1,5 +1,6 @@
 package com.example.cultivate_chat_app.ui.chats;
 
+import android.annotation.SuppressLint;
 import android.content.res.Resources;
 import android.os.Build;
 import android.view.Gravity;
@@ -11,16 +12,11 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.ColorUtils;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentChatMessageBinding;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.shape.CornerFamily;
-
 import java.util.List;
-
-import com.example.cultivate_chat_app.R;
-import com.example.cultivate_chat_app.databinding.FragmentChatMessageBinding;
-
 public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerViewAdapter.MessageViewHolder> {
 
     private final List<ChatMessage> mMessages;
@@ -51,7 +47,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
         private final View mView;
-        private FragmentChatMessageBinding binding;
+        private final FragmentChatMessageBinding binding;
 
         public MessageViewHolder(@NonNull View view) {
             super(view);
@@ -59,6 +55,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
             binding = FragmentChatMessageBinding.bind(view);
         }
 
+        @SuppressLint("SetTextI18n")
         void setMessage(final ChatMessage message) {
             final Resources res = mView.getContext().getResources();
             final MaterialCardView card = binding.cardRoot;
@@ -81,7 +78,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                     card.setCardBackgroundColor(
                             ColorUtils.setAlphaComponent(
                                     res.getColor(R.color.primaryLightColor, null),
-                                    22));
+                                    16));
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     binding.textMessage.setTextColor(
@@ -109,7 +106,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
             } else {
                 //This message is from another user. Format it as such
                 binding.textMessage.setText(message.getSender() +
-                        ": " + message.getMessage());
+                        ": " + message.getMessage() + " \n" + message.getTimeStamp());
                 ViewGroup.MarginLayoutParams layoutParams =
                         (ViewGroup.MarginLayoutParams) card.getLayoutParams();
 
@@ -123,7 +120,7 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                     card.setCardBackgroundColor(
                             ColorUtils.setAlphaComponent(
                                     res.getColor(R.color.green, null),
-                                    22));
+                                    16));
                 }
 
                 card.setStrokeWidth(standard / 5);

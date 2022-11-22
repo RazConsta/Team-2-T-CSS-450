@@ -4,17 +4,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentChatsBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
-
+import java.util.Objects;
 
 
 /**
@@ -55,7 +53,7 @@ public class ChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        FragmentChatsBinding binding = FragmentChatsBinding.bind(getView());
+        FragmentChatsBinding binding = FragmentChatsBinding.bind(requireView());
 
         //SetRefreshing shows the internal Swiper view progress bar. Show this until messages load
         binding.swipeContainer.setRefreshing(true);
