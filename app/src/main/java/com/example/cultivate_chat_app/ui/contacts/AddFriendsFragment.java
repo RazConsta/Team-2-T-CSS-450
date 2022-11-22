@@ -67,10 +67,15 @@ public class AddFriendsFragment extends Fragment {
             return;
         }
 
-        SearchViewModel searchResult = new ViewModelProvider(getActivity()).get(SearchViewModel.class);
+        SearchViewModel searchResult = new ViewModelProvider(
+                (ViewModelStoreOwner) MainActivity.getActivity()).get(SearchViewModel.class);
         Log.d("TTT", mBinding.editSearchPeople.getText().toString());
+        searchResult.resetSearchResults();
         searchResult.connectSearch(mUser.getJwt(), mBinding.editSearchPeople.getText().toString());
         searchResult.addSearchListObserver(getViewLifecycleOwner(), this::setAdapterForSearch);
+//        if (mBinding.listSearchPeople.equals(null)){
+//            mBinding.editSearchPeople.setError("No results found");
+//        }
     }
 
     /**

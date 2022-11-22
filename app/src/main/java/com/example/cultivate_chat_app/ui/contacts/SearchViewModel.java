@@ -54,7 +54,7 @@ public class SearchViewModel extends AndroidViewModel {
     /**
      * Reset the searched list
      */
-    private void resetSearchResults() {
+    public void resetSearchResults() {
         mSearchList.setValue(new ArrayList<>());
     }
 
@@ -67,8 +67,8 @@ public class SearchViewModel extends AndroidViewModel {
         resetSearchResults();
 
         String url = "https://cultivate-app-web-service.herokuapp.com/"
-                + "search/nickname/" + searched;
-        Request request = new JsonObjectRequest(
+                + "search/" + searched;
+        Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
                 null,
