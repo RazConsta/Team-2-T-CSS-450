@@ -49,11 +49,12 @@ public class AddFriendsFragment extends Fragment {
 
         mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
-//       ContactListViewModel getRequests = new ViewModelProvider(
-//               (ViewModelStoreOwner) MainActivity.getActivity()).get(ContactListViewModel.class);
-//       getRequests.addPendingListObserver(getViewLifecycleOwner(), this::setAdapterForRequests);
-//       getRequests.resetRequests();
-        // getRequests.connectContacts(mUser.getId(), mUser.getJwt(), "requests");
+       ContactListViewModel getRequests = new ViewModelProvider(
+               (ViewModelStoreOwner) MainActivity.getActivity()).get(ContactListViewModel.class);
+
+       getRequests.resetRequests();
+       getRequests.connectContacts(mUser.getId(), mUser.getJwt(), "requests");
+       getRequests.addPendingListObserver(getViewLifecycleOwner(), this::setAdapterForRequests);
     }
 
     /**

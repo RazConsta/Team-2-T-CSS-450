@@ -150,7 +150,7 @@ public class ContactListViewModel extends AndroidViewModel {
         String url = "https://cultivate-app-web-service.herokuapp.com/"
                 + "friendsList/" + memberId +"/";
 
-        if (type.equals("request"))
+        if (type.equals("requests"))
             url += 0;
         else
             url += 1;

@@ -44,18 +44,16 @@ public class ContactsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         mRecyclerView = mBinding.contactList;
 
         ContactListViewModel model = new ViewModelProvider((ViewModelStoreOwner)
                 MainActivity.getActivity()).get(ContactListViewModel.class);
         UserInfoViewModel user = new ViewModelProvider((ViewModelStoreOwner)
                 MainActivity.getActivity()).get(UserInfoViewModel.class);
+
         model.resetContacts();
         model.connectContacts(user.getId(),user.getJwt(), "current");
-
         model.addContactListObserver(getViewLifecycleOwner(), this::setAdapter);
-
 
         mBinding.fabAddContact.setOnClickListener(button -> navigateToAddNewFriends());
     }
@@ -66,16 +64,9 @@ public class ContactsFragment extends Fragment {
      */
     private void setAdapter(List<Contact> contacts) {
         HashMap<Integer, Contact> contactMap = new HashMap<>();
-
-        //TODO hardcode the contact to display first
         for (Contact contact : contacts){
             contactMap.put(contacts.indexOf(contact), contact);
         }
-
-        //TODO if I hardcode like below, while clicking the contact icon, the app stops
-//        contactMap.put(1, new Contact("58/1","Qinyu Tao",
-//                "Qinyu","Tao","tqy20202@gmail.com", FriendStatus.FRIENDS));
-
         mRecyclerView.setAdapter(new ContactRecyclerViewAdapter( contactMap));
     }
 
