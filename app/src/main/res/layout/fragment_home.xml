@@ -20,6 +20,20 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023" />
 
+    <View
+        android:id="@+id/rounded_rectangle"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:background="@drawable/green_rounded_rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.262"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.194"
+
+        />
+
     <TextView
         android:id="@+id/currentWeatherHome"
         android:layout_width="match_parent"
@@ -57,4 +71,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.256" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
