@@ -9,6 +9,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.Menu;
@@ -18,6 +22,9 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
@@ -139,9 +146,24 @@ public class MainActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (getThemeColor(this).equals("green")) {
+            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.green));
+            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.green));
+            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.green));
+        } else if (getThemeColor(this).equals("yellow")){
+            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.yellow));
+            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.yellow));
+            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.yellow));
+        }
         getMenuInflater().inflate(R.menu.dropdown_menu, menu);
         return true;
         // return super.onCreateOptionsMenu(menu);
+    }
+
+    public static void changeDrawableColor(Context context,int icon, int newColor) {
+        Drawable unwrappedDrawable = AppCompatResources.getDrawable(context, icon);
+        Drawable wrapperDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrapperDrawable, newColor);
     }
 
     // useless

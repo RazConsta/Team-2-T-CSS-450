@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentSignInBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
@@ -70,9 +71,15 @@ public class SignInFragment extends Fragment {
       mBinding = FragmentSignInBinding.bind(requireView());
 
       if (getThemeColor(this.getActivity()).equals("green")) {
-         mBinding.coloredRectangle.setBackgroundColor(Color.rgb(114, 173, 89));
+         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.green));
+         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.green));
+         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.green));
+         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.green));
       } else {
-         mBinding.coloredRectangle.setBackgroundColor(Color.rgb(208, 189, 19));
+         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.yellow));
+         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
+         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
+         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.yellow));
       }
 
       //On register button click, navigate to register

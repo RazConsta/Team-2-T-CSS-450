@@ -71,6 +71,14 @@ public class SettingsFragment extends Fragment {
                         SettingsFragmentDirections.actionSettingsFragmentToPasswordDialog()
                 ));
 
+        if (getThemeColor(getActivity()).equals("green")) {
+            mBinding.springButton.setChecked(true);
+            mBinding.fallButton.setChecked(false);
+        } else if (getThemeColor(getActivity()).equals("yellow")) {
+            mBinding.springButton.setChecked(false);
+            mBinding.fallButton.setChecked(true);
+        }
+
         mBinding.springButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

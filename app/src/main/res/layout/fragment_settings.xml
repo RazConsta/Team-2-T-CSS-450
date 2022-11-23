@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:buttonTint="@color/gray_text_color"
-            android:checked="true"
+            android:checked="false"
             android:onClick="checkButton"
             android:text="@string/spring"
             android:textColor="#8a000000" />

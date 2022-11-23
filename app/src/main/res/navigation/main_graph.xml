@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_homeFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_authActivity"
+            app:destination="@id/authActivity" />
     </fragment>
     <fragment
         android:id="@+id/chatsFragment"
@@ -81,4 +84,8 @@
         android:name="com.example.cultivate_chat_app.ui.settings.AboutUsFragment"
         android:label="About Us"
         tools:layout="@layout/fragment_about_us" />
+    <activity
+        android:id="@+id/authActivity"
+        android:name="com.example.cultivate_chat_app.AuthActivity"
+        android:label="AuthActivity" />
 </navigation>
