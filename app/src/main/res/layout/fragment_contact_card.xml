@@ -68,7 +68,7 @@
             android:layout_width="54dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_contact_card_more_setting_24"
+            android:src="@drawable/ic_contact_card_option_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.955"
