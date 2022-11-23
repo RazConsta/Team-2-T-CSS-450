@@ -1,5 +1,8 @@
 package com.example.cultivate_chat_app.ui.home;
 
+import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
+
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -12,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -73,6 +77,14 @@ public class HomeFragment extends Fragment {
         mUserModel = provider.get(UserInfoViewModel.class);
         // JWT jwt = new JWT( mUserModel.getJwt());
         mBinding.welcomeHome.setText("Welcome, " + mUserModel.getNick() + "!");
+
+        if (getThemeColor(getActivity()).equals("green")) {
+            mBinding.roundedRectangle.setBackgroundResource(R.drawable.green_rounded_rectangle);
+        } else {
+            mBinding.roundedRectangle.setBackgroundResource(R.drawable.yellow_rounded_rectangle);
+        }
+
+
         mCurrentWeatherViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
         {
             try {

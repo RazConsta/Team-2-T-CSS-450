@@ -1,5 +1,7 @@
 package com.example.cultivate_chat_app.ui.contacts;
 
+import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,12 +26,12 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Reference: https://github.com/TCSS450-Team7-MobileApp/TCSS450-Mobile-App
  */
 public class ContactsFragment extends Fragment {
 
     private FragmentContactsBinding mBinding;
     private RecyclerView mRecyclerView;
-    private ContactListViewModel mModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,8 +40,6 @@ public class ContactsFragment extends Fragment {
         mBinding = FragmentContactsBinding.inflate(inflater);
         return mBinding.getRoot();
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -56,10 +56,16 @@ public class ContactsFragment extends Fragment {
         model.addContactListObserver(getViewLifecycleOwner(), this::setAdapter);
 
         mBinding.fabAddContact.setOnClickListener(button -> navigateToAddNewFriends());
+
+        if (getThemeColor(getActivity()).equals("green")) {
+            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.green));;
+        } else {
+            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));;
+        }
     }
 
     /**
-     * Set Adapter for the contacts
+     * Set Adapter for the Contacts
      * @param contacts list of users contacts
      */
     private void setAdapter(List<Contact> contacts) {
@@ -71,11 +77,10 @@ public class ContactsFragment extends Fragment {
     }
 
     /**
-     * Navigate to adding friends
+     * Navigate to AddFriendsFragment
      */
     private void navigateToAddNewFriends() {
-        Navigation.findNavController(getView())
-                .navigate(ContactsFragmentDirections
+        Navigation.findNavController(getView()).navigate(ContactsFragmentDirections
                         .actionContactsFragmentToAddFriendsFragment());
     }
 }

@@ -51,7 +51,7 @@
             tools:ignore="MissingConstraints" />
 
         <ImageView
-            android:id="@+id/contact_card_message_friend_button"
+            android:id="@+id/contact_card_message_button"
             android:layout_width="43dp"
             android:layout_height="46dp"
             android:layout_marginStart="16dp"

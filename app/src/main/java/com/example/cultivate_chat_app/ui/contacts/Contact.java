@@ -3,7 +3,7 @@ package com.example.cultivate_chat_app.ui.contacts;
 import java.io.Serializable;
 
 /**
- * Data class for contacts
+ * Contacts Data class
  */
 public class Contact implements Serializable {
 
@@ -12,14 +12,19 @@ public class Contact implements Serializable {
 
     /**
      * constructor
-     * @param id Id
+     * @param id memberId
      * @param nickname Nickname
      * @param firstname First Name
      * @param lastname Last Name
      * @param email Email
      * @param status
      */
-    public Contact(String id, String nickname, String firstname, String lastname, String email, FriendStatus status){
+    public Contact(String id,
+                   String nickname,
+                   String firstname,
+                   String lastname,
+                   String email,
+                   FriendStatus status){
         this.mId = id;
         this.mNickname = nickname;
         this.mFirstname = firstname;
@@ -29,7 +34,7 @@ public class Contact implements Serializable {
     }
 
     /**
-     * @return Id
+     * @return memberId
      */
     public String getId() {
         return mId;
@@ -72,8 +77,9 @@ public class Contact implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this.getClass() != o.getClass()) return false;
-
+        if (this.getClass() != o.getClass()){
+            return false;
+        }
         Contact other = (Contact) o;
         return this.mEmail.equals(other.getEmail());
     }
