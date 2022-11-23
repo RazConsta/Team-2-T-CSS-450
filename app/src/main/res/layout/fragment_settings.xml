@@ -56,40 +56,40 @@
             android:textColor="#8a000000" />
     </RadioGroup>
 
-    <RadioGroup
-        android:id="@+id/unitGroup"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:paddingLeft="15dp">
+<!--    <RadioGroup-->
+<!--        android:id="@+id/unitGroup"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:paddingLeft="15dp">-->
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/temp_unit"></TextView>
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:text="@string/temp_unit"></TextView>-->
 
-        <RadioButton
-            android:id="@+id/radio_celsius"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/gray_text_color"
-            android:checked="true"
-            android:onClick="checkButton"
-            android:text="@string/celsius"
-            android:textColor="#8a000000" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/radio_celsius"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:buttonTint="@color/gray_text_color"-->
+<!--            android:checked="true"-->
+<!--            android:onClick="checkButton"-->
+<!--            android:text="@string/celsius"-->
+<!--            android:textColor="#8a000000" />-->
 
-        <RadioButton
-            android:id="@+id/radio_fahrenheit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/gray_text_color"
-            android:onClick="checkButton"
-            android:text="@string/fahrenheit"
-            android:textColor="#8a000000" />
-    </RadioGroup>
+<!--        <RadioButton-->
+<!--            android:id="@+id/radio_fahrenheit"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:buttonTint="@color/gray_text_color"-->
+<!--            android:onClick="checkButton"-->
+<!--            android:text="@string/fahrenheit"-->
+<!--            android:textColor="#8a000000" />-->
+<!--    </RadioGroup>-->
 
     <TextView
         android:id="@+id/nickname_text_view"
