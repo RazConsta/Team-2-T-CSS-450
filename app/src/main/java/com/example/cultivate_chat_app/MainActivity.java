@@ -160,16 +160,25 @@ public class MainActivity
         // return super.onCreateOptionsMenu(menu);
     }
 
+    // useless
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (getThemeColor(this).equals("green")) {
+            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.green));
+            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.green));
+            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.green));
+        } else if (getThemeColor(this).equals("yellow")){
+            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.yellow));
+            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.yellow));
+            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.yellow));
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     public static void changeDrawableColor(Context context,int icon, int newColor) {
         Drawable unwrappedDrawable = AppCompatResources.getDrawable(context, icon);
         Drawable wrapperDrawable = DrawableCompat.wrap(unwrappedDrawable);
         DrawableCompat.setTint(wrapperDrawable, newColor);
-    }
-
-    // useless
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
     }
 
     @SuppressLint("NonConstantResourceId")
