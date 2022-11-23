@@ -1,5 +1,7 @@
 package com.example.cultivate_chat_app.ui.contacts;
 
+import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -56,6 +58,12 @@ public class ContactsFragment extends Fragment {
         model.addContactListObserver(getViewLifecycleOwner(), this::setAdapter);
 
         mBinding.fabAddContact.setOnClickListener(button -> navigateToAddNewFriends());
+
+        if (getThemeColor(getActivity()).equals("green")) {
+            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.green));;
+        } else {
+            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));;
+        }
     }
 
     /**
