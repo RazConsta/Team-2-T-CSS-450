@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -37,6 +39,7 @@ public class SettingsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         // mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
         // mSettings = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
+        setHasOptionsMenu(true);
     }
 
 //    private void SetColor(String color) {
@@ -80,6 +83,12 @@ public class SettingsFragment extends Fragment {
                 SetColor("yellow");
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
     }
 
     public void SetColor(String color) {

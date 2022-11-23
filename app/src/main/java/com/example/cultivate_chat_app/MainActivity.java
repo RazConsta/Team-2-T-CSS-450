@@ -85,9 +85,7 @@ public class MainActivity
             if(destination.getId() == R.id.settingsFragment
                     // || destination.getId() == R.id.chatsFragment
                     || destination.getId() == R.id.aboutUsFragment ) {
-                // toolbar.setVisibility(View.GONE);
                 navView.setVisibility(View.GONE);
-                invalidateOptionsMenu(); // useless
                 mNewMessageModel.reset();
             } else {
                 // toolbar.setVisibility(View.VISIBLE);
@@ -107,8 +105,6 @@ public class MainActivity
                 badge.setVisible(false);
             }
         });
-
-
     }
 
 
