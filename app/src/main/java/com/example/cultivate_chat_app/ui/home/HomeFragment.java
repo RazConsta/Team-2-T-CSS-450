@@ -1,9 +1,11 @@
 package com.example.cultivate_chat_app.ui.home;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,6 +23,7 @@ import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentHomeBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 import com.example.cultivate_chat_app.ui.settings.PasswordViewModel;
+import com.example.cultivate_chat_app.ui.weather.CurrentWeather.CurrentWeatherViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +38,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mBinding;
     private UserInfoViewModel mUserModel;
     private HomeViewModel mHomeViewModel;
+    private CurrentWeatherViewModel mCurrentWeatherViewModel;
 
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -44,10 +48,13 @@ public class HomeFragment extends Fragment {
         return fragment;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
+        mCurrentWeatherViewModel.connectGet();
     }
 
     @Override
@@ -66,5 +73,16 @@ public class HomeFragment extends Fragment {
         mUserModel = provider.get(UserInfoViewModel.class);
         // JWT jwt = new JWT( mUserModel.getJwt());
         mBinding.welcomeHome.setText("Welcome, " + mUserModel.getNick() + "!");
+        mCurrentWeatherViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
+        {
+            try {
+                mBinding.homeTempTextView
+                        .setText(mCurrentWeatherViewModel.mResponse.getValue().getString("temperature") + "°F");
+                mBinding.homeConditionsTextView
+                        .setText(mCurrentWeatherViewModel.mResponse.getValue().getString("conditions") );
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
