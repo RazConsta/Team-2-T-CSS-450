@@ -45,7 +45,7 @@
     <string name="hint_new_password">New password</string>
 
     <!-- Contact -->
-    <string name="hint_search_people">first/last/nickname/email</string>
+    <string name="hint_search_people">first/nickname</string>
     <string name="title_search_people">Search People</string>
     <string name="title_request_received">Friend Requests</string>
     <string name="button_add_friend_search">Search</string>

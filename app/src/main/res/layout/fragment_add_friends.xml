@@ -20,7 +20,7 @@
         tools:listitem="@layout/fragment_contact_card" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_received_requests"
+        android:id="@+id/list_friend_requests"
         android:name="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogFragment"
         android:layout_width="407dp"
         android:layout_height="230dp"
@@ -30,12 +30,12 @@
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_request_received"
+        app:layout_constraintTop_toBottomOf="@+id/text_friend_requests"
         tools:context="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogListFragment"
         tools:listitem="@layout/fragment_contact_card" />
 
     <TextView
-        android:id="@+id/text_request_received"
+        android:id="@+id/text_friend_requests"
         android:layout_width="375dp"
         android:layout_height="46dp"
         android:layout_marginTop="15dp"
@@ -55,7 +55,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.305"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_received_requests" />
+        app:layout_constraintTop_toBottomOf="@+id/list_friend_requests" />
 
     <EditText
         android:id="@+id/edit_search_people"

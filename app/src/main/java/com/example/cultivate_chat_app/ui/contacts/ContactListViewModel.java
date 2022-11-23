@@ -27,6 +27,7 @@ import java.util.Map;
 
 /**
  * A simple {@link AndroidViewModel} subclass.
+ * Reference: https://github.com/TCSS450-Team7-MobileApp/TCSS450-Mobile-App
  */
 public class ContactListViewModel extends AndroidViewModel {
     private MutableLiveData<List<Contact>> mContactList;
@@ -79,20 +80,40 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     /**
-     * Add to pending requests list
-     * @param contact contact to be added
+     * Connect to server for contacts
+     * @param memberId member ID
+     * @param jwt jwt of the user
+     * @param type type of contacts
      */
-    public void addToPendingList(Contact contact) {
-        mPendingList.getValue().add(contact);
-        mPendingList.setValue(mPendingList.getValue());
-    }
+    public void connectContacts(int memberId, String jwt, String type) {
+        String url = "https://cultivate-app-web-service.herokuapp.com/" + "friendsList/" + memberId +"/";
 
-    /**
-     * handle error from server
-     * @param error error
-     */
-    protected void handleError(final VolleyError error) {
-        throw new IllegalStateException(error.getMessage());
+        if (type.equals("requests")) {
+            url += 0;
+        } else {
+            url += 1;
+        }
+
+        Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                result -> handleResult(result, type),
+                this::handleError) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", jwt);
+                return headers;
+            }
+        };
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
     }
 
     /**
@@ -100,19 +121,16 @@ public class ContactListViewModel extends AndroidViewModel {
      * @param result result from server
      * @param type the type or data
      */
-    protected void handleResult(final JSONObject result, String type) {
+    private void handleResult(final JSONObject result, String type) {
         MutableLiveData<List<Contact>> list = mContactList;
         try {
             JSONObject response = result;
             FriendStatus status = FriendStatus.FRIENDS;
 
-            Log.d("TTT", type);
-
             if (type.equals("requests")) {
                 status = FriendStatus.RECEIVED_REQUEST;
                 list = mPendingList;
             }
-
 
             if (response.has("rows")) {
                 JSONArray rows = response.getJSONArray("rows");
@@ -141,40 +159,11 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     /**
-     * Connect to server for contacts
-     * @param memberId member ID
-     * @param jwt jwt of the user
-     * @param type type of contacts
+     * handle error from server
+     * @param error error
      */
-    public void connectContacts(int memberId, String jwt, String type) {
-        String url = "https://cultivate-app-web-service.herokuapp.com/"
-                + "friendsList/" + memberId +"/";
-
-        if (type.equals("requests"))
-            url += 0;
-        else
-            url += 1;
-
-        Request<JSONObject> request = new JsonObjectRequest(
-                Request.Method.GET,
-                url,
-                null,
-                result -> handleResult(result, type),
-                this::handleError) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Authorization", jwt);
-                return headers;
-            }
-        };
-        request.setRetryPolicy(new DefaultRetryPolicy(
-                10_000,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        //Instantiate the RequestQueue and add the request to the queue
-        Volley.newRequestQueue(getApplication().getApplicationContext())
-                .add(request);
+    private void handleError(final VolleyError error) {
+        throw new IllegalStateException(error.getMessage());
     }
 
 }

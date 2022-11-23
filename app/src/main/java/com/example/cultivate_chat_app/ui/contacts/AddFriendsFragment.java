@@ -24,15 +24,17 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Reference: https://github.com/TCSS450-Team7-MobileApp/TCSS450-Mobile-App
  */
 public class AddFriendsFragment extends Fragment {
 
     private FragmentAddFriendsBinding mBinding;
     private RecyclerView mReceivedRecyclerView, mSearchedRecyclerView;
-    UserInfoViewModel mUser;
+    private UserInfoViewModel mUser;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentAddFriendsBinding.inflate(inflater);
@@ -42,23 +44,21 @@ public class AddFriendsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mReceivedRecyclerView = mBinding.listReceivedRequests;
+        mReceivedRecyclerView = mBinding.listFriendRequests;
         mSearchedRecyclerView = mBinding.listSearchPeople;
 
         mBinding.buttonSearchPeople.setOnClickListener(button -> displaySearched());
 
         mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
-
-       ContactListViewModel getRequests = new ViewModelProvider(
+        ContactListViewModel getRequests = new ViewModelProvider(
                (ViewModelStoreOwner) MainActivity.getActivity()).get(ContactListViewModel.class);
-
-       getRequests.resetRequests();
-       getRequests.connectContacts(mUser.getId(), mUser.getJwt(), "requests");
-       getRequests.addPendingListObserver(getViewLifecycleOwner(), this::setAdapterForRequests);
+        getRequests.resetRequests();
+        getRequests.connectContacts(mUser.getId(), mUser.getJwt(), "requests");
+        getRequests.addPendingListObserver(getViewLifecycleOwner(), this::setAdapterForRequests);
     }
 
     /**
-     * display searched info
+     * display the result of Search People function
      */
     private void displaySearched(){
         mBinding.editSearchPeople.setError(null);
@@ -69,34 +69,36 @@ public class AddFriendsFragment extends Fragment {
 
         SearchViewModel searchResult = new ViewModelProvider(
                 (ViewModelStoreOwner) MainActivity.getActivity()).get(SearchViewModel.class);
-        Log.d("TTT", mBinding.editSearchPeople.getText().toString());
         searchResult.resetSearchResults();
         searchResult.connectSearch(mUser.getJwt(), mBinding.editSearchPeople.getText().toString());
         searchResult.addSearchListObserver(getViewLifecycleOwner(), this::setAdapterForSearch);
+        //TODO show something if there is no match result from pool
 //        if (mBinding.listSearchPeople.equals(null)){
 //            mBinding.editSearchPeople.setError("No results found");
 //        }
     }
 
     /**
-     * set adapter for searches
-     * @param contacts all the searched contacts
+     * set adapter for Search People
+     * @param contacts the list of results after Search People
      */
     private void setAdapterForSearch(List<Contact> contacts) {
         HashMap<Integer, Contact> contactMap = new HashMap<>();
-        for (Contact contact : contacts)
+        for (Contact contact : contacts) {
             contactMap.put(contacts.indexOf(contact), contact);
+        }
         mSearchedRecyclerView.setAdapter(new ContactRecyclerViewAdapter( contactMap));
     }
 
     /**
-     * set adapter for requests
-     * @param contacts all the requests the user recieved
+     * set adapter for Friend Requests
+     * @param contacts the list of the friend requests
      */
     private void setAdapterForRequests(List<Contact> contacts) {
         HashMap<Integer, Contact> contactMap = new HashMap<>();
-        for (Contact contact : contacts)
+        for (Contact contact : contacts) {
             contactMap.put(contacts.indexOf(contact), contact);
+        }
         mReceivedRecyclerView.setAdapter(new ContactRecyclerViewAdapter( contactMap));
     }
 }

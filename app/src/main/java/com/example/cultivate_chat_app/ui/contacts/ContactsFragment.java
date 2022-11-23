@@ -24,12 +24,12 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Reference: https://github.com/TCSS450-Team7-MobileApp/TCSS450-Mobile-App
  */
 public class ContactsFragment extends Fragment {
 
     private FragmentContactsBinding mBinding;
     private RecyclerView mRecyclerView;
-    private ContactListViewModel mModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,8 +38,6 @@ public class ContactsFragment extends Fragment {
         mBinding = FragmentContactsBinding.inflate(inflater);
         return mBinding.getRoot();
     }
-
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -59,7 +57,7 @@ public class ContactsFragment extends Fragment {
     }
 
     /**
-     * Set Adapter for the contacts
+     * Set Adapter for the Contacts
      * @param contacts list of users contacts
      */
     private void setAdapter(List<Contact> contacts) {
@@ -71,11 +69,10 @@ public class ContactsFragment extends Fragment {
     }
 
     /**
-     * Navigate to adding friends
+     * Navigate to AddFriendsFragment
      */
     private void navigateToAddNewFriends() {
-        Navigation.findNavController(getView())
-                .navigate(ContactsFragmentDirections
+        Navigation.findNavController(getView()).navigate(ContactsFragmentDirections
                         .actionContactsFragmentToAddFriendsFragment());
     }
 }

@@ -27,6 +27,7 @@ import java.util.Map;
 
 /**
  * A simple {@link AndroidViewModel} subclass.
+ * Reference: https://github.com/TCSS450-Team7-MobileApp/TCSS450-Mobile-App
  */
 public class SearchViewModel extends AndroidViewModel {
     private MutableLiveData<List<Contact>> mSearchList;
@@ -42,7 +43,7 @@ public class SearchViewModel extends AndroidViewModel {
     }
 
     /**
-     * Add observer for searched contacts list
+     * Add observer for the list of results after Search People
      * @param owner owner
      * @param observer observer
      */
@@ -59,15 +60,13 @@ public class SearchViewModel extends AndroidViewModel {
     }
 
     /**
-     * Search add members
+     * connect server to search people
      * @param jwt jwt of the user
-     * @param searched starting username of the members
+     * @param searched nickname/firstname/lastname/email
      */
     public void connectSearch(String jwt, String searched) {
         resetSearchResults();
-
-        String url = "https://cultivate-app-web-service.herokuapp.com/"
-                + "search/" + searched;
+        String url = "https://cultivate-app-web-service.herokuapp.com/" + "search/" + searched;
         Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -94,7 +93,7 @@ public class SearchViewModel extends AndroidViewModel {
      * Handle error from the server
      * @param error error from the server
      */
-    protected void handleError(final VolleyError error) {
+    private void handleError(final VolleyError error) {
         Log.e("ERROR", error.getLocalizedMessage());
     }
 
@@ -102,7 +101,7 @@ public class SearchViewModel extends AndroidViewModel {
      * Handle result from the server
      * @param result result from the server
      */
-    protected void handleResult(final JSONObject result) {
+    private void handleResult(final JSONObject result) {
         try {
             JSONObject response = result;
             FriendStatus status = FriendStatus.NOT_FRIENDS;
