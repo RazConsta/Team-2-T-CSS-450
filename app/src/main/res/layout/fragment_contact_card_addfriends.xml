@@ -64,11 +64,11 @@
             tools:ignore="MissingConstraints" />
 
         <ImageView
-            android:id="@+id/contact_card_addfriends_option_button"
+            android:id="@+id/contact_card_addfriends_add_button"
             android:layout_width="54dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_contact_card_option_24"
+            android:src="@drawable/add_friends"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.955"

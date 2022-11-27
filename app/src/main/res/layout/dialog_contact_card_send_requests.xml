@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="250dp"
         android:layout_height="24dp"
-        android:text="Add Friend?"
+        android:text="@string/title_send_requests"
         android:textAlignment="center"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
