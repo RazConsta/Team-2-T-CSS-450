@@ -30,8 +30,8 @@ import java.util.Map;
  * Reference: https://github.com/TCSS450-Team7-MobileApp/TCSS450-Mobile-App
  */
 public class ContactListViewModel extends AndroidViewModel {
-    private MutableLiveData<List<Contact>> mContactList;
-    private MutableLiveData<List<Contact>> mPendingList;
+    private final MutableLiveData<List<Contact>> mContactList;
+    private final MutableLiveData<List<Contact>> mPendingList;
 
     /**
      * Constructor

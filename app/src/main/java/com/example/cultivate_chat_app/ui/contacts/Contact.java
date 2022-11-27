@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Contact implements Serializable {
 
     private final String mId, mNickname, mFirstname, mLastname, mEmail;
-    private FriendStatus mStatus;
+    private final FriendStatus mStatus;
 
     /**
      * constructor
@@ -17,7 +17,6 @@ public class Contact implements Serializable {
      * @param firstname First Name
      * @param lastname Last Name
      * @param email Email
-     * @param status
      */
     public Contact(String id,
                    String nickname,

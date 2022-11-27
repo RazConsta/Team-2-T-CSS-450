@@ -1,5 +1,6 @@
 package com.example.cultivate_chat_app.ui.contacts;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,9 +42,11 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         return new ViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
        Contact contact = mContacts.get(position);
+       assert contact != null;
        holder.nickname.setText(contact.getNickname());
        holder.fullName.setText(contact.getFirstname() +" "+contact.getLastname());
 
@@ -85,10 +88,12 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
      * of rows in the Contact Card Recycler View.
      */
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView nickname, fullName;
-        private ImageView messageButton, optionButton;
-        private CardView cardLayout;
-        private View view;
+        private final TextView nickname;
+        private final TextView fullName;
+        private final ImageView messageButton;
+        private final ImageView optionButton;
+        private final CardView cardLayout;
+        private final View view;
 
         public ViewHolder(View itemView) {
             super(itemView);

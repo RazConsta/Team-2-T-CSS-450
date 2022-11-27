@@ -34,7 +34,7 @@ public class ContactsFragment extends Fragment {
     private RecyclerView mRecyclerView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentContactsBinding.inflate(inflater);
@@ -58,9 +58,9 @@ public class ContactsFragment extends Fragment {
         mBinding.fabAddContact.setOnClickListener(button -> navigateToAddNewFriends());
 
         if (getThemeColor(getActivity()).equals("green")) {
-            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.green));;
+            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.green));
         } else {
-            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));;
+            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
         }
     }
 

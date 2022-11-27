@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.MainActivity;
-import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentAddFriendsBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 
@@ -32,7 +31,7 @@ public class AddFriendsFragment extends Fragment {
     private UserInfoViewModel mUser;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment

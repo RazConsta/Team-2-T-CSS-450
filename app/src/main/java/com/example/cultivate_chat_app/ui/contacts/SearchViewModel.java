@@ -30,7 +30,7 @@ import java.util.Map;
  * Reference: https://github.com/TCSS450-Team7-MobileApp/TCSS450-Mobile-App
  */
 public class SearchViewModel extends AndroidViewModel {
-    private MutableLiveData<List<Contact>> mSearchList;
+    private final MutableLiveData<List<Contact>> mSearchList;
 
     /**
      * Constructor
