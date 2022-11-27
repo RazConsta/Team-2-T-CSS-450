@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,7 +86,7 @@ public class AddFriendsFragment extends Fragment {
         for (Contact contact : contacts) {
             contactMap.put(contacts.indexOf(contact), contact);
         }
-        mSearchedRecyclerView.setAdapter(new ContactRecyclerViewAdapter( contactMap));
+        mSearchedRecyclerView.setAdapter(new AddFriendsRecyclerViewAdapter(contactMap));
     }
 
     /**
@@ -99,6 +98,6 @@ public class AddFriendsFragment extends Fragment {
         for (Contact contact : contacts) {
             contactMap.put(contacts.indexOf(contact), contact);
         }
-        mReceivedRecyclerView.setAdapter(new ContactRecyclerViewAdapter( contactMap));
+        mReceivedRecyclerView.setAdapter(new AddFriendsRecyclerViewAdapter(contactMap));
     }
 }
