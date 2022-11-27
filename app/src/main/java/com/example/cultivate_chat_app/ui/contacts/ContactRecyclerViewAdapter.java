@@ -1,6 +1,7 @@
 package com.example.cultivate_chat_app.ui.contacts;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.R;
 
 import java.util.HashMap;
@@ -22,6 +26,7 @@ import java.util.HashMap;
 public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecyclerViewAdapter.ViewHolder> {
 
     private final HashMap<Integer,Contact> mContacts;
+    private ManagerFriendViewModel mManage;
 
     /**
      * Constructor
@@ -38,6 +43,9 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.fragment_contact_card,parent,false);
+        mManage = new ViewModelProvider(
+                (ViewModelStoreOwner) MainActivity.getActivity()).get(ManagerFriendViewModel.class);
+
 
         return new ViewHolder(view);
     }
@@ -46,36 +54,45 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
        Contact contact = mContacts.get(position);
-       assert contact != null;
        holder.nickname.setText(contact.getNickname());
        holder.fullName.setText(contact.getFirstname() +" "+contact.getLastname());
 
-       //TODO contact card message button action
-        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
+       holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
                 (R.id.action_contactsFragment_to_chatsFragment));
-//        holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
-//                (R.id.action_addFriendsFragment_to_chatsFragment));
 
-        // TODO uncomment first, will need them later  // contact card option button action
-//        holder.optionButton.setOnClickListener(new View.OnClickListener(){
-//          @Override
-//            public void onClick(View view) {
-//                PopupMenu popup = new PopupMenu(holder.view.getContext(),holder.optionButton);
-//                popup.inflate(R.menu.concact_card_menu);
-//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()){
-//                            case R.id.add_friend:
-//                                // handle add friend ("already friends, no need to add")
-//                            case R.id.remove_friend:
-//                                // handle remove friend
-//                        }
-//                        return false;
-//                    }
-//                });
-//            }
-//        });
+       // contact card remove button action
+        holder.removeButton.setOnClickListener(button ->
+                showRemoveDialog(contact, holder.view, position));
+    }
+
+    /**
+     * Show Remove Dialog for removing friends
+     * @param contact the contact
+     * @param view the view for it to appear
+     * @param position position of the contact
+     */
+    void showRemoveDialog(Contact contact, View view, int position) {
+        Dialog dialog = new Dialog(view.getContext());
+        dialog.setCancelable(true);
+
+        dialog.setContentView(R.layout.dialog_contact_card_remove_friend);
+        dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
+            dialog.dismiss();
+            mManage.connectRemoveFriend(contact.getId());
+            removeFromView(position);
+        });
+        dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
+        dialog.show();
+    }
+
+    /**
+     * Remove contact from list
+     * @param position position of the contact
+     */
+    private void removeFromView(int position){
+        mContacts.remove(position);
+        notifyItemRemoved(position);
+        notifyItemChanged(position, mContacts.size());
     }
 
     @Override
@@ -91,7 +108,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         private final TextView nickname;
         private final TextView fullName;
         private final ImageView messageButton;
-        private final ImageView optionButton;
+        private final ImageView removeButton;
         private final CardView cardLayout;
         private final View view;
 
@@ -100,7 +117,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             nickname = itemView.findViewById(R.id.contact_card_nickname);
             fullName = itemView.findViewById(R.id.contact_card_fullname);
             messageButton = itemView.findViewById(R.id.contact_card_message_button);
-            optionButton = itemView.findViewById(R.id.contact_card_option_button);
+            removeButton = itemView.findViewById(R.id.contact_card_remove_button);
             cardLayout = itemView.findViewById(R.id.contact_card_root);
             view = itemView.getRootView();
         }

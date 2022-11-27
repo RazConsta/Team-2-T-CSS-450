@@ -56,6 +56,8 @@
     <string name="button_create_chat">Create</string>
     <string name="title_full_name">Full name</string>
     <string name="title_contact_name">Contact name</string>
+    <string name="title_add_friends">Add Friends</string>
+    <string name="title_remove_friends">Remove Friends</string>
 
     <!-- Settings Page -->
     <string name="change_nickname"><u>Change nickname</u></string>

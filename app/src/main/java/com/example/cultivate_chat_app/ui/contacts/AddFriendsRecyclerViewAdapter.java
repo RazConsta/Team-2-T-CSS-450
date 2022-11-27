@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.R;
 
 import java.util.HashMap;
@@ -22,6 +25,7 @@ import java.util.HashMap;
 public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFriendsRecyclerViewAdapter.ViewHolder> {
 
     private final HashMap<Integer,Contact> mContacts;
+    private ManagerFriendViewModel mManage;
 
     /**
      * Constructor
@@ -38,6 +42,8 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.fragment_contact_card_addfriends,parent,false);
+        mManage = new ViewModelProvider(
+                (ViewModelStoreOwner) MainActivity.getActivity()).get(ManagerFriendViewModel.class);
 
         return new ViewHolder(view);
     }
@@ -46,35 +52,54 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contact contact = mContacts.get(position);
-        assert contact != null;
         holder.nickname.setText(contact.getNickname());
         holder.fullName.setText(contact.getFirstname() +" "+contact.getLastname());
 
-        //TODO contact card message button action
         holder.messageButton.setOnClickListener(Navigation.createNavigateOnClickListener
                 (R.id.action_addFriendsFragment_to_chatsFragment));
 
-        // TODO uncomment first, will need them later  // contact card option button action
-//        holder.optionButton.setOnClickListener(new View.OnClickListener(){
-//          @Override
-//            public void onClick(View view) {
-//                PopupMenu popup = new PopupMenu(holder.view.getContext(),holder.optionButton);
-//                popup.inflate(R.menu.contact_card_menu);
-//                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-//                    @Override
-//                    public boolean onMenuItemClick(MenuItem item) {
-//                        switch (item.getItemId()){
-//                            case R.id.add_friend:
-//                                // handle add friend
-//                            case R.id.remove_friend:
-//                                // handle remove friend ("not friends yet, need to add first")
-//                        }
-//                        return false;
-//                    }
-//                });
-//            }
-//        });
+        switch (contact.getStatus()){
+            case RECEIVED_REQUEST:
+                holder.addButton.setOnClickListener(button ->
+                        acceptRequest(contact, position));
+                break;
+            case NOT_FRIENDS:
+                holder.addButton.setOnClickListener(button ->
+                        sendRequest(contact, position));
+        }
     }
+
+    /**
+     * Accept Friend Request
+     * @param contact Contact of the request to accept
+     * @param position position of the contact
+     */
+    private void acceptRequest(Contact contact, int position){
+        mManage.connectAcceptRequest(contact.getId());
+
+        removeFromView(position);
+    }
+
+    /**
+     * Send a friend request
+     * @param contact contact to send the request
+     * @param position position of the contact
+     */
+    private void sendRequest(Contact contact, int position){
+        mManage.connectSendRequest(contact.getId());
+        removeFromView(position);
+    }
+
+    /**
+     * Remove contact from list
+     * @param position position of the contact
+     */
+    private void removeFromView(int position){
+        mContacts.remove(position);
+        notifyItemRemoved(position);
+        notifyItemChanged(position, mContacts.size());
+    }
+
 
     @Override
     public int getItemCount() {
@@ -89,7 +114,7 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
         private final TextView nickname;
         private final TextView fullName;
         private final ImageView messageButton;
-        private final ImageView optionButton;
+        private final ImageView addButton;
         private final CardView cardLayout;
         private final View view;
 
@@ -98,7 +123,7 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
             nickname = itemView.findViewById(R.id.contact_card_addfriends_nickname);
             fullName = itemView.findViewById(R.id.contact_card_addfriends_fullname);
             messageButton = itemView.findViewById(R.id.contact_card_addfriends_message_button);
-            optionButton = itemView.findViewById(R.id.contact_card_addfriends_option_button);
+            addButton = itemView.findViewById(R.id.contact_card_addfriends_add_button);
             cardLayout = itemView.findViewById(R.id.contact_card_addfriends_root);
             view = itemView.getRootView();
         }
