@@ -60,7 +60,7 @@
             app:layout_constraintHorizontal_bias="0.784"
             app:layout_constraintStart_toStartOf="@+id/image_contact_addfriends"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_contact_card_message_24"
+            app:srcCompat="@drawable/contact_card_message_button"
             tools:ignore="MissingConstraints" />
 
         <ImageView
@@ -68,7 +68,7 @@
             android:layout_width="54dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/add_friends"
+            android:src="@drawable/contact_card_add_friends_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.955"

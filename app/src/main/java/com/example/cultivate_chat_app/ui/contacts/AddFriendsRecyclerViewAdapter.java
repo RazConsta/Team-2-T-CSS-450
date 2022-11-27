@@ -80,7 +80,7 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
         Dialog dialog = new Dialog(view.getContext());
         dialog.setCancelable(true);
 
-        dialog.setContentView(R.layout.dialog_contact_card_accept_friends_requests);
+        dialog.setContentView(R.layout.dialog_contact_card_accept_requests);
         dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
             dialog.dismiss();
             mManage.connectAcceptRequest(contact.getId());
