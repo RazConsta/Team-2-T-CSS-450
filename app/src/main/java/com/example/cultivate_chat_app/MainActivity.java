@@ -32,11 +32,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.cultivate_chat_app.databinding.ActivityMainBinding;
-import com.example.cultivate_chat_app.services.PushReceiver;
+//import com.example.cultivate_chat_app.services.PushReceiver;
 import com.example.cultivate_chat_app.ui.authorization.model.NewMessageCountViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
-import com.example.cultivate_chat_app.ui.chats.ChatMessage;
-import com.example.cultivate_chat_app.ui.chats.ChatViewModel;
+//import com.example.cultivate_chat_app.ui.chats.ChatMessage;
+//import com.example.cultivate_chat_app.ui.chats.ChatViewModel;
 import com.example.cultivate_chat_app.ui.settings.NicknameDialog;
 import com.example.cultivate_chat_app.ui.settings.NicknameViewModel;
 import com.example.cultivate_chat_app.ui.settings.PasswordDialog;
@@ -58,7 +58,7 @@ public class MainActivity
     @SuppressLint("StaticFieldLeak")
     private static Activity mMainActivity;
     private ActivityMainBinding binding;
-    private MainPushMessageReceiver mPushMessageReceiver;
+//    private MainPushMessageReceiver mPushMessageReceiver;
 
 
     @Override
@@ -206,45 +206,45 @@ public class MainActivity
     /**
      * A BroadcastReceiver that listens for messages sent from PushReceiver
      */
-    private class MainPushMessageReceiver extends BroadcastReceiver {
-        private final ChatViewModel mModel =
-                new ViewModelProvider(MainActivity.this)
-                        .get(ChatViewModel.class);
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            NavController nc =
-                    Navigation.findNavController(
-                            MainActivity.this, R.id.nav_host_fragment);
-            NavDestination nd = nc.getCurrentDestination();
-            if (intent.hasExtra("chatMessage")) {
-                ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
-                //If the user is not on the chat screen, update the
-                // NewMessageCountView Model
-                assert nd != null;
-                if (nd.getId() != R.id.chatsFragment) {
-                    mNewMessageModel.increment();
-                }
-                //Inform the view model holding chatroom messages of the new
-                //message.
-                mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
-            }
-        }
-    }
+//    private class MainPushMessageReceiver extends BroadcastReceiver {
+//        private final ChatViewModel mModel =
+//                new ViewModelProvider(MainActivity.this)
+//                        .get(ChatViewModel.class);
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            NavController nc =
+//                    Navigation.findNavController(
+//                            MainActivity.this, R.id.nav_host_fragment);
+//            NavDestination nd = nc.getCurrentDestination();
+//            if (intent.hasExtra("chatMessage")) {
+//                ChatMessage cm = (ChatMessage) intent.getSerializableExtra("chatMessage");
+//                //If the user is not on the chat screen, update the
+//                // NewMessageCountView Model
+//                assert nd != null;
+//                if (nd.getId() != R.id.chatsFragment) {
+//                    mNewMessageModel.increment();
+//                }
+//                //Inform the view model holding chatroom messages of the new
+//                //message.
+//                mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
+//            }
+//        }
+//    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mPushMessageReceiver == null) {
-            mPushMessageReceiver = new MainPushMessageReceiver();
-        }
-        IntentFilter iFilter = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE);
-        registerReceiver(mPushMessageReceiver, iFilter);
-    }
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (mPushMessageReceiver != null){
-            unregisterReceiver(mPushMessageReceiver);
-        }
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (mPushMessageReceiver == null) {
+//            mPushMessageReceiver = new MainPushMessageReceiver();
+//        }
+//        IntentFilter iFilter = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE);
+//        registerReceiver(mPushMessageReceiver, iFilter);
+//    }
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//        if (mPushMessageReceiver != null){
+//            unregisterReceiver(mPushMessageReceiver);
+//        }
+//    }
 }
