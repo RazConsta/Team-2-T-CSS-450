@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Cultivate</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="room_test_global">Global Test Room</string>
+    <string name="content">Lastest Message</string>
 
     <!-- Register Fragment Names -->>
     <string name="cap_register">Create New Account</string>
