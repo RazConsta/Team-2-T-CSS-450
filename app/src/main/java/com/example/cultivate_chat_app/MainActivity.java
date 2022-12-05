@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -34,6 +35,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.cultivate_chat_app.databinding.ActivityMainBinding;
 //import com.example.cultivate_chat_app.services.PushReceiver;
 import com.example.cultivate_chat_app.ui.authorization.model.NewMessageCountViewModel;
+import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 //import com.example.cultivate_chat_app.ui.chats.ChatMessage;
 //import com.example.cultivate_chat_app.ui.chats.ChatViewModel;
@@ -198,9 +200,27 @@ public class MainActivity
     }
 
     private void signOut() {
+        SharedPreferences prefs =
+                getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+        //End the app completely
+        // finishAndRemoveTask();
+
+        PushyTokenViewModel model = new ViewModelProvider(this)
+                .get(PushyTokenViewModel.class);
+        //when we hear back from the web service quit
+        model.addResponseObserver(this, result -> finishAndRemoveTask());
+        model.deleteTokenFromWebservice(
+                new ViewModelProvider(this)
+                        .get(UserInfoViewModel.class)
+                        .getJwt()
+        );
+
         // changed from R.id.nav_host_fragment
-        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.auth_graph);
-        this.finish();
+//        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.authActivity);
+//        this.finish();
     }
 
     /**

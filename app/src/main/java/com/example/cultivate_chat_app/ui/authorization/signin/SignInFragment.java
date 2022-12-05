@@ -4,6 +4,8 @@ import static com.example.cultivate_chat_app.utils.PasswordValidator.checkExclud
 import static com.example.cultivate_chat_app.utils.PasswordValidator.checkPwdLength;
 import static com.example.cultivate_chat_app.utils.PasswordValidator.checkPwdSpecialChar;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -20,6 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.auth0.android.jwt.JWT;
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentSignInBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
@@ -154,15 +157,58 @@ public class SignInFragment extends Fragment {
       mPushyTokenViewModel.sendTokenToWebservice(mUserViewModel.getJwt());
    }
 
+   @Override
+   public void onStart() {
+      super.onStart();
+      SharedPreferences prefs =
+              getActivity().getSharedPreferences(
+                      getString(R.string.keys_shared_prefs),
+                      Context.MODE_PRIVATE);
+      if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
+         String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
+         JWT jwt = new JWT(token);
+         // Check to see if the web token is still valid or not. To make a JWT expire after a
+         // longer or shorter time period, change the expiration time when the JWT is
+         // created on the web service.
+         if(!jwt.isExpired(0)) {
+
+            System.out.println("CLAIMS ARE " + jwt.getClaims());
+
+            String email = jwt.getClaim("email").asString();
+            String firstName = jwt.getClaim("firstname").asString();
+            String lastName = jwt.getClaim("lastname").asString();
+            String nickName = jwt.getClaim("nickname").asString();
+            int id = Integer.valueOf(jwt.getClaim("memberid").asString());
+            System.out.println("EMAIL IS " + email);
+            System.out.println("OTHERS ARE " + firstName + " " + lastName + " " + nickName + " " + id);
+            navigateToSuccess(email, token, "firstName", "lastName", "nickName", id);
+            return;
+         }
+      }
+   }
+
    /**
     * Helper to abstract the navigation to the Activity past Authentication.
     * @param email users email
     * @param jwt the JSON Web Token supplied by the server
     */
-   private void navigateToSuccess(final String email, final String jwt, final String first, final String last, final String nick, final int id) {
+   private void navigateToSuccess(String email, String jwt, String first, String last, String nick, int id) {
+
+      if (mBinding.checkBox.isChecked()) {
+         SharedPreferences prefs =
+                 getActivity().getSharedPreferences(
+                         getString(R.string.keys_shared_prefs),
+                         Context.MODE_PRIVATE);
+         //Store the credentials in SharedPrefs
+         prefs.edit().putString(getString(R.string.keys_prefs_jwt), jwt).apply();
+      }
+
       Navigation.findNavController(requireView())
               .navigate(SignInFragmentDirections
                       .actionSignInFragmentToMainActivity(email, jwt, first, last, nick, id));
+
+//      //Remove THIS activity from the Task list. Pops off the backstack
+//      getActivity().finish();
    }
 
    /**
