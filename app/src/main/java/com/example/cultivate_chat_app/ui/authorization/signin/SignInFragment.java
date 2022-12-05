@@ -102,8 +102,8 @@ public class SignInFragment extends Fragment {
               this::observeSignInResponse);
 
       SignInFragmentArgs args = SignInFragmentArgs.fromBundle(getArguments());
-      mBinding.editEmail.setText(args.getEmail().equals("default") ? "" : args.getEmail());
-      mBinding.editPassword.setText(args.getPassword().equals("default") ? "" : args.getPassword());
+      mBinding.editEmail.setText(args.getEmail().equals("default") ? "test1@test.com" : args.getEmail());
+      mBinding.editPassword.setText(args.getPassword().equals("default") ? "test12345" : args.getPassword());
       //don't allow sign in until pushy token retrieved
       mPushyTokenViewModel.addTokenObserver(getViewLifecycleOwner(), token ->
               mBinding.buttonToLogin.setEnabled(!token.isEmpty()));
