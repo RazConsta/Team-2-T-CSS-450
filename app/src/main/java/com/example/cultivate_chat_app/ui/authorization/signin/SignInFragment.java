@@ -38,6 +38,7 @@ public class SignInFragment extends Fragment {
    private SignInViewModel mSignInModel;
    private UserInfoViewModel mUserViewModel;
    private PushyTokenViewModel mPushyTokenViewModel;
+   private String theme;
 
    private final PasswordValidator mEmailValidator = checkPwdLength(2)
            .and(checkExcludeWhiteSpace())
@@ -79,10 +80,10 @@ public class SignInFragment extends Fragment {
          mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.green));
          mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.green));
       } else {
-         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.yellow));
-         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
-         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
-         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.yellow));
+         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.bright));
+         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.bright));
+         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.bright));
+         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.bright));
       }
 
       //On register button click, navigate to register
@@ -155,6 +156,22 @@ public class SignInFragment extends Fragment {
     */
    private void sendPushyToken() {
       mPushyTokenViewModel.sendTokenToWebservice(mUserViewModel.getJwt());
+   }
+
+   @Override
+   public void onResume() {
+      if (getThemeColor(this.getActivity()).equals("green")) {
+         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.green));
+         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.green));
+         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.green));
+         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.green));
+      } else {
+         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.bright));
+         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.bright));
+         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.bright));
+         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.bright));
+      }
+      super.onResume();
    }
 
    @Override

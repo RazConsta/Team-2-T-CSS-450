@@ -4,7 +4,6 @@ import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -17,22 +16,13 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.auth0.android.jwt.JWT;
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentHomeBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
-import com.example.cultivate_chat_app.ui.settings.PasswordViewModel;
 import com.example.cultivate_chat_app.ui.weather.CurrentWeather.CurrentWeatherViewModel;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -97,7 +87,7 @@ public class HomeFragment extends Fragment {
         if (getThemeColor(getActivity()).equals("green")) {
             mBinding.roundedRectangle.setBackgroundResource(R.drawable.green_rounded_rectangle);
         } else {
-            mBinding.roundedRectangle.setBackgroundResource(R.drawable.yellow_rounded_rectangle);
+            mBinding.roundedRectangle.setBackgroundResource(R.drawable.alternate_rounded_rectangle);
         }
 
 

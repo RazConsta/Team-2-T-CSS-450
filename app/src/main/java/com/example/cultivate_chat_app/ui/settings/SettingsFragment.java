@@ -3,6 +3,8 @@ package com.example.cultivate_chat_app.ui.settings;
 import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 import static com.example.cultivate_chat_app.utils.ThemeManager.setThemeColor;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,9 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.cultivate_chat_app.AuthActivity;
+import com.example.cultivate_chat_app.MainActivity;
+import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentSettingsBinding;
 
 /**
@@ -29,7 +34,6 @@ public class SettingsFragment extends Fragment {
     private FragmentSettingsBinding mBinding;
     private NicknameViewModel nicknameViewModel;
 
-
     public SettingsFragment() {
         // Required empty public constructor\
     }
@@ -41,11 +45,6 @@ public class SettingsFragment extends Fragment {
         // mSettings = new ViewModelProvider(getActivity()).get(SettingsViewModel.class);
         setHasOptionsMenu(true);
     }
-
-//    private void SetColor(String color) {
-//        setThemeColor(getActivity(), color);
-//        getActivity().recreate();
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,23 +71,23 @@ public class SettingsFragment extends Fragment {
                 ));
 
         if (getThemeColor(getActivity()).equals("green")) {
-            mBinding.springButton.setChecked(true);
-            mBinding.fallButton.setChecked(false);
-        } else if (getThemeColor(getActivity()).equals("yellow")) {
-            mBinding.springButton.setChecked(false);
-            mBinding.fallButton.setChecked(true);
+            mBinding.alternateButton.setChecked(true);
+            mBinding.defaultThemeButton.setChecked(false);
+        } else if (getThemeColor(getActivity()).equals("alternate")) {
+            mBinding.alternateButton.setChecked(false);
+            mBinding.defaultThemeButton.setChecked(true);
         }
 
-        mBinding.springButton.setOnClickListener(new View.OnClickListener() {
+        mBinding.alternateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SetColor("green");
             }
         });
-        mBinding.fallButton.setOnClickListener(new View.OnClickListener() {
+        mBinding.defaultThemeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SetColor("yellow");
+                SetColor("alternate");
             }
         });
     }

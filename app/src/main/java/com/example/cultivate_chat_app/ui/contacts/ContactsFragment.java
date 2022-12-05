@@ -60,7 +60,7 @@ public class ContactsFragment extends Fragment {
         if (getThemeColor(getActivity()).equals("green")) {
             mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.green));
         } else {
-            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
+            mBinding.fabAddContact.setBackgroundTintList(getResources().getColorStateList(R.color.bright));
         }
     }
 
