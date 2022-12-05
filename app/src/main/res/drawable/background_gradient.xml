@@ -3,8 +3,8 @@
     android:shape="rectangle">
 
     <gradient android:type="radial"
-        android:gradientRadius="400dp"
-        android:endColor="#2CEAA3"
-        android:startColor="#6BFFB8" />
+        android:gradientRadius="800dp"
+        android:startColor="#2CEAA3"
+        android:endColor="#1C7C54" />
 
 </shape>
