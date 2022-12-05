@@ -45,9 +45,9 @@ public class ChatRoomViewModel extends AndroidViewModel {
 
     public void resetRoom() { mRoomList.setValue(new ArrayList<>());}
 
-    public void connectRoom(int roomId, String jwt) {
+    public void connectRoom(int roomId, String jwt, int roomcount) {
         String url = getApplication().getResources().getString(R.string.base_url_service) +
-                "room/" + roomId;
+                "room/" + roomId + "/" + roomcount;
 
         Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.GET,
@@ -80,7 +80,7 @@ public class ChatRoomViewModel extends AndroidViewModel {
                 for (int i = 0; i< rows.length(); i++){
                     JSONObject jsonRoom = rows.getJSONObject(i);
                     Room room = new Room(
-                            jsonRoom.getString("room"),
+                            jsonRoom.getString("name"),
                             jsonRoom.getString("message"));
                     if(!list.getValue().contains(room))
                         list.getValue().add(room);

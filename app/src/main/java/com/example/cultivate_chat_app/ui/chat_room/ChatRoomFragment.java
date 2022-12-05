@@ -1,5 +1,7 @@
 package com.example.cultivate_chat_app.ui.chat_room;
 
+import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,13 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cultivate_chat_app.MainActivity;
+import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentChatRoomListBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
+import com.example.cultivate_chat_app.ui.contacts.ContactRecyclerViewAdapter;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +51,22 @@ public class ChatRoomFragment extends Fragment {
                 MainActivity.getActivity()).get(UserInfoViewModel.class);
 
         model.resetRoom();
-        model.connectRoom(user.getId(), user.getJwt());
+        model.connectRoom(user.getId(), user.getJwt(), 3);
+        model.addRoomListObserver(getViewLifecycleOwner(), this::setAdapter);
 
+        if (getThemeColor(getActivity()).equals("green")) {
+            mBinding.floatingAddRoomButton.setBackgroundTintList(getResources().getColorStateList(R.color.green));
+        } else {
+            mBinding.floatingAddRoomButton.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
+        }
     }
+
+    private void setAdapter(List<Room> rooms) {
+        HashMap<Integer, Room> roomMap = new HashMap<>();
+        for (Room room : rooms) {
+            roomMap.put(rooms.indexOf(room), room);
+        }
+        mRecyclerView.setAdapter(new RoomRecyclerViewAdapter(roomMap));
+    }
+
 }
