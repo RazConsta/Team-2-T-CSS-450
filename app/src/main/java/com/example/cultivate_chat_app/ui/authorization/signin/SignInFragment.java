@@ -70,17 +70,17 @@ public class SignInFragment extends Fragment {
       super.onViewCreated(view, savedInstanceState);
       mBinding = FragmentSignInBinding.bind(requireView());
 
-      if (getThemeColor(this.getActivity()).equals("green")) {
-         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.green));
-         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.green));
-         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.green));
-         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.green));
-      } else {
-         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.yellow));
-         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
-         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
-         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.yellow));
-      }
+//      if (getThemeColor(this.getActivity()).equals("green")) {
+//         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.green));
+//         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.green));
+//         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.green));
+//         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.green));
+//      } else {
+//         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.yellow));
+//         mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
+//         mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
+//         mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.yellow));
+//      }
 
       //On "Forgot passsword?" button click, navigate to PasswordResetFragment
       mBinding.forgotPassword.setOnClickListener(button ->
