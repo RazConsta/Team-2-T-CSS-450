@@ -212,7 +212,12 @@ public class MainActivity
         PushyTokenViewModel model = new ViewModelProvider(this)
                 .get(PushyTokenViewModel.class);
         //when we hear back from the web service quit
-        model.addResponseObserver(this, result -> finishAndRemoveTask());
+        // model.addResponseObserver(this, result -> finishAndRemoveTask());
+        model.addResponseObserver(this, (result) -> {
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.authActivity);
+            finishAndRemoveTask();
+            // or this.finish()?
+        });
         model.deleteTokenFromWebservice(
                 new ViewModelProvider(this)
                         .get(UserInfoViewModel.class)

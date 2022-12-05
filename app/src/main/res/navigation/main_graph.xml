@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_authActivity"
             app:destination="@id/authActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_startupFragment2"
+            app:destination="@id/startupFragment2" />
     </fragment>
     <fragment
         android:id="@+id/chats"
@@ -95,4 +98,9 @@
         android:id="@+id/authActivity"
         android:name="com.example.cultivate_chat_app.AuthActivity"
         android:label="AuthActivity" />
+    <fragment
+        android:id="@+id/startupFragment2"
+        android:name="com.example.cultivate_chat_app.ui.authorization.StartupFragment"
+        android:label="fragment_startup"
+        tools:layout="@layout/fragment_startup" />
 </navigation>
