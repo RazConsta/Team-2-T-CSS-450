@@ -171,16 +171,8 @@ public class SignInFragment extends Fragment {
          // longer or shorter time period, change the expiration time when the JWT is
          // created on the web service.
          if(!jwt.isExpired(0)) {
-
-            System.out.println("CLAIMS ARE " + jwt.getClaims());
-
             String email = jwt.getClaim("email").asString();
-            String firstName = jwt.getClaim("firstname").asString();
-            String lastName = jwt.getClaim("lastname").asString();
-            String nickName = jwt.getClaim("nickname").asString();
             int id = Integer.valueOf(jwt.getClaim("memberid").asString());
-            System.out.println("EMAIL IS " + email);
-            System.out.println("OTHERS ARE " + firstName + " " + lastName + " " + nickName + " " + id);
             navigateToSuccess(email, token, "firstName", "lastName", "nickName", id);
             return;
          }
@@ -201,6 +193,9 @@ public class SignInFragment extends Fragment {
                          Context.MODE_PRIVATE);
          //Store the credentials in SharedPrefs
          prefs.edit().putString(getString(R.string.keys_prefs_jwt), jwt).apply();
+         if (mUserViewModel != null) {
+            prefs.edit().putString("nickname", mUserViewModel.getNick()).apply();
+         }
       }
 
       Navigation.findNavController(requireView())

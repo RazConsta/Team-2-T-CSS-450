@@ -2,6 +2,8 @@ package com.example.cultivate_chat_app.ui.home;
 
 import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -76,7 +78,21 @@ public class HomeFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         // JWT jwt = new JWT( mUserModel.getJwt());
-        mBinding.welcomeHome.setText("Welcome, " + mUserModel.getNick() + "!");
+
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+
+
+        if (prefs.contains(getString(R.string.keys_prefs_jwt))) {
+            String token = prefs.getString(getString(R.string.keys_prefs_jwt), "");
+        }
+
+        mBinding.welcomeHome.setText("Welcome, " + prefs.getString("nickname", "") + "!");
+
+
+        // mBinding.welcomeHome.setText("Welcome, " + mUserModel.getNick() + "!");
 
         if (getThemeColor(getActivity()).equals("green")) {
             mBinding.roundedRectangle.setBackgroundResource(R.drawable.green_rounded_rectangle);

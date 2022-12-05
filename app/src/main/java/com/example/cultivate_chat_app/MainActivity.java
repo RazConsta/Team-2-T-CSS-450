@@ -205,6 +205,7 @@ public class MainActivity
                         getString(R.string.keys_shared_prefs),
                         Context.MODE_PRIVATE);
         prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+        prefs.edit().remove("nickname").apply();
         //End the app completely
         // finishAndRemoveTask();
 
