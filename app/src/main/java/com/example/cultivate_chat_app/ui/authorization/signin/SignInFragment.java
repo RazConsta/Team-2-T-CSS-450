@@ -82,12 +82,6 @@ public class SignInFragment extends Fragment {
          mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.yellow));
       }
 
-      //On register button click, navigate to register
-      mBinding.buttonToRegister.setOnClickListener(button ->
-              Navigation.findNavController(requireView()).navigate(
-                      SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
-              ));
-
       //On "Forgot passsword?" button click, navigate to PasswordResetFragment
       mBinding.forgotPassword.setOnClickListener(button ->
               Navigation.findNavController(requireView()).navigate(
