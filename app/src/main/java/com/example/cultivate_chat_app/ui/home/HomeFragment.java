@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding mBinding;
     private UserInfoViewModel mUserModel;
     private HomeViewModel mHomeViewModel;
-    private CurrentWeatherViewModel mCurrentWeatherViewModel;
+    // private CurrentWeatherViewModel mCurrentWeatherViewModel;
 
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -59,8 +59,8 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
-        mCurrentWeatherViewModel.connectGet();
+//        mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
+//        mCurrentWeatherViewModel.connectGet();
     }
 
     @Override
@@ -101,16 +101,16 @@ public class HomeFragment extends Fragment {
         }
 
 
-        mCurrentWeatherViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
-        {
-            try {
-                mBinding.homeTempTextView
-                        .setText(mCurrentWeatherViewModel.mResponse.getValue().getString("temperature") + "°F");
-                mBinding.homeConditionsTextView
-                        .setText(mCurrentWeatherViewModel.mResponse.getValue().getString("conditions") );
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        });
+//        mCurrentWeatherViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
+//        {
+//            try {
+//                mBinding.homeTempTextView
+//                        .setText(mCurrentWeatherViewModel.mResponse.getValue().getString("temperature") + "°F");
+//                mBinding.homeConditionsTextView
+//                        .setText(mCurrentWeatherViewModel.mResponse.getValue().getString("conditions") );
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        });
     }
 }
