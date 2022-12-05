@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_graph"
-    app:startDestination="@id/SignInFragment">
+    app:startDestination="@id/startupFragment">
 
     <fragment
         android:id="@+id/SignInFragment"
@@ -116,6 +116,21 @@
         <argument
             android:name="email"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/startupFragment"
+        android:name="com.example.cultivate_chat_app.ui.authorization.StartupFragment"
+        android:label="fragment_startup"
+        tools:layout="@layout/fragment_startup" >
+        <action
+            android:id="@+id/action_startupFragment_to_SignInFragment"
+            app:destination="@id/SignInFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim" />
+        <action
+            android:id="@+id/action_startupFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/nav_default_pop_enter_anim" />
     </fragment>
 
 </navigation>
