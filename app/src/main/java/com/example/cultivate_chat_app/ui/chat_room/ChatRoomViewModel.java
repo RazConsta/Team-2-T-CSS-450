@@ -45,7 +45,7 @@ public class ChatRoomViewModel extends AndroidViewModel {
 
     public void connectRoom(int roomId, String jwt, int roomcount) {
 
-        String url = getApplication().getResources().getString(R.string.base_url_service) +
+        String url = getApplication().getResources().getString(R.string.base_url) +
                 "room/" + roomId + "/" + roomcount;
 
         Request<JSONObject> request = new JsonObjectRequest(
