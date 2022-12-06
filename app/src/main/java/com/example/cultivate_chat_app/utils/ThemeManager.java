@@ -27,8 +27,8 @@ public class ThemeManager {
             case"green":
                 context.setTheme(R.style.Theme_Green);
                 break;
-            case"yellow":
-                context.setTheme(R.style.Theme_Yellow);
+            case"alternate":
+                context.setTheme(R.style.Theme_Alternate);
                 break;
         }
     }

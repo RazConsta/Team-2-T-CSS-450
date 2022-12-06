@@ -152,10 +152,10 @@ public class MainActivity
             changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.green));
             changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.green));
             changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.green));
-        } else if (getThemeColor(this).equals("yellow")){
-            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.yellow));
-            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.yellow));
-            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.yellow));
+        } else if (getThemeColor(this).equals("alternate")){
+            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.bright));
+            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.bright));
+            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.bright));
         }
         getMenuInflater().inflate(R.menu.dropdown_menu, menu);
         return true;
@@ -169,10 +169,10 @@ public class MainActivity
             changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.green));
             changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.green));
             changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.green));
-        } else if (getThemeColor(this).equals("yellow")){
-            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.yellow));
-            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.yellow));
-            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.yellow));
+        } else if (getThemeColor(this).equals("alternate")){
+            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.bright));
+            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.bright));
+            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.bright));
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -212,7 +212,12 @@ public class MainActivity
         PushyTokenViewModel model = new ViewModelProvider(this)
                 .get(PushyTokenViewModel.class);
         //when we hear back from the web service quit
-        model.addResponseObserver(this, result -> finishAndRemoveTask());
+        // model.addResponseObserver(this, result -> finishAndRemoveTask());
+        model.addResponseObserver(this, (result) -> {
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.authActivity);
+            finishAndRemoveTask();
+            // or this.finish()?
+        });
         model.deleteTokenFromWebservice(
                 new ViewModelProvider(this)
                         .get(UserInfoViewModel.class)

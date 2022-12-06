@@ -68,8 +68,8 @@
     <string name="change_password"><u>Change password</u></string>
     <string name="change_picture"><u>Change profile picture</u> (I don\'t work)</string>
     <string name="color_theme">Color Theme:</string>
-    <string name="spring">Spring</string>
-    <string name="fall">Fall</string>
+    <string name="defaultTheme">Default</string>
+    <string name="alternateTheme">Alternate</string>
     <string name="temp_unit">Temp Unit:</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
