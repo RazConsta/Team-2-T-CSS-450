@@ -11,6 +11,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="fall">#e36414</color>
     <color name="gray_text_color">#23000000</color>
+    <color name="bright">#2CEAA3</color>
 
     <color name="primaryLightColor">#7953d2</color>
 <!--    <color name="secondaryTextColorFade">#222222</color>-->

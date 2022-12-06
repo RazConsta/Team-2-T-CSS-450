@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.authorization.StartupFragment">
+
+    <View
+        android:id="@+id/colored_rectangle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_gradient" />
+
+    <ImageView
+        android:id="@+id/startup_image"
+        android:layout_width="match_parent"
+        android:layout_height="251dp"
+        android:layout_marginBottom="450dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_png"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.561"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <TextView
+        android:id="@+id/startup_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="300dp"
+        android:textStyle="italic"
+        android:text="A Messenger App"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/startup_image" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:height="60dp"
+        android:backgroundTint="#114D7E"
+        android:elevation="40dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startup_text" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/sign_up_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:height="60dp"
+        android:backgroundTint="@color/white"
+        android:elevation="10dp"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="Create an Account"
+        android:textAlignment="center"
+        android:textColor="#114D7E"
+        android:textSize="20sp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

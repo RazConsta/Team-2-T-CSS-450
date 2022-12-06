@@ -27,6 +27,8 @@
     <string name="action_signup">SIGN UP</string>
     <string name="forgot_password"><u>Forgot password?</u></string>
     <string name="remember_me">Remember me</string>
+    <string name="keys_shared_prefs">My Auth App Shared Prefs</string>
+    <string name="keys_prefs_jwt">Sharded Prefs JWT</string>
 
     <!-- Registration - Email Verification Fragment Names -->
     <string name="hint_account_creation">
@@ -66,8 +68,8 @@
     <string name="change_password"><u>Change password</u></string>
     <string name="change_picture"><u>Change profile picture</u> (I don\'t work)</string>
     <string name="color_theme">Color Theme:</string>
-    <string name="spring">Spring</string>
-    <string name="fall">Fall</string>
+    <string name="defaultTheme">Default</string>
+    <string name="alternateTheme">Alternate</string>
     <string name="temp_unit">Temp Unit:</string>
     <string name="celsius">Celsius</string>
     <string name="fahrenheit">Fahrenheit</string>
@@ -92,8 +94,7 @@
     <string name="title_account">Account</string>
 
     <!-- url chat and auth services -->>
-    <string name="base_url_service">https://cultivate-app-web-service.herokuapp.com/</string>
-    <string name="base_url_auth">https://cultivate-app-web-service.herokuapp.com/</string>
+    <string name="base_url">https://cultivate-app-web-service.herokuapp.com/</string>
 
     <!-- weather -->
     <string name="current_weather_temp_text_view"> </string>

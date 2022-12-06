@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -34,6 +35,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.cultivate_chat_app.databinding.ActivityMainBinding;
 //import com.example.cultivate_chat_app.services.PushReceiver;
 import com.example.cultivate_chat_app.ui.authorization.model.NewMessageCountViewModel;
+import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 //import com.example.cultivate_chat_app.ui.chats.ChatMessage;
 //import com.example.cultivate_chat_app.ui.chats.ChatViewModel;
@@ -150,10 +152,10 @@ public class MainActivity
             changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.green));
             changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.green));
             changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.green));
-        } else if (getThemeColor(this).equals("yellow")){
-            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.yellow));
-            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.yellow));
-            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.yellow));
+        } else if (getThemeColor(this).equals("alternate")){
+            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.bright));
+            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.bright));
+            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.bright));
         }
         getMenuInflater().inflate(R.menu.dropdown_menu, menu);
         return true;
@@ -167,10 +169,10 @@ public class MainActivity
             changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.green));
             changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.green));
             changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.green));
-        } else if (getThemeColor(this).equals("yellow")){
-            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.yellow));
-            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.yellow));
-            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.yellow));
+        } else if (getThemeColor(this).equals("alternate")){
+            changeDrawableColor(this, R.drawable.dropdown_settings, getResources().getColor(R.color.bright));
+            changeDrawableColor(this, R.drawable.dropdown_about_us, getResources().getColor(R.color.bright));
+            changeDrawableColor(this, R.drawable.dropdown_logout, getResources().getColor(R.color.bright));
         }
         return super.onPrepareOptionsMenu(menu);
     }
@@ -198,9 +200,33 @@ public class MainActivity
     }
 
     private void signOut() {
+        SharedPreferences prefs =
+                getSharedPreferences(
+                        getString(R.string.keys_shared_prefs),
+                        Context.MODE_PRIVATE);
+        prefs.edit().remove(getString(R.string.keys_prefs_jwt)).apply();
+        prefs.edit().remove("nickname").apply();
+        //End the app completely
+        // finishAndRemoveTask();
+
+        PushyTokenViewModel model = new ViewModelProvider(this)
+                .get(PushyTokenViewModel.class);
+        //when we hear back from the web service quit
+        // model.addResponseObserver(this, result -> finishAndRemoveTask());
+        model.addResponseObserver(this, (result) -> {
+            Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.authActivity);
+            finishAndRemoveTask();
+            // or this.finish()?
+        });
+        model.deleteTokenFromWebservice(
+                new ViewModelProvider(this)
+                        .get(UserInfoViewModel.class)
+                        .getJwt()
+        );
+
         // changed from R.id.nav_host_fragment
-        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.auth_graph);
-        this.finish();
+//        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(R.id.authActivity);
+//        this.finish();
     }
 
     /**

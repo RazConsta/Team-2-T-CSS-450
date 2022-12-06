@@ -80,7 +80,7 @@ public class ManagerFriendViewModel extends AndroidViewModel {
      * @param friendId id of friend
      */
     public void connectRemoveFriend(String friendId) {
-        String url = getApplication().getResources().getString(R.string.base_url_service) +
+        String url = getApplication().getResources().getString(R.string.base_url) +
                 "friendsList/delete/" + mUser.getId() + "/" + friendId;
         Request request = new JsonObjectRequest(
                 Request.Method.DELETE,
@@ -111,7 +111,7 @@ public class ManagerFriendViewModel extends AndroidViewModel {
      * @param friendId id of the friend
      */
     public void connectAcceptRequest(String friendId) {
-        String url = getApplication().getResources().getString(R.string.base_url_service) +
+        String url = getApplication().getResources().getString(R.string.base_url) +
                 "friendsList/verify/" + mUser.getId();
         JSONObject body = new JSONObject();
         try {
@@ -148,7 +148,7 @@ public class ManagerFriendViewModel extends AndroidViewModel {
      * @param friendId id of the friend
      */
     public void connectSendRequest(String friendId) {
-        String url = getApplication().getResources().getString(R.string.base_url_service) +
+        String url = getApplication().getResources().getString(R.string.base_url) +
                 "friendsList/request";
         JSONObject body = new JSONObject();
         try {
