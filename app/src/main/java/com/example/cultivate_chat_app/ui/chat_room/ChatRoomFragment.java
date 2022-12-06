@@ -3,6 +3,7 @@ package com.example.cultivate_chat_app.ui.chat_room;
 import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.example.cultivate_chat_app.databinding.FragmentChatRoomListBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 import com.example.cultivate_chat_app.ui.contacts.ContactRecyclerViewAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -50,9 +52,10 @@ public class ChatRoomFragment extends Fragment {
         UserInfoViewModel user = new ViewModelProvider((ViewModelStoreOwner)
                 MainActivity.getActivity()).get(UserInfoViewModel.class);
 
-        model.resetRoom();
-        model.connectRoom(user.getId(), user.getJwt(), 3);
+
+//        model.resetRoom();
         model.addRoomListObserver(getViewLifecycleOwner(), this::setAdapter);
+        model.connectRoom(user.getId(), user.getJwt(), 3);
 
         if (getThemeColor(getActivity()).equals("green")) {
             mBinding.floatingAddRoomButton.setBackgroundTintList(getResources().getColorStateList(R.color.green));
@@ -62,9 +65,13 @@ public class ChatRoomFragment extends Fragment {
     }
 
     private void setAdapter(List<Room> rooms) {
-        HashMap<Integer, Room> roomMap = new HashMap<>();
+
+        List<Room> roomMap = new ArrayList<>();
+        Log.d("Chat", "Room passed in!!!");
+        Log.d("Chat", "Room passed in " + rooms.toString());
+
         for (Room room : rooms) {
-            roomMap.put(rooms.indexOf(room), room);
+            roomMap.add(room);
         }
         mRecyclerView.setAdapter(new RoomRecyclerViewAdapter(roomMap));
     }

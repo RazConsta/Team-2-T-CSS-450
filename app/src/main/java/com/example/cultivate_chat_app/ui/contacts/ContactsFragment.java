@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class ContactsFragment extends Fragment {
      * @param contacts list of users contacts
      */
     private void setAdapter(List<Contact> contacts) {
+        Log.d("ADAPTER", "PARA FROM ADAPTER: " + contacts.toString());
         HashMap<Integer, Contact> contactMap = new HashMap<>();
         for (Contact contact : contacts){
             contactMap.put(contacts.indexOf(contact), contact);

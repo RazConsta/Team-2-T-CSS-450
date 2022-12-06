@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,13 @@ import com.example.cultivate_chat_app.ui.contacts.Contact;
 import com.example.cultivate_chat_app.ui.contacts.ContactRecyclerViewAdapter;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerViewAdapter.ViewHolder> {
 
-    private final HashMap<Integer, Room> mRooms;
+    private final List<Room> mRooms;
 
-    public RoomRecyclerViewAdapter(HashMap<Integer, Room> mRooms) {
+    public RoomRecyclerViewAdapter(List<Room> mRooms) {
         this.mRooms = mRooms;
     }
 
@@ -37,6 +39,7 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Log.d("RECYCLERVIEW", "ROOM = " + mRooms.get(position));
         Room room = mRooms.get(position);
         holder.roomName.setText(room.getmRoomName());
         holder.roomMessage.setText(room.getmLatestMessage());

@@ -16,7 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cultivate_chat_app.R;
-import com.example.cultivate_chat_app.ui.contacts.Contact;
+import com.example.cultivate_chat_app.ui.chats.ChatRecyclerViewAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,10 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.pushy.sdk.lib.paho.logging.DummyLogger;
-
 public class ChatRoomViewModel extends AndroidViewModel {
-    private final MutableLiveData<List<Room>> mRoomList;
+    private MutableLiveData<List<Room>> mRoomList;
 
     public ChatRoomViewModel(@NonNull Application application) {
         super(application);
@@ -46,6 +44,7 @@ public class ChatRoomViewModel extends AndroidViewModel {
     public void resetRoom() { mRoomList.setValue(new ArrayList<>());}
 
     public void connectRoom(int roomId, String jwt, int roomcount) {
+
         String url = getApplication().getResources().getString(R.string.base_url_service) +
                 "room/" + roomId + "/" + roomcount;
 
@@ -72,6 +71,7 @@ public class ChatRoomViewModel extends AndroidViewModel {
     }
 
     private void handleResult(final JSONObject result) {
+        Log.d("CHATROOM", result.toString());
         MutableLiveData<List<Room>> list = mRoomList;
         try {
             JSONObject response = result;
@@ -85,6 +85,8 @@ public class ChatRoomViewModel extends AndroidViewModel {
                     if(!list.getValue().contains(room))
                         list.getValue().add(room);
                 }
+                Log.d("SUCCESS", "chats GET request successful");
+                Log.d("CHAT", list.toString());
             } else {
                 Log.e("ERROR", "No Room Exist In Server!");
             }
@@ -92,6 +94,7 @@ public class ChatRoomViewModel extends AndroidViewModel {
             e.printStackTrace();
             Log.e("ERROR", e.getMessage());
         }
+        list.setValue(list.getValue());
     }
 
     /**
