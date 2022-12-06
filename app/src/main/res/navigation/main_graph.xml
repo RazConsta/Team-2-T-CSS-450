@@ -90,7 +90,11 @@
         android:label="Messages"
         tools:layout="@layout/fragment_chat_room_list"
 
-    />
+    >
+        <action
+            android:id="@+id/action_chatsFragment_to_chats"
+            app:destination="@id/chats" />
+    </fragment>
     <activity
         android:id="@+id/authActivity"
         android:name="com.example.cultivate_chat_app.AuthActivity"
