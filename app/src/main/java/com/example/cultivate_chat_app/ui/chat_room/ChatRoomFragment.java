@@ -53,9 +53,9 @@ public class ChatRoomFragment extends Fragment {
                 MainActivity.getActivity()).get(UserInfoViewModel.class);
 
 
-//        model.resetRoom();
+        model.resetRoom();
         model.addRoomListObserver(getViewLifecycleOwner(), this::setAdapter);
-        model.connectRoom(user.getId(), user.getJwt(), 3);
+        model.connectRoom(user.getId(), user.getJwt());
 
         if (getThemeColor(getActivity()).equals("green")) {
             mBinding.floatingAddRoomButton.setBackgroundTintList(getResources().getColorStateList(R.color.green));
