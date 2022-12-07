@@ -1,22 +1,24 @@
-package com.example.cultivate_chat_app.ui.chat_room;
+package com.example.cultivate_chat_app.ui.chat_room.create_room;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cultivate_chat_app.databinding.FragmentCreateNewChatBinding;
 
-public class NewChatFragment extends Fragment {
+public class NewRoomFragment extends Fragment {
     private FragmentCreateNewChatBinding mBinding;
     private LinearLayout mCreateRoomNameLinearView;
-    private RecyclerView mContactRecyclerView;
+    private RelativeLayout mContactRelativeLayout;
+    private ListView mInvitedMemberListView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -31,7 +33,7 @@ public class NewChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mCreateRoomNameLinearView = mBinding.linearLayout;
-        mContactRecyclerView = mBinding.listContactsCreate;
-
+        mContactRelativeLayout = mBinding.relativeLayout;
+        mInvitedMemberListView = mBinding.listView;
     }
 }

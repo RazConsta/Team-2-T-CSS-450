@@ -71,14 +71,12 @@ public class ChatRoomViewModel extends AndroidViewModel {
     }
 
     private void handleResult(final JSONObject result) {
-        Log.d("CHATROOM", result.toString());
         MutableLiveData<List<Room>> list = mRoomList;
         List<Integer> roomID = new ArrayList<>();
         try {
             JSONObject response = result;
             if (response.has("rows")) {
                 JSONArray rows = response.getJSONArray("rows");
-                Log.d("RESPONSE", "ROW RESPONSE = " + rows.toString());
                 for (int room = 0; room < rows.length(); room++) {
                     JSONObject roomJson = rows.getJSONObject(room);
                     int chatid = roomJson.getInt("chatid");

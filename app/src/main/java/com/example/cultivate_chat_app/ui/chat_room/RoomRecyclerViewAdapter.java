@@ -39,7 +39,6 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d("RECYCLERVIEW", "ROOM = " + mRooms.get(position));
         Room room = mRooms.get(position);
         holder.roomName.setText(room.getmRoomName());
         holder.roomMessage.setText(room.getmLatestMessage());

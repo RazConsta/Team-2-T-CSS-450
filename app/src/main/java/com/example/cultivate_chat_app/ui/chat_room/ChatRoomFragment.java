@@ -72,11 +72,7 @@ public class ChatRoomFragment extends Fragment {
     }
 
     private void setAdapter(List<Room> rooms) {
-
         List<Room> roomMap = new ArrayList<>();
-        Log.d("Chat", "Room passed in!!!");
-        Log.d("Chat", "Room passed in " + rooms.toString());
-
         for (Room room : rooms) {
             roomMap.add(room);
         }

@@ -112,7 +112,7 @@
 
     <fragment
         android:id="@+id/list_contacts_create"
-        android:name="com.example.cultivate_chat_app.ui.chat_room.NewChatFragment"
-        android:label="Create Chat Room"
+        android:name="com.example.cultivate_chat_app.ui.chat_room.create_room.NewRoomFragment"
+        android:label="New Message"
         tools:layout="@layout/fragment_create_new_chat"/>
 </navigation>

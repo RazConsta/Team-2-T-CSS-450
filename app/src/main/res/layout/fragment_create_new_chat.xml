@@ -5,50 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text_add_people_create"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:text="@string/title_add_people_to_chat"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/list_contacts_create"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.017"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_contacts_create"
-        android:name="com.example.cultivate_chat_app.ui.contacts.ContactCardFragment"
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="411dp"
-        android:layout_height="527dp"
-        android:layout_marginTop="45dp"
-        android:orientation="vertical"
-        app:layoutManager="LinearLayoutManager"
+        android:layout_height="570dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:context="com.example.cultivate_chat_app.ui.contacts.ContactsFragment"
-        tools:listitem="@layout/fragment_contact_card" />
+        tools:ignore="MissingConstraints">
+
+        <android.widget.SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true" />
+
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/search"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="413dp"
-        android:layout_height="147dp"
-        android:layout_marginTop="4dp"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_width="393dp"
+        android:layout_height="62dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/edit_chat_name"
-            android:layout_width="234dp"
-            android:layout_height="61dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="300dp"
+            android:layout_height="55dp"
             android:ems="10"
             android:hint="@string/hint_chat_name"
             android:inputType="textPersonName" />
@@ -57,10 +52,18 @@
             android:id="@+id/button_add_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="25dp"
             android:text="@string/button_create_chat" />
-
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/selected_member"
+        android:layout_width="409dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
