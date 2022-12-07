@@ -45,6 +45,14 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
         holder.roomMessage.setText(room.getmLatestMessage());
         holder.cardLayout.setOnClickListener(Navigation.createNavigateOnClickListener
                 (R.id.action_chatsFragment_to_chats));
+//        holder.cardLayout.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//
+//                Log.d("ROOM", "SUCCESS LONG CLICK CALL");
+//                return false;
+//            }
+//        });
 
     }
 

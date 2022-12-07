@@ -5,7 +5,6 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/homeFragment">
 
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.cultivate_chat_app.ui.home.HomeFragment"
@@ -97,6 +96,9 @@
         <action
             android:id="@+id/action_chatsFragment_to_chats"
             app:destination="@id/chats" />
+        <action
+            android:id="@+id/action_chatsFragment_to_list_contacts_create"
+            app:destination="@id/list_contacts_create" />
     </fragment>
     <activity
         android:id="@+id/authActivity"
@@ -107,4 +109,10 @@
         android:name="com.example.cultivate_chat_app.ui.authorization.StartupFragment"
         android:label="fragment_startup"
         tools:layout="@layout/fragment_startup" />
+
+    <fragment
+        android:id="@+id/list_contacts_create"
+        android:name="com.example.cultivate_chat_app.ui.chat_room.NewChatFragment"
+        android:label="Create Chat Room"
+        tools:layout="@layout/fragment_create_new_chat"/>
 </navigation>
