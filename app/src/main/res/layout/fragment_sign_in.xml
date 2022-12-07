@@ -10,7 +10,9 @@
         android:id="@+id/colored_rectangle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_gradient" />
+        android:background="@drawable/background_gradient"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="27dp" />
 
     <ImageView
         android:id="@+id/startup_image"
@@ -24,32 +26,18 @@
         app:layout_constraintVertical_bias="0.561"
         tools:layout_editor_absoluteX="16dp" />
 
-    <TextView
-        android:id="@+id/login_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/edit_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/startup_image" />
-
     <EditText
         android:id="@+id/edit_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
         android:ems="10"
         android:gravity="center"
         android:hint="Username"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/edit_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -62,15 +50,16 @@
         android:ems="10"
         android:gravity="center"
         android:hint="Password"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:inputType="textPassword"
         android:minHeight="48dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/colored_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startup_image" />
+        app:layout_constraintTop_toBottomOf="@+id/startup_image"
+        app:layout_constraintVertical_bias="0.426" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonToLogin"
@@ -90,27 +79,30 @@
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_password" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_password"
+        app:layout_constraintVertical_bias="0.222" />
 
     <TextView
         android:id="@+id/forgot_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="155dp"
+        android:layout_height="42dp"
         android:text="@string/forgot_password"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/colored_rectangle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/login_text"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/edit_password"
         app:layout_constraintTop_toBottomOf="@+id/edit_password"
-        app:layout_constraintVertical_bias="0.74" />
+        app:layout_constraintVertical_bias="0.75" />
 
     <CheckBox
         android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="166dp"
+        android:layout_height="47dp"
         android:buttonTint="@color/green"
         android:checked="true"
         android:text="@string/remember_me"
@@ -118,10 +110,11 @@
         android:textColorHint="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/colored_rectangle"
-        app:layout_constraintEnd_toStartOf="@+id/login_text"
+        app:layout_constraintEnd_toStartOf="@+id/edit_password"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_password"
-        app:layout_constraintVertical_bias="0.76"
+        app:layout_constraintVertical_bias="0.685"
         app:useMaterialThemeColors="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
