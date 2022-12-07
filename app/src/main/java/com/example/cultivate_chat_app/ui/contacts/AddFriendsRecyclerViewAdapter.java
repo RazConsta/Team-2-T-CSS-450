@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
@@ -84,6 +83,11 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
         dialog.findViewById(R.id.button_ok).setOnClickListener(button -> {
             dialog.dismiss();
             mManage.connectAcceptRequest(contact.getId());
+            removeFromView(position);
+        });
+        dialog.findViewById(R.id.button_decline).setOnClickListener(button -> {
+            dialog.dismiss();
+            mManage.connectRemoveFriend(contact.getId());
             removeFromView(position);
         });
         dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());

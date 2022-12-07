@@ -54,6 +54,7 @@
     <string name="button_add_friend_search">Search</string>
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
+    <string name="button_decline">Decline</string>
     <string name="title_add_people_to_chat">Add People to Chat</string>
     <string name="hint_chat_name">Chat Name</string>
     <string name="button_create_chat">Create</string>
