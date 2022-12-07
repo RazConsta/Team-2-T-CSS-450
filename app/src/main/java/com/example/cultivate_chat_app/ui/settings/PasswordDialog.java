@@ -19,6 +19,7 @@ public class PasswordDialog extends AppCompatDialogFragment {
 
     private EditText editTextCurrentPassword;
     private EditText editTextNewPassword;
+    private EditText editTextReTypePassword;
     private PasswordDialogListener listener;
 
     @NonNull
@@ -40,12 +41,21 @@ public class PasswordDialog extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String currentPass = editTextCurrentPassword.getText().toString();
                         String newPass = editTextNewPassword.getText().toString();
-                        listener.changePassword(currentPass, newPass);
+                        String reTypePass = editTextReTypePassword.getText().toString();;
+
+                        if(newPass.equals(reTypePass)){
+                            listener.changePassword(currentPass, newPass);
+                            //dialogInterface.dismiss();
+                        } else{
+                            //editTextReTypePassword.setError("Password doesn't match");
+                            //editTextReTypePassword.requestFocus();
+                        }
                     }
                 });
 
         editTextCurrentPassword = view.findViewById(R.id.edit_current_password);
         editTextNewPassword = view.findViewById(R.id.edit_new_password);
+        editTextReTypePassword = view.findViewById(R.id.edit_retype_password);
         return builder.create();
     }
 
