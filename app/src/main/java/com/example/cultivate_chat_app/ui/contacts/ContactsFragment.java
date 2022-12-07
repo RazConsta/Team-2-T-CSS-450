@@ -75,7 +75,7 @@ public class ContactsFragment extends Fragment {
         for (Contact contact : contacts){
             contactMap.put(contacts.indexOf(contact), contact);
         }
-        mRecyclerView.setAdapter(new ContactRecyclerViewAdapter( contactMap));
+        mRecyclerView.setAdapter(new ContactRecyclerViewAdapter(contactMap));
     }
 
     /**
