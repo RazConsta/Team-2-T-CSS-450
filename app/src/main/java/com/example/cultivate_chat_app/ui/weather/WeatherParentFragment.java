@@ -198,6 +198,8 @@ public class WeatherParentFragment extends Fragment {
       //add this fragment as the OnMapReadyCallback -> See onMapReady()
       mapFragment.getMapAsync(this::onMapReady);
 
+      LatLng latLng = new LatLng(47.2454, -122.4385);
+      mLocationViewModel.mResponse.setValue(latLng);
 
    }
 }
