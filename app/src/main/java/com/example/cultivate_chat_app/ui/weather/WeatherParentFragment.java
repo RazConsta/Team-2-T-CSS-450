@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentWeatherParentBinding;
 import com.example.cultivate_chat_app.ui.weather.CurrentWeather.CurrentWeatherViewModel;
-import com.example.cultivate_chat_app.ui.weather.HourlyWeatherForecast.HourlyWeatherForecastFragment;
 import com.example.cultivate_chat_app.ui.weather.HourlyWeatherForecast.HourlyWeatherForecastViewModel;
 import com.example.cultivate_chat_app.ui.weather.Location.LocationViewModel;
 import com.example.cultivate_chat_app.ui.weather.WeeklyWeatherForecast.WeeklyWeatherForecastViewModel;
@@ -117,10 +116,14 @@ public class WeatherParentFragment extends Fragment {
    @Override
    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
+
+
       //LocationViewModel Observer
       mLocationViewModel.addReponseObserver(getViewLifecycleOwner(), latLng -> {
          if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             mCurrentWeatherViewModel.connectPost(latLng);
+            mHourlyWeatherForecastViewModel.connectPost(latLng);
+            mWeeklyWeatherForecastViewModel.connectPost(latLng);
             mBinding.currentWeatherLocationTextView
                     .setText("Lat:" + latLng.latitude + " Long:" + latLng.longitude);
          }
@@ -158,24 +161,23 @@ public class WeatherParentFragment extends Fragment {
       });
 
 //      //WeeklyWeatherForecastViewModel Observer
-//
-//         mHourlyWeatherForecastViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
-//         {
-//            try {
-//               mBinding.hour1WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour1"));
-//               mBinding.hour2WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour2"));
-//               mBinding.hour3WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour3"));
-//               mBinding.hour4WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour4"));
-//               mBinding.hour5WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour5"));
-//               mBinding.hour6WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour6"));
-//               mBinding.hour7WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour7"));
-//               mBinding.hour8WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour8"));
-//
-//            } catch (JSONException e) {
-//               e.printStackTrace();
-//            }
-//         });
-//      });
+      mWeeklyWeatherForecastViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
+      {
+         try {
+            mBinding.day1WeatherTextView.
+                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day1"));
+            mBinding.day2WeatherTextView.
+                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day2"));
+            mBinding.day3WeatherTextView.
+                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day3"));
+            mBinding.day4WeatherTextView.
+                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day4"));
+            mBinding.day5WeatherTextView.
+                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day5"));
+         } catch (JSONException e) {
+            e.printStackTrace();
+         }
+      });
       SupportMapFragment mapFragment =
               (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
       //add this fragment as the OnMapReadyCallback -> See onMapReady()
