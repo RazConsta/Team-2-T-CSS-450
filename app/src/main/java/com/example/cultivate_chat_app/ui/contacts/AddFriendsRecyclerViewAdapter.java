@@ -143,7 +143,6 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
         private final TextView fullName;
         private final ImageView messageButton;
         private final ImageView addButton;
-        //private final CardView cardLayout;
         private final View view;
 
         public ViewHolder(View itemView) {
@@ -152,7 +151,6 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
             fullName = itemView.findViewById(R.id.contact_card_addfriends_fullname);
             messageButton = itemView.findViewById(R.id.contact_card_addfriends_message_button);
             addButton = itemView.findViewById(R.id.contact_card_addfriends_add_button);
-           // cardLayout = itemView.findViewById(R.id.contact_card_addfriends_root);
             view = itemView.getRootView();
         }
     }
