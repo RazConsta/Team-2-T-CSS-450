@@ -21,13 +21,18 @@
             android:layout_height="wrap_content"
             android:clickable="true" />
 
-        <ListView
-            android:id="@+id/list_view"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/search"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contact_list"
+            android:layout_width="match_parent"
+            android:layout_height="519dp"
+            android:layout_below="@+id/search"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical"
+            tools:listitem="@layout/fragment_room_create_contact" />
 
     </RelativeLayout>
 
@@ -55,19 +60,20 @@
             android:text="@string/button_create_chat" />
     </LinearLayout>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accepted_member"
-        android:layout_width="409dp"
-        android:layout_height="97dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="horizontal"
         app:layoutManager="LinearLayoutManager"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:listitem="@layout/fragment_accepted_member" />
+        tools:ignore="MissingConstraints"
+        tools:listitem="@layout/fragment_chat_invited_member_card" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
