@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_search_people"
         tools:context="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogListFragment"
-        tools:listitem="@layout/fragment_contact_card" />
+        tools:listitem="@layout/fragment_contact_card_addfriends" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_friend_requests"
@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_friend_requests"
         tools:context="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogListFragment"
-        tools:listitem="@layout/fragment_contact_card" />
+        tools:listitem="@layout/fragment_contact_card_addfriends" />
 
     <TextView
         android:id="@+id/text_friend_requests"
