@@ -1,13 +1,17 @@
 package com.example.cultivate_chat_app.ui.weather;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,6 +46,7 @@ public class WeatherParentFragment extends Fragment {
    public LocationViewModel mLocationViewModel;
 
    private GoogleMap mMap;
+   public int locationByDevice = 0;
 
    private GoogleMap.OnMapClickListener mMapClickListener = new GoogleMap.OnMapClickListener() {
       @Override
@@ -65,6 +70,7 @@ public class WeatherParentFragment extends Fragment {
 
    private OnMapReadyCallback mMapReadyCallback = googleMap -> {
       mMap = googleMap;
+      setLocationByDeviceLocation();
       // Add a marker in Sydney and move the camera
       //LatLng sydney = new LatLng(-34, 151);
       //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
@@ -90,20 +96,7 @@ public class WeatherParentFragment extends Fragment {
          }
       });
       mMap.setOnMapClickListener(mMapClickListener);
-   }
-
-   private void setWeatherByLocation() {
-//      //get device location
-//      if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//         mMap.setMyLocationEnabled(true);
-//         Location location = mMap.getMyLocation();
-//         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-//         mLocationViewModel.mResponse.setValue(latLng);
-//      } else {
-//         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-//         }
-//      }
+      setLocationByDeviceLocation();
    }
 
    @Override
@@ -198,6 +191,28 @@ public class WeatherParentFragment extends Fragment {
       //add this fragment as the OnMapReadyCallback -> See onMapReady()
       mapFragment.getMapAsync(this::onMapReady);
 
+     // LatLng latLng = new LatLng(47.2454, -122.4385);
+      //mLocationViewModel.mResponse.setValue(latLng);
 
+   }
+
+   public void setLocationByDeviceLocation() {
+      if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+         LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
+         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+            @Override
+            public void onLocationChanged(@NonNull Location location) {
+               LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+               if (locationByDevice == 0){
+                  mLocationViewModel.mResponse.setValue(latLng);
+                  locationByDevice++;
+               }
+            }
+         });
+      } else {
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+         }
+      }
    }
 }
