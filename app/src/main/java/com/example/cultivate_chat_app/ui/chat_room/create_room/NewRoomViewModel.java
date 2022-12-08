@@ -49,11 +49,12 @@ public class NewRoomViewModel extends AndroidViewModel {
      * @param jwt encrypt header
      * @param roomName room name for the chat room
      */
-    public void connectCreateRoom(String jwt, String roomName) {
+    public void connectCreateRoom(String jwt, String roomName, int memberId) {
         String url = getApplication().getResources().getString(R.string.room_url);
         JSONObject body = new JSONObject();
         try {
             body.put("name", roomName);
+            body.put("memberid", memberId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

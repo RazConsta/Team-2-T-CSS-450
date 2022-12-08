@@ -79,4 +79,5 @@ public class ChatRoomFragment extends Fragment {
         mRecyclerView.setAdapter(new RoomRecyclerViewAdapter(roomMap));
     }
 
+
 }

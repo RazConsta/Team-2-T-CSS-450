@@ -1,6 +1,7 @@
 package com.example.cultivate_chat_app.ui.chat_room.create_room;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.navigation.Navigation;
 
 import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.databinding.FragmentCreateNewChatBinding;
@@ -48,8 +50,20 @@ public class NewRoomFragment extends Fragment {
                 MainActivity.getActivity()).get(UserInfoViewModel.class);
 
 //        mBinding.buttonAddPeople.setVisibility(View.GONE);
-        mBinding.buttonAddPeople.setOnClickListener(button -> model.connectCreateRoom(mUser.getJwt(), mBinding.editChatName.getText().toString()));
+        mBinding.buttonAddPeople.setOnClickListener(button -> {
+            if (mBinding.editChatName.getText().toString().equals("")) {
+                mBinding.editChatName.setError("Cannot be Empty");
+                return;
+            }
+            model.connectCreateRoom(mUser.getJwt(), mBinding.editChatName.getText().toString(), mUser.getId());
+            navigateBack();
+        });
+        Log.e("ERROR", "jwt" + mUser.getJwt());
+    }
 
+    private void navigateBack() {
+        Navigation.findNavController(getView())
+                .navigate(NewRoomFragmentDirections.actionListContactsCreateToChatsFragment());
     }
 
 }
