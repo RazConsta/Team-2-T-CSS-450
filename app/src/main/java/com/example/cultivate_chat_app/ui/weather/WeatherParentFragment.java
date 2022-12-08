@@ -34,7 +34,6 @@ import org.json.JSONException;
 
 public class WeatherParentFragment extends Fragment {
    public FragmentWeatherParentBinding mBinding;
-   public int test = 0;
 
    //View Models
    public CurrentWeatherViewModel mCurrentWeatherViewModel;
@@ -70,12 +69,10 @@ public class WeatherParentFragment extends Fragment {
       //LatLng sydney = new LatLng(-34, 151);
       //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
       //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
    };
 
    public void onMapReady(GoogleMap googleMap) {
       mMap = googleMap;
-
       mLocationViewModel.addReponseObserver(getViewLifecycleOwner(), latLng -> {
 
          if(mLocationViewModel != null) {
@@ -89,11 +86,24 @@ public class WeatherParentFragment extends Fragment {
             }
             //Zoom levels are from 2.0f (zoomed out) to 21.f (zoomed in)
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12.0f));
-            test++;
 
          }
       });
       mMap.setOnMapClickListener(mMapClickListener);
+   }
+
+   private void setWeatherByLocation() {
+//      //get device location
+//      if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+//         mMap.setMyLocationEnabled(true);
+//         Location location = mMap.getMyLocation();
+//         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+//         mLocationViewModel.mResponse.setValue(latLng);
+//      } else {
+//         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+//         }
+//      }
    }
 
    @Override
@@ -116,7 +126,12 @@ public class WeatherParentFragment extends Fragment {
    @Override
    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
-
+      mBinding.zipCodeSubmitButton.setOnClickListener(v -> {
+         String zipCode = mBinding.zipCodeEditText.getText().toString();
+         if(zipCode.length() == 5) {
+            mLocationViewModel.connectPost(zipCode);
+         }
+      });
 
       //LocationViewModel Observer
       mLocationViewModel.addReponseObserver(getViewLifecycleOwner(), latLng -> {
@@ -182,5 +197,7 @@ public class WeatherParentFragment extends Fragment {
               (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
       //add this fragment as the OnMapReadyCallback -> See onMapReady()
       mapFragment.getMapAsync(this::onMapReady);
+
+
    }
 }
