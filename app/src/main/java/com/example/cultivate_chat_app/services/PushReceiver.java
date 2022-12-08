@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import org.json.JSONException;
 
 import com.example.cultivate_chat_app.AuthActivity;
+import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.ui.chats.ChatMessage;
 import me.pushy.sdk.Pushy;
@@ -90,8 +92,12 @@ public class PushReceiver extends BroadcastReceiver {
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
+
+
             // Build the notification and display it
             notificationManager.notify(1, builder.build());
+
+
         }
 
     }
