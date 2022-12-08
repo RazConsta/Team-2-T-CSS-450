@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
@@ -86,6 +85,11 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
             mManage.connectAcceptRequest(contact.getId());
             removeFromView(position);
         });
+        dialog.findViewById(R.id.button_decline).setOnClickListener(button -> {
+            dialog.dismiss();
+            mManage.connectRemoveFriend(contact.getId());
+            removeFromView(position);
+        });
         dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
         dialog.show();
     }
@@ -135,7 +139,7 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
         private final TextView fullName;
         private final ImageView messageButton;
         private final ImageView addButton;
-        private final CardView cardLayout;
+        //private final CardView cardLayout;
         private final View view;
 
         public ViewHolder(View itemView) {
@@ -144,7 +148,7 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
             fullName = itemView.findViewById(R.id.contact_card_addfriends_fullname);
             messageButton = itemView.findViewById(R.id.contact_card_addfriends_message_button);
             addButton = itemView.findViewById(R.id.contact_card_addfriends_add_button);
-            cardLayout = itemView.findViewById(R.id.contact_card_addfriends_root);
+           // cardLayout = itemView.findViewById(R.id.contact_card_addfriends_root);
             view = itemView.getRootView();
         }
     }

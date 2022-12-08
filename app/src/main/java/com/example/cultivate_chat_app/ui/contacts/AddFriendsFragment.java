@@ -70,10 +70,6 @@ public class AddFriendsFragment extends Fragment {
         searchResult.resetSearchResults();
         searchResult.connectSearch(mUser.getJwt(), mBinding.editSearchPeople.getText().toString());
         searchResult.addSearchListObserver(getViewLifecycleOwner(), this::setAdapterForSearch);
-        //TODO show something if there is no match result from pool
-//        if (mBinding.listSearchPeople.equals(null)){
-//            mBinding.editSearchPeople.setError("No results found");
-//        }
     }
 
     /**

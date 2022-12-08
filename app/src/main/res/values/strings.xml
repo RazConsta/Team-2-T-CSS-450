@@ -54,7 +54,8 @@
     <string name="button_add_friend_search">Search</string>
     <string name="button_ok">OK</string>
     <string name="button_cancel">Cancel</string>
-    <string name="title_add_people_to_chat">Add People to Chat</string>
+    <string name="button_decline">Decline</string>
+    <string name="title_add_people_to_chat">To: </string>
     <string name="hint_chat_name">Chat Name</string>
     <string name="button_create_chat">Create</string>
     <string name="title_full_name">Full name</string>
@@ -78,6 +79,7 @@
     <string name="new_nickname">New nickname</string>
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
+    <string name="retype_password">Retype password</string>
 
     <!-- Dropdown Menu -->
     <string name="dropdown_settings">Settings</string>
@@ -93,9 +95,9 @@
     <string name="title_login">Login</string>
     <string name="title_account">Account</string>
 
-    <!-- url chat and auth services -->>
+    <!-- urls-->>
     <string name="base_url">https://cultivate-app-web-service.herokuapp.com/</string>
-
+    <string name="room_url">https://cultivate-app-web-service.herokuapp.com/room/</string>
     <!-- weather -->
     <string name="current_weather_temp_text_view"> </string>
 
@@ -103,4 +105,5 @@
     <string name="about_us">Wow, this page is amazing. \nIt is also completely useless.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_location" />
 </resources>

@@ -36,25 +36,27 @@
 
     <TextView
         android:id="@+id/text_friend_requests"
-        android:layout_width="375dp"
-        android:layout_height="46dp"
+        android:layout_width="305dp"
+        android:layout_height="48dp"
         android:layout_marginTop="15dp"
         android:text="@string/title_request_received"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_friend_requests"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_search_people"
-        android:layout_width="375dp"
-        android:layout_height="46dp"
+        android:layout_width="303dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
         android:text="@string/title_search_people"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.305"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/image_search_people"
         app:layout_constraintTop_toBottomOf="@+id/list_friend_requests" />
 
     <EditText
@@ -82,5 +84,27 @@
         app:layout_constraintStart_toEndOf="@+id/edit_search_people"
         app:layout_constraintTop_toBottomOf="@+id/text_search_people"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageView
+        android:id="@+id/image_friend_requests"
+        android:layout_width="58dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/contact_addfriends_friend_request"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_search_people"
+        android:layout_width="58dp"
+        android:layout_height="49dp"
+        android:src="@drawable/contact_addfriends_search_people"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_friend_requests" /> />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

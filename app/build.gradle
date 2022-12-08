@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
+
 }
+apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 
 android {
     namespace 'com.example.cultivate_chat_app'
@@ -51,4 +53,9 @@ dependencies {
     implementation 'com.auth0:java-jwt:3.14.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+
+
+
 }

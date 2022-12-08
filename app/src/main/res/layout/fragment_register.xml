@@ -15,15 +15,15 @@
 
     <ImageView
         android:id="@+id/startup_image"
-        android:layout_width="match_parent"
-        android:layout_height="251dp"
+        android:layout_width="409dp"
+        android:layout_height="209dp"
         android:layout_marginBottom="450dp"
         android:scaleType="centerCrop"
         android:src="@drawable/logo_png"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.561"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintVertical_bias="0.222"
+        tools:layout_editor_absoluteX="2dp" />
 
     <EditText
         android:id="@+id/edit_retype_password"
@@ -41,34 +41,34 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_password"
         app:layout_constraintVertical_bias="0.815" />
 
+
     <EditText
         android:id="@+id/edit_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/hint_first"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
         android:inputType="textPersonName"
         android:minHeight="48dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startup_image"
-        app:layout_constraintVertical_bias="0.096" />
+        app:layout_constraintVertical_bias="0.069" />
 
-
-    <!--    <TextView-->
-<!--        android:id="@+id/textView3"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="16dp"-->
-<!--        android:text="@string/pw_req"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.497"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/edit_retype_password" />-->
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/pw_req"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_retype_password" />
 
     <EditText
         android:id="@+id/edit_password"
@@ -137,7 +137,9 @@
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_retype_password" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_retype_password"
+        app:layout_constraintVertical_bias="0.813" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

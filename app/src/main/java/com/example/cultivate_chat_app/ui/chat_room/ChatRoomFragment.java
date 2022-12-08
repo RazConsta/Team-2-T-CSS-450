@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cultivate_chat_app.MainActivity;
@@ -53,23 +54,25 @@ public class ChatRoomFragment extends Fragment {
                 MainActivity.getActivity()).get(UserInfoViewModel.class);
 
 
-//        model.resetRoom();
+        model.resetRoom();
         model.addRoomListObserver(getViewLifecycleOwner(), this::setAdapter);
-        model.connectRoom(user.getId(), user.getJwt(), 3);
+        model.connectRoom(user.getId(), user.getJwt());
 
         if (getThemeColor(getActivity()).equals("green")) {
             mBinding.floatingAddRoomButton.setBackgroundTintList(getResources().getColorStateList(R.color.green));
         } else {
             mBinding.floatingAddRoomButton.setBackgroundTintList(getResources().getColorStateList(R.color.yellow));
         }
+        mBinding.floatingAddRoomButton.setOnClickListener(button -> navigateToCreateNewRoom());
+    }
+
+    private void navigateToCreateNewRoom() {
+        Navigation.findNavController(getView())
+                .navigate(ChatRoomFragmentDirections.actionChatsFragmentToListContactsCreate());
     }
 
     private void setAdapter(List<Room> rooms) {
-
         List<Room> roomMap = new ArrayList<>();
-        Log.d("Chat", "Room passed in!!!");
-        Log.d("Chat", "Room passed in " + rooms.toString());
-
         for (Room room : rooms) {
             roomMap.add(room);
         }

@@ -43,11 +43,11 @@ public class ChatRoomViewModel extends AndroidViewModel {
 
     public void resetRoom() { mRoomList.setValue(new ArrayList<>());}
 
-    public void connectRoom(int roomId, String jwt, int roomcount) {
+    public void connectRoom(int roomId, String jwt) {
 
-        String url = getApplication().getResources().getString(R.string.base_url_service) +
-                "room/" + roomId + "/" + roomcount;
-
+        String url = getApplication().getResources().getString(R.string.base_url) +
+                "room/" + roomId;
+    Log.d("Error", "JWT: " + jwt);
         Request<JSONObject> request = new JsonObjectRequest(
                 Request.Method.GET,
                 url,
@@ -71,13 +71,20 @@ public class ChatRoomViewModel extends AndroidViewModel {
     }
 
     private void handleResult(final JSONObject result) {
-        Log.d("CHATROOM", result.toString());
         MutableLiveData<List<Room>> list = mRoomList;
+        List<Integer> roomID = new ArrayList<>();
         try {
             JSONObject response = result;
             if (response.has("rows")) {
                 JSONArray rows = response.getJSONArray("rows");
-                for (int i = 0; i< rows.length(); i++){
+                for (int room = 0; room < rows.length(); room++) {
+                    JSONObject roomJson = rows.getJSONObject(room);
+                    int chatid = roomJson.getInt("chatid");
+                    if (!roomID.contains(chatid)) {
+                        roomID.add(chatid);
+                    }
+                }
+                for (int i = 0; i< roomID.size(); i++){
                     JSONObject jsonRoom = rows.getJSONObject(i);
                     Room room = new Room(
                             jsonRoom.getString("name"),
@@ -85,8 +92,6 @@ public class ChatRoomViewModel extends AndroidViewModel {
                     if(!list.getValue().contains(room))
                         list.getValue().add(room);
                 }
-                Log.d("SUCCESS", "chats GET request successful");
-                Log.d("CHAT", list.toString());
             } else {
                 Log.e("ERROR", "No Room Exist In Server!");
             }

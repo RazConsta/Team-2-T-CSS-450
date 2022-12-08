@@ -109,7 +109,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
         private final TextView fullName;
         private final ImageView messageButton;
         private final ImageView removeButton;
-        private final CardView cardLayout;
+        //private final CardView cardLayout;
         private final View view;
 
         public ViewHolder(View itemView) {
@@ -118,7 +118,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             fullName = itemView.findViewById(R.id.contact_card_fullname);
             messageButton = itemView.findViewById(R.id.contact_card_message_button);
             removeButton = itemView.findViewById(R.id.contact_card_remove_button);
-            cardLayout = itemView.findViewById(R.id.contact_card_root);
+            //cardLayout = itemView.findViewById(R.id.contact_card_root);
             view = itemView.getRootView();
         }
     }

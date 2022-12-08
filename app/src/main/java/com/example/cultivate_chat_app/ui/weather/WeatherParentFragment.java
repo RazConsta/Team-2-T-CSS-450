@@ -13,6 +13,7 @@ import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentWeatherParentBinding;
 import com.example.cultivate_chat_app.ui.weather.CurrentWeather.CurrentWeatherFragment;
 import com.example.cultivate_chat_app.ui.weather.HourlyWeatherForecast.HourlyWeatherForecastFragment;
+import com.example.cultivate_chat_app.ui.weather.Location.LocationFragment;
 import com.example.cultivate_chat_app.ui.weather.WeeklyWeatherForecast.WeeklyWeatherForecastFragment;
 
 
@@ -43,6 +44,12 @@ public class WeatherParentFragment extends Fragment {
               .addToBackStack("hourlyWeatherForecast")
               .commit();
 
+      Fragment fragment=new LocationFragment();
+      fragmentManager.beginTransaction()
+              .replace(R.id.locationFrameLayout, fragment, null)
+              .setReorderingAllowed(true)
+              .addToBackStack("location")
+              .commit();
    }
    @Override
    public View onCreateView(LayoutInflater inflater, ViewGroup container,
