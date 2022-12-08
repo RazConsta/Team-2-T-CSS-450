@@ -42,7 +42,7 @@
         android:id="@+id/weatherFragment"
         android:name="com.example.cultivate_chat_app.ui.weather.WeatherParentFragment"
         android:label="Weather"
-        tools:layout="@layout/fragment_weather_parent" />
+        tools:layout="@layout/fragment_location" />
     <fragment
         android:id="@+id/emailVerificationFragment"
         android:name="com.example.cultivate_chat_app.ui.authorization.register.EmailVerificationFragment"
