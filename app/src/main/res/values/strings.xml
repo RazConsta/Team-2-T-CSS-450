@@ -95,9 +95,9 @@
     <string name="title_login">Login</string>
     <string name="title_account">Account</string>
 
-    <!-- url chat and auth services -->>
+    <!-- urls-->>
     <string name="base_url">https://cultivate-app-web-service.herokuapp.com/</string>
-
+    <string name="room_url">https://cultivate-app-web-service.herokuapp.com/room/</string>
     <!-- weather -->
     <string name="current_weather_temp_text_view"> </string>
 
