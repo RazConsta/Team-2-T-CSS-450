@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.authorization.signin.SignInFragment">
 
-    <View
-        android:id="@+id/colored_rectangle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_gradient"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="27dp" />
+<!--    <View-->
+<!--        android:id="@+id/colored_rectangle"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="@drawable/background_gradient"-->
+<!--        tools:layout_editor_absoluteX="67dp"-->
+<!--        tools:layout_editor_absoluteY="-46dp" />-->
 
     <ImageView
         android:id="@+id/startup_image"
@@ -47,6 +47,7 @@
         android:id="@+id/edit_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="124dp"
         android:ems="10"
         android:gravity="center"
         android:hint="Password"
@@ -82,39 +83,39 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_password"
-        app:layout_constraintVertical_bias="0.222" />
+        app:layout_constraintVertical_bias="0.566" />
 
     <TextView
         android:id="@+id/forgot_password"
-        android:layout_width="155dp"
+        android:layout_width="180dp"
         android:layout_height="42dp"
         android:text="@string/forgot_password"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/colored_rectangle"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/edit_password"
-        app:layout_constraintTop_toBottomOf="@+id/edit_password"
-        app:layout_constraintVertical_bias="0.75" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.952" />
 
     <CheckBox
         android:id="@+id/checkBox"
-        android:layout_width="166dp"
+        android:layout_width="wrap_content"
         android:layout_height="47dp"
-        android:buttonTint="@color/green"
+        android:buttonTint="#114D7E"
         android:checked="true"
         android:text="@string/remember_me"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/colored_rectangle"
-        app:layout_constraintEnd_toStartOf="@+id/edit_password"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_password"
-        app:layout_constraintVertical_bias="0.685"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.941"
         app:useMaterialThemeColors="false" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

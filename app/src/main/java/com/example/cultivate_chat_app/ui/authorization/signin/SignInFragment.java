@@ -74,12 +74,12 @@ public class SignInFragment extends Fragment {
       mBinding = FragmentSignInBinding.bind(requireView());
 
       if (getThemeColor(this.getActivity()).equals("green")) {
-         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.green));
+         // mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.green));
          mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.green));
          mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.green));
          mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.green));
       } else {
-         mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.bright));
+         // mBinding.coloredRectangle.setBackgroundColor(getResources().getColor(R.color.bright));
          mBinding.editEmail.setBackgroundTintList(getResources().getColorStateList(R.color.bright));
          mBinding.editPassword.setBackgroundTintList(getResources().getColorStateList(R.color.bright));
          mBinding.checkBox.setButtonTintList(getResources().getColorStateList(R.color.bright));
