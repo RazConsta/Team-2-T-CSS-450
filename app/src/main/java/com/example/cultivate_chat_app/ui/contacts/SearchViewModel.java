@@ -2,6 +2,7 @@ package com.example.cultivate_chat_app.ui.contacts;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cultivate_chat_app.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -124,6 +126,8 @@ public class SearchViewModel extends AndroidViewModel {
                 }
             } else {
                 Log.e("ERROR", "No Friends Provided");
+                Toast.makeText(MainActivity.getActivity(),
+                        "No users Provided!", Toast.LENGTH_SHORT).show();
             }
         } catch (JSONException e) {
             e.printStackTrace();

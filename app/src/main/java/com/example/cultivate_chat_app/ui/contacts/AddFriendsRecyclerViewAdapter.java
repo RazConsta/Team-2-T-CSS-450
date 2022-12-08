@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
@@ -84,11 +85,13 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
             dialog.dismiss();
             mManage.connectAcceptRequest(contact.getId());
             removeFromView(position);
+            Toast.makeText(MainActivity.getActivity(),"Accepted request successful!", Toast.LENGTH_SHORT).show();
         });
         dialog.findViewById(R.id.button_decline).setOnClickListener(button -> {
             dialog.dismiss();
             mManage.connectRemoveFriend(contact.getId());
             removeFromView(position);
+            Toast.makeText(MainActivity.getActivity(),"Declined request successful!", Toast.LENGTH_SHORT).show();
         });
         dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
         dialog.show();
@@ -109,6 +112,7 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
             dialog.dismiss();
             mManage.connectSendRequest(contact.getId());
             removeFromView(position);
+            Toast.makeText(MainActivity.getActivity(),"Sent request successful!", Toast.LENGTH_SHORT).show();
         });
         dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
         dialog.show();

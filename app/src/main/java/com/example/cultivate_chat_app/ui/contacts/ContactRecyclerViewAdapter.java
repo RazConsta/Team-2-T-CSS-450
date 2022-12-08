@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -80,6 +81,7 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
             dialog.dismiss();
             mManage.connectRemoveFriend(contact.getId());
             removeFromView(position);
+            Toast.makeText(MainActivity.getActivity(),"Removed friend successful!", Toast.LENGTH_SHORT).show();
         });
         dialog.findViewById(R.id.button_cancel).setOnClickListener(button -> dialog.dismiss());
         dialog.show();
