@@ -1,13 +1,20 @@
 package com.example.cultivate_chat_app.ui.weather;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -16,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentWeatherParentBinding;
@@ -31,6 +39,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
+
+import java.util.function.Consumer;
 
 public class WeatherParentFragment extends Fragment {
    public FragmentWeatherParentBinding mBinding;
@@ -75,7 +85,7 @@ public class WeatherParentFragment extends Fragment {
       mMap = googleMap;
       mLocationViewModel.addReponseObserver(getViewLifecycleOwner(), latLng -> {
 
-         if(mLocationViewModel != null) {
+         if (mLocationViewModel != null) {
             googleMap.getUiSettings().setZoomControlsEnabled(true);
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
@@ -126,9 +136,10 @@ public class WeatherParentFragment extends Fragment {
    @Override
    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
       super.onViewCreated(view, savedInstanceState);
+
       mBinding.zipCodeSubmitButton.setOnClickListener(v -> {
          String zipCode = mBinding.zipCodeEditText.getText().toString();
-         if(zipCode.length() == 5) {
+         if (zipCode.length() == 5) {
             mLocationViewModel.connectPost(zipCode);
          }
       });
@@ -198,6 +209,35 @@ public class WeatherParentFragment extends Fragment {
       //add this fragment as the OnMapReadyCallback -> See onMapReady()
       mapFragment.getMapAsync(this::onMapReady);
 
+      //use location manager to get location
+      LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+      Criteria criteria = new Criteria();
+      String bestProvider = locationManager.getBestProvider(criteria, false);
+      if (ActivityCompat.checkSelfPermission(getActivity(),
+              Manifest.permission.ACCESS_FINE_LOCATION) !=
+              PackageManager.PERMISSION_GRANTED &&
+              ActivityCompat.checkSelfPermission(getActivity(),
+                      Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                      PackageManager.PERMISSION_GRANTED) {
+
+         return;
+      }
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+         locationManager.getCurrentLocation(bestProvider, null, null, null);
+      }
+      Location location = locationManager.getLastKnownLocation(bestProvider);
+      if ( location != null) {
+         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+         mLocationViewModel.mResponse.setValue(latLng);
+      } else {
+         LatLng latLng = new LatLng(43, 56);
+
+         mLocationViewModel.mResponse.setValue(latLng);
+
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+         }
+      }
 
    }
 }
