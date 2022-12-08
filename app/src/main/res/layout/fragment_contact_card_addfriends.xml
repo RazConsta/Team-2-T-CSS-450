@@ -17,7 +17,7 @@
             android:id="@+id/image_contact_addfriends"
             android:layout_width="81dp"
             android:layout_height="99dp"
-            android:src="@mipmap/ic_profile_foreground"
+            android:src="@drawable/pepe"
             tools:ignore="MissingConstraints" />
 
         <TextView
