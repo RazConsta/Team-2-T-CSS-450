@@ -56,6 +56,7 @@ public class ContactsFragment extends Fragment {
         model.connectContacts(user.getId(),user.getJwt(), "current");
         model.addContactListObserver(getViewLifecycleOwner(), this::setAdapter);
 
+
         mBinding.fabAddContact.setOnClickListener(button -> navigateToAddNewFriends());
 
         if (getThemeColor(getActivity()).equals("green")) {

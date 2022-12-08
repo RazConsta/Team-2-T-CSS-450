@@ -44,7 +44,7 @@ public class CurrentWeatherFragment extends Fragment {
 
         //Obtain access to the ViewModel. If this fragment object is new, the ViewModel
         //will be re/created. Note the parameter to the ViewModelProvider constructor - this.
-        //mCurrentWeatherViewModel = new ViewModelProvider(getActivity()).get(CurrentWeatherViewModel.class);
+        mCurrentWeatherViewModel = new ViewModelProvider(getActivity()).get(CurrentWeatherViewModel.class);
         mCurrentWeatherViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
         {
             try {

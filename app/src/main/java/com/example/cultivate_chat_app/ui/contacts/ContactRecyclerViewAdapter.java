@@ -105,8 +105,8 @@ public class ContactRecyclerViewAdapter extends RecyclerView.Adapter<ContactRecy
      * of rows in the Contact Card Recycler View.
      */
     public static class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView nickname;
-        private final TextView fullName;
+        public final TextView nickname;
+        public final TextView fullName;
         private final ImageView messageButton;
         private final ImageView removeButton;
         //private final CardView cardLayout;
