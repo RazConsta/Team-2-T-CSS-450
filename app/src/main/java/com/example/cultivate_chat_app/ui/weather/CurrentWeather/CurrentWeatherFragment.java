@@ -1,5 +1,6 @@
 package com.example.cultivate_chat_app.ui.weather.CurrentWeather;
 
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.databinding.FragmentCurrentWeatherBinding;
+import com.example.cultivate_chat_app.ui.weather.Location.LocationViewModel;
 
 import org.json.JSONException;
 
@@ -22,12 +24,15 @@ public class CurrentWeatherFragment extends Fragment {
     private FragmentCurrentWeatherBinding mBinding;
     private CurrentWeatherViewModel mCurrentWeatherViewModel;
 
+    //add view model for location
+    private LocationViewModel mLocationViewModel;
+
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
-        mCurrentWeatherViewModel.connectGet();
     }
 
     @Override

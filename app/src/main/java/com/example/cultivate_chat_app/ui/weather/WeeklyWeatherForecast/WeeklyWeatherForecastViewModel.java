@@ -17,7 +17,9 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WeeklyWeatherForecastViewModel extends AndroidViewModel {
@@ -35,7 +37,7 @@ public class WeeklyWeatherForecastViewModel extends AndroidViewModel {
    }
 
    private void handleError(final VolleyError error) {
-      Log.e("CONNECTION ERROR",  "Get weekly weather failed"); //error.getLocalizedMessage());
+      Log.e("CONNECTION ERROR",  "Get weekly weather failed");
       throw new IllegalStateException();//error.getMessage());
    }
 
@@ -45,12 +47,20 @@ public class WeeklyWeatherForecastViewModel extends AndroidViewModel {
    }
 
    @RequiresApi(api = Build.VERSION_CODES.N)
-   public void connectGet() {
+   public void connectPost(LatLng latLng) {
       String url = "https://cultivate-app-web-service.herokuapp.com/5DayWeather";
+      JSONObject jsonBody = new JSONObject();
+      try {
+         jsonBody.put("latitude", latLng.latitude);
+         jsonBody.put("longitude", latLng.longitude);
+
+      } catch (JSONException e) {
+         e.printStackTrace();
+      }
       Request request = new JsonObjectRequest(
-              Request.Method.GET,
+              Request.Method.POST,
               url,
-              null,
+              jsonBody,
               this::handleResult,
               this::handleError);
       request.setRetryPolicy(new DefaultRetryPolicy(
@@ -58,8 +68,5 @@ public class WeeklyWeatherForecastViewModel extends AndroidViewModel {
               DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
               DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
       Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
-
    }
-
-
 }
