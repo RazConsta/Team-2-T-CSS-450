@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.databinding.FragmentCreateNewChatBinding;
@@ -24,7 +25,7 @@ public class NewRoomFragment extends Fragment {
     private FragmentCreateNewChatBinding mBinding;
     private LinearLayout mCreateRoomNameLinearView;
     private RelativeLayout mContactRelativeLayout;
-    private ListView mInvitedMemberListView;
+    private RecyclerView mInvitedMemberListView;
     private UserInfoViewModel mUser;
 
     @Override
@@ -41,7 +42,7 @@ public class NewRoomFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         mCreateRoomNameLinearView = mBinding.linearLayout;
         mContactRelativeLayout = mBinding.relativeLayout;
-        mInvitedMemberListView = mBinding.listView;
+        mInvitedMemberListView = mBinding.acceptedMember;
         mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
         NewRoomViewModel model = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
