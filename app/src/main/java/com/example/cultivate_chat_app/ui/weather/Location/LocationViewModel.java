@@ -1,53 +1,30 @@
 package com.example.cultivate_chat_app.ui.weather.Location;
 
+import android.app.Application;
+
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class LocationViewModel extends ViewModel {
+import com.google.android.gms.maps.model.LatLng;
 
-   private double mLatitude;
-   private double mLongitude;
+import org.json.JSONObject;
 
-   public LocationViewModel(double latitude, double longitude) {
-      mLatitude = latitude;
-      mLongitude = longitude;
+public class LocationViewModel extends AndroidViewModel {
+
+   public MutableLiveData<LatLng> mResponse;
+
+   public LocationViewModel(@NonNull Application application) {
+      super(application);
+      mResponse = new MutableLiveData<>();
    }
 
-   //make setters and getters for the lat and long
-   public double getLatitude() {
-      return mLatitude;
-   }
-
-   public double getLongitude() {
-      return mLongitude;
-   }
-
-   public void setLatitude(double latitude) {
-      mLatitude = latitude;
-   }
-
-   public void setLongitude(double longitude) {
-      mLongitude = longitude;
-   }
-
-   public static class LocationViewModelFactory implements ViewModelProvider.Factory {
-      private final double latitude;
-      private final double longitude;
-
-      public LocationViewModelFactory(double latitude, double longitude) {
-         this.latitude = latitude;
-         this.longitude = longitude;
-      }
-
-      @NonNull
-      @Override
-      public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-         if (modelClass == LocationViewModel.class) {
-            return (T) new LocationViewModel(latitude, longitude);
-         }
-         throw new IllegalArgumentException(
-                 "Argument must be: " + LocationViewModel.class);
-      }
+   public void addReponseObserver(@NonNull LifecycleOwner owner,
+                                  @NonNull Observer<? super LatLng> observer) {
+      mResponse.observe(owner, observer);
    }
 }

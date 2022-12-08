@@ -15,7 +15,9 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HourlyWeatherForecastViewModel extends AndroidViewModel {
@@ -41,12 +43,19 @@ public class HourlyWeatherForecastViewModel extends AndroidViewModel {
        System.out.println("HANDLE RESULT ACTIVATES, Hourly weather: " + mResponse.getValue());
    }
 
-   public void connectGet() {
+   public void connectPost(LatLng latLng) {
        String url = "https://cultivate-app-web-service.herokuapp.com/24HourWeather";
+       JSONObject body = new JSONObject();
+      try {
+         body.put("latitude", latLng.latitude);
+         body.put("longitude", latLng.longitude);
+      } catch (JSONException e) {
+         e.printStackTrace();
+      }
        Request request = new JsonObjectRequest(
-               Request.Method.GET,
+               Request.Method.POST,
                url,
-               null,
+               body,
                this::handleResult,
                this::handleError);
        request.setRetryPolicy(new DefaultRetryPolicy(

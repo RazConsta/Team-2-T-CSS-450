@@ -33,7 +33,6 @@ public class CurrentWeatherFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
-        mCurrentWeatherViewModel.connectGet(new Location("dummy"));
     }
 
     @Override

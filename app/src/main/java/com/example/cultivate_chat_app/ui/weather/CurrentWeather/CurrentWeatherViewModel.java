@@ -17,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,7 +28,7 @@ public class CurrentWeatherViewModel extends AndroidViewModel{
 
    public CurrentWeatherViewModel(@NonNull Application application) {
       super(application);
-      mResponse = new MutableLiveData<JSONObject>();
+      mResponse = new MutableLiveData<>();
    }
    public void addResponseObserver(@NonNull LifecycleOwner owner,
                                    @NonNull Observer<? super JSONObject> observer) {
@@ -42,13 +43,12 @@ public class CurrentWeatherViewModel extends AndroidViewModel{
    @RequiresApi(api = Build.VERSION_CODES.N)
    private void handleResult(final JSONObject result) {
       try {
-         String temperatureResult = result.getString("temperature");
-         int temperature = (int) Math.round(Double.parseDouble(temperatureResult));
+         String temperature = result.getString("temperature");
+
          JSONObject response = new JSONObject();
          response.put("temperature", temperature);
          response.put("conditions", result.getString("conditions"));
          mResponse.setValue(response);
-         System.out.println("HANDLE RESULT ACTIVATES, Current weather: " + mResponse.getValue());
       } catch (JSONException ex) {
          ex.printStackTrace();
          Log.e("ERROR!", ex.getMessage());
@@ -56,21 +56,32 @@ public class CurrentWeatherViewModel extends AndroidViewModel{
    }
 
    @RequiresApi(api = Build.VERSION_CODES.N)
-   public void connectGet(Location location) {
+   public void connectPost(LatLng latLng) {
       String url = "https://cultivate-app-web-service.herokuapp.com/currentWeather";
-      //String url = "htps://localhost:5000/currentWeather";
+      JsonObjectRequest request = null;
+      try {
+         JSONObject jsonBody = new JSONObject();
+         jsonBody.put("latitude", "" + latLng.latitude);
+         jsonBody.put("longitude", "" + latLng.longitude);
 
-      Request request = null;
-      request = new JsonObjectRequest(
-              Request.Method.GET,
-              url,
-              null,
-              this::handleResult,
-              this::handleError);
-      request.setRetryPolicy(new DefaultRetryPolicy(
-              10_000,
-              DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-              DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+         request = new JsonObjectRequest(
+                 Request.Method.POST,
+                 url,
+                 jsonBody,
+                 this::handleResult,
+                 this::handleError);
+
+      } catch (JSONException e) {
+         e.printStackTrace();
+      }
+      if (request != null) {
+         request.setRetryPolicy(new DefaultRetryPolicy(
+                 10_000,
+                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+      }
+
       Volley.newRequestQueue(getApplication().getApplicationContext()).add(request);
    }
+
 }
