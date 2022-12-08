@@ -105,8 +105,8 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 card.requestLayout();
             } else {
                 //This message is from another user. Format it as such
-                binding.textMessage.setText(message.getSender() +
-                        ": " + message.getMessage() + " \n" + message.getTimeStamp());
+                binding.textMessage.setText(message.getSender() + ":\n"
+                        + message.getMessage() + " \n" + message.getTimeStamp());
                 ViewGroup.MarginLayoutParams layoutParams =
                         (ViewGroup.MarginLayoutParams) card.getLayoutParams();
 
