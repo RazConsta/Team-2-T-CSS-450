@@ -16,9 +16,7 @@ import com.example.cultivate_chat_app.ui.weather.HourlyWeatherForecast.HourlyWea
 import com.example.cultivate_chat_app.ui.weather.Location.LocationFragment;
 import com.example.cultivate_chat_app.ui.weather.WeeklyWeatherForecast.WeeklyWeatherForecastFragment;
 
-
 public class WeatherParentFragment extends Fragment {
-
    public WeatherParentFragment mBinding;
 
    @Override

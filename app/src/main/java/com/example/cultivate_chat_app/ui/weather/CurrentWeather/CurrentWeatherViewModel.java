@@ -1,6 +1,7 @@
 package com.example.cultivate_chat_app.ui.weather.CurrentWeather;
 
 import android.app.Application;
+import android.location.Location;
 import android.os.Build;
 import android.util.Log;
 
@@ -52,13 +53,15 @@ public class CurrentWeatherViewModel extends AndroidViewModel{
          ex.printStackTrace();
          Log.e("ERROR!", ex.getMessage());
       }
-      //mCurrentWeather.setValue(mBlogList.getValue());
    }
 
    @RequiresApi(api = Build.VERSION_CODES.N)
-   public void connectGet() {
+   public void connectGet(Location location) {
       String url = "https://cultivate-app-web-service.herokuapp.com/currentWeather";
-      Request request = new JsonObjectRequest(
+      //String url = "htps://localhost:5000/currentWeather";
+
+      Request request = null;
+      request = new JsonObjectRequest(
               Request.Method.GET,
               url,
               null,

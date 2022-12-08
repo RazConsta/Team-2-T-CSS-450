@@ -1,35 +1,53 @@
 package com.example.cultivate_chat_app.ui.weather.Location;
 
-import android.location.Location;
-
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 public class LocationViewModel extends ViewModel {
 
-   private MutableLiveData<Location> mLocation;
+   private double mLatitude;
+   private double mLongitude;
 
-   public LocationViewModel() {
-      mLocation = new MediatorLiveData<>();
+   public LocationViewModel(double latitude, double longitude) {
+      mLatitude = latitude;
+      mLongitude = longitude;
    }
 
-   public void addLocationObserver(@NonNull LifecycleOwner owner,
-                                   @NonNull Observer<? super Location> observer) {
-      mLocation.observe(owner, observer);
+   //make setters and getters for the lat and long
+   public double getLatitude() {
+      return mLatitude;
    }
 
-   public void setLocation(final Location location) {
-      if (!location.equals(mLocation.getValue())) {
-         mLocation.setValue(location);
+   public double getLongitude() {
+      return mLongitude;
+   }
+
+   public void setLatitude(double latitude) {
+      mLatitude = latitude;
+   }
+
+   public void setLongitude(double longitude) {
+      mLongitude = longitude;
+   }
+
+   public static class LocationViewModelFactory implements ViewModelProvider.Factory {
+      private final double latitude;
+      private final double longitude;
+
+      public LocationViewModelFactory(double latitude, double longitude) {
+         this.latitude = latitude;
+         this.longitude = longitude;
+      }
+
+      @NonNull
+      @Override
+      public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+         if (modelClass == LocationViewModel.class) {
+            return (T) new LocationViewModel(latitude, longitude);
+         }
+         throw new IllegalArgumentException(
+                 "Argument must be: " + LocationViewModel.class);
       }
    }
-
-   public Location getCurrentLocation() {
-      return new Location(mLocation.getValue());
-   }
-
 }

@@ -4,6 +4,7 @@ import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -50,7 +51,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
-        mCurrentWeatherViewModel.connectGet();
+        //mCurrentWeatherViewModel.connectGet(new Location("dummy"));
     }
 
     @Override
