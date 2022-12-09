@@ -20,12 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.databinding.FragmentCreateNewChatBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
+import com.example.cultivate_chat_app.ui.contacts.AddFriendsRecyclerViewAdapter;
+import com.example.cultivate_chat_app.ui.contacts.Contact;
+import com.example.cultivate_chat_app.ui.contacts.ContactListViewModel;
+import com.example.cultivate_chat_app.ui.contacts.SearchViewModel;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class NewRoomFragment extends Fragment {
     private FragmentCreateNewChatBinding mBinding;
-    private LinearLayout mCreateRoomNameLinearView;
-    private RelativeLayout mContactRelativeLayout;
-    private RecyclerView mInvitedMemberListView;
+    private RecyclerView mSearchedRecyclerView;
     private UserInfoViewModel mUser;
 
     @Override
@@ -40,17 +45,15 @@ public class NewRoomFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mCreateRoomNameLinearView = mBinding.linearLayout;
-        mContactRelativeLayout = mBinding.relativeLayout;
-        mInvitedMemberListView = mBinding.acceptedMember;
+        mSearchedRecyclerView = mBinding.listContactsInChatRoom;
         mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
 
+        //this is for create chat room name
         NewRoomViewModel model = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
                 .get(NewRoomViewModel.class);
         UserInfoViewModel user = new ViewModelProvider((ViewModelStoreOwner)
                 MainActivity.getActivity()).get(UserInfoViewModel.class);
-
-//        mBinding.buttonAddPeople.setVisibility(View.GONE);
+        mBinding.buttonAddPeople.setEnabled(false);
         mBinding.buttonAddPeople.setOnClickListener(button -> {
             if (mBinding.editChatName.getText().toString().equals("")) {
                 mBinding.editChatName.setError("Cannot be Empty");
@@ -59,7 +62,24 @@ public class NewRoomFragment extends Fragment {
             model.connectCreateRoom(mUser.getJwt(), mBinding.editChatName.getText().toString(), mUser.getId());
             navigateBack();
         });
-        Log.e("ERROR", "jwt" + mUser.getJwt());
+
+        //this is for display the contact list
+        ContactListViewModel contactModel = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
+                .get(ContactListViewModel.class);
+        UserInfoViewModel userContact = new ViewModelProvider((ViewModelStoreOwner)
+                MainActivity.getActivity()).get(UserInfoViewModel.class);
+        contactModel.resetContacts();
+        contactModel.connectContacts(user.getId(),user.getJwt(), "current");
+        contactModel.addContactListObserver(getViewLifecycleOwner(), this::setAdapterForContact);
+
+    }
+
+    private void setAdapterForContact(List<Contact> contacts) {
+        HashMap<Integer, Contact> contactMap = new HashMap<>();
+        for (Contact contact : contacts) {
+            contactMap.put(contacts.indexOf(contact), contact);
+        }
+        mSearchedRecyclerView.setAdapter(new ContactNewRoomRecyclerViewAdapter(contactMap));
     }
 
     private void navigateBack() {

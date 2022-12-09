@@ -5,36 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="411dp"
-        android:layout_height="570dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <TextView
+        android:id="@+id/title_for_select"
+        android:layout_width="303dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="9dp"
+        android:text="@string/title_accepted_member"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints">
-
-        <android.widget.SearchView
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/contact_list"
-            android:layout_width="match_parent"
-            android:layout_height="519dp"
-            android:layout_below="@+id/search"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="0dp"
-            android:orientation="vertical"
-            tools:listitem="@layout/fragment_room_create_contact" />
-
-    </RelativeLayout>
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -61,19 +42,29 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/accepted_member"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginBottom="1dp"
-        android:orientation="horizontal"
+        android:id="@+id/list_contacts_in_chat_room"
+        android:name="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogFragment"
+        android:layout_width="403dp"
+        android:layout_height="463dp"
+        android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:ignore="MissingConstraints"
-        tools:listitem="@layout/fragment_chat_invited_member_card" />
+        tools:listitem="@layout/fragment_room_create_contact" />
+
+    <TextView
+        android:id="@+id/title_for_search_member"
+        android:layout_width="303dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/title_search_people"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/list_contacts_in_chat_room"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

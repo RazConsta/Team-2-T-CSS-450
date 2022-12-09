@@ -2,52 +2,54 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/contact_card_create_chat_root"
+    android:id="@+id/contact_card_in_room_create"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contact_card_create_chat_layout_inner"
-        android:layout_width="match_parent"
+        android:id="@+id/contact_card_in_room_layout_inner"
+        android:layout_width="364dp"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/image_contact_in_room"
+            android:layout_width="81dp"
+            android:layout_height="99dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/pepe"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="2dp" />
+
         <TextView
-            android:id="@+id/contact_card_create_chat_nickname"
-            android:layout_width="221dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="7dp"
+            android:id="@+id/contact_card_nickname_in_room"
+            android:layout_width="174dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
             android:text="@string/title_contact_name"
             android:textColor="#212121"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/image_contact_in_room"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.114"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/contact_card_create_chat_fullname"
-            android:layout_width="297dp"
-            android:layout_height="49dp"
-            android:layout_marginStart="7dp"
-            android:layout_marginTop="12dp"
+            android:id="@+id/contact_card_fullname_in_room"
+            android:layout_width="179dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
             android:text="@string/title_full_name"
             android:textSize="18sp"
             android:textStyle="italic"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/contact_card_create_chat_nickname"
+            app:layout_constraintStart_toEndOf="@+id/image_contact_in_room"
+            app:layout_constraintTop_toBottomOf="@+id/contact_card_nickname_in_room"
             tools:ignore="MissingConstraints" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="100dp"
-            android:layout_height="98dp"
-            android:src="@drawable/pepe"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

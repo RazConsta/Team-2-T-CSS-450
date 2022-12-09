@@ -48,8 +48,9 @@
     <string name="hint_new_password">New password</string>
 
     <!-- Contact -->
+    <string name="title_accepted_member">Selected contact(s):</string>
     <string name="hint_search_people">first/nickname</string>
-    <string name="title_search_people">Search People</string>
+    <string name="title_search_people">Contacts</string>
     <string name="title_request_received">Friend Requests</string>
     <string name="button_add_friend_search">Search</string>
     <string name="button_ok">OK</string>
