@@ -13,6 +13,7 @@ public class UserInfoViewModel extends ViewModel {
     private String mLast;
     private String mNick;
     private String mTheme;
+    private int incomingRequests;
 
     public UserInfoViewModel(String email, String jwt, String first, String last, String nick, int id) {
         mEmail = email;
@@ -21,6 +22,14 @@ public class UserInfoViewModel extends ViewModel {
         mLast = last;
         mNick = nick;
         mId = id;
+    }
+
+    public void setIncomingRequests(int incomingRequests) {
+        this.incomingRequests = incomingRequests;
+    }
+
+    public int getIncomingRequests() {
+        return this.incomingRequests;
     }
 
     public void setFirst(String mFirst) {

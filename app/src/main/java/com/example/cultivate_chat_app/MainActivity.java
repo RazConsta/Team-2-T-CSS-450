@@ -47,6 +47,7 @@ import com.example.cultivate_chat_app.ui.chats.ChatViewModel;
 import com.example.cultivate_chat_app.ui.contacts.Contact;
 import com.example.cultivate_chat_app.ui.contacts.ContactListViewModel;
 import com.example.cultivate_chat_app.ui.contacts.FriendStatus;
+import com.example.cultivate_chat_app.ui.home.HomeFragment;
 import com.example.cultivate_chat_app.ui.settings.NicknameDialog;
 import com.example.cultivate_chat_app.ui.settings.NicknameViewModel;
 import com.example.cultivate_chat_app.ui.settings.PasswordDialog;

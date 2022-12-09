@@ -42,6 +42,8 @@ public class AddFriendsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        mUser = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
+                .get(UserInfoViewModel.class);
         mReceivedRecyclerView = mBinding.listFriendRequests;
         mSearchedRecyclerView = mBinding.listSearchPeople;
 
@@ -94,5 +96,6 @@ public class AddFriendsFragment extends Fragment {
             contactMap.put(contacts.indexOf(contact), contact);
         }
         mReceivedRecyclerView.setAdapter(new AddFriendsRecyclerViewAdapter(contactMap));
+        mUser.setIncomingRequests(mReceivedRecyclerView.getAdapter().getItemCount());
     }
 }

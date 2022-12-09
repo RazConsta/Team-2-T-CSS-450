@@ -20,8 +20,10 @@ import android.view.ViewGroup;
 
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentHomeBinding;
+import com.example.cultivate_chat_app.ui.authorization.model.NewFriendRequestCountViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 import com.example.cultivate_chat_app.ui.weather.CurrentWeather.CurrentWeatherViewModel;
+import com.google.android.material.badge.BadgeDrawable;
 
 import org.json.JSONException;
 
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment {
     private UserInfoViewModel mUserModel;
     private HomeViewModel mHomeViewModel;
     private CurrentWeatherViewModel mCurrentWeatherViewModel;
+    private NewFriendRequestCountViewModel mNewFriendModel;
 
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -49,6 +52,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mNewFriendModel = new ViewModelProvider(this).get(NewFriendRequestCountViewModel.class);
         mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
         //mCurrentWeatherViewModel.connectGet(new Location("dummy"));
@@ -68,6 +72,12 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
+        if (mUserModel.getIncomingRequests() > 0) {
+            mBinding.roundedRectangle2.setVisibility(View.VISIBLE);
+            mBinding.newRequest.setText("Incoming friend requests: " + mUserModel.getIncomingRequests());
+        } else {
+            mBinding.roundedRectangle2.setVisibility(View.GONE);
+        }
         // JWT jwt = new JWT( mUserModel.getJwt());
 
         SharedPreferences prefs =
@@ -87,8 +97,10 @@ public class HomeFragment extends Fragment {
 
         if (getThemeColor(getActivity()).equals("green")) {
             mBinding.roundedRectangle.setBackgroundResource(R.drawable.green_rounded_rectangle);
+            mBinding.roundedRectangle2.setBackgroundResource(R.drawable.green_rounded_rectangle);
         } else {
             mBinding.roundedRectangle.setBackgroundResource(R.drawable.alternate_rounded_rectangle);
+            mBinding.roundedRectangle2.setBackgroundResource(R.drawable.alternate_rounded_rectangle);
         }
 
 
