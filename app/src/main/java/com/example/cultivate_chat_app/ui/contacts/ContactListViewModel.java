@@ -66,6 +66,15 @@ public class ContactListViewModel extends AndroidViewModel {
     }
 
     /**
+     * Add to pending requests list
+     * @param contact contact to be added
+     */
+    public void addToPendingList(Contact contact) {
+        mPendingList.getValue().add(contact);
+        mPendingList.setValue(mPendingList.getValue());
+    }
+
+    /**
      * reset contacts list
      */
     public void resetContacts(){

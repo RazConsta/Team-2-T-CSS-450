@@ -16,6 +16,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +36,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.cultivate_chat_app.databinding.ActivityMainBinding;
 //import com.example.cultivate_chat_app.services.PushReceiver;
 import com.example.cultivate_chat_app.services.PushReceiver;
+import com.example.cultivate_chat_app.ui.authorization.model.NewFriendRequestCountViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.NewMessageCountViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.PushyTokenViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
@@ -42,6 +44,9 @@ import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 //import com.example.cultivate_chat_app.ui.chats.ChatViewModel;
 import com.example.cultivate_chat_app.ui.chats.ChatMessage;
 import com.example.cultivate_chat_app.ui.chats.ChatViewModel;
+import com.example.cultivate_chat_app.ui.contacts.Contact;
+import com.example.cultivate_chat_app.ui.contacts.ContactListViewModel;
+import com.example.cultivate_chat_app.ui.contacts.FriendStatus;
 import com.example.cultivate_chat_app.ui.settings.NicknameDialog;
 import com.example.cultivate_chat_app.ui.settings.NicknameViewModel;
 import com.example.cultivate_chat_app.ui.settings.PasswordDialog;
@@ -56,9 +61,11 @@ public class MainActivity
 
     private MainPushMessageReceiver mPushMessageReceiver;
     private NewMessageCountViewModel mNewMessageModel;
+    private NewFriendRequestCountViewModel mNewFriendModel;
     private AppBarConfiguration mAppBarConfiguration;
     private NicknameViewModel nicknameViewModel;
     private PasswordViewModel passwordViewModel;
+    private ContactListViewModel mContactModel;
     private UserInfoViewModel mUser;
     @SuppressLint("StaticFieldLeak")
     private static Activity mMainActivity;
@@ -71,8 +78,10 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         mMainActivity = this;
         mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
+        mNewFriendModel = new ViewModelProvider(this).get(NewFriendRequestCountViewModel.class);
         nicknameViewModel = new ViewModelProvider(this).get(NicknameViewModel.class);
         passwordViewModel = new ViewModelProvider(this).get(PasswordViewModel.class);
+        mContactModel = new ViewModelProvider(this).get(ContactListViewModel.class);
         MainActivityArgs args = MainActivityArgs.fromBundle(getIntent().getExtras());
         mUser = new ViewModelProvider(this,
                 new UserInfoViewModel.UserInfoViewModelFactory(args.getEmail(), args.getJwt(),
@@ -92,7 +101,6 @@ public class MainActivity
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-        mNewMessageModel = new ViewModelProvider(this).get(NewMessageCountViewModel.class);
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) ->{
             if(destination.getId() == R.id.settingsFragment
@@ -120,6 +128,22 @@ public class MainActivity
             if (count > 0) {
                 //new messages! update and show the notification badge.
                 badge.setNumber(count);
+                badge.setVisible(true);
+            } else {
+                //user did some action to clear the new messages, remove the badge
+                badge.clearNumber();
+                badge.setVisible(false);
+            }
+        });
+
+        mNewFriendModel.addFriendRequestCountObserver(this, count -> {
+            BadgeDrawable badge = binding.navView.getOrCreateBadge(R.id.chatsFragment);
+            badge.setMaxCharacterCount(2);
+//            mContactModel.getOutgoingRequestList(mUserModel.getJwt());
+//            mContactModel.getIncomingRequestList(mUserModel.getJwt());
+            if (count > 0) {
+                //new messages! update and show the notification badge.
+                badge.setNumber(1);
                 badge.setVisible(true);
             } else {
                 //user did some action to clear the new messages, remove the badge
@@ -249,8 +273,27 @@ public class MainActivity
         private final ChatViewModel mModel =
                 new ViewModelProvider(MainActivity.this)
                         .get(ChatViewModel.class);
+        private final ContactListViewModel mContactListModel =
+                new ViewModelProvider(MainActivity.this)
+                        .get(ContactListViewModel.class);
+
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.d("PUSHY", "Type: " + intent.hasExtra("type"));
+            if (intent.hasExtra("type")) {
+                Log.d("PUSHY", "Type: " + intent.getStringExtra("type"));
+                switch (intent.getStringExtra("type")) {
+                    case "msg":
+                        processNewMessage(intent);
+                        break;
+                    case "friend_request":
+                        processNewFriendRequest(intent);
+                        break;
+                }
+            }
+        }
+
+        private void processNewMessage(Intent intent) {
             NavController nc =
                     Navigation.findNavController(
                             MainActivity.this, R.id.nav_host_fragment);
@@ -268,6 +311,20 @@ public class MainActivity
                 mModel.addMessage(intent.getIntExtra("chatid", -1), cm);
             }
         }
+
+        private void processNewFriendRequest(Intent intent) {
+
+            Log.d("FR", "New friend request: " + intent.getStringExtra("username"));
+
+            mContactListModel.addToPendingList(new Contact(
+                    "" + intent.getIntExtra("id", -1),
+                    intent.getStringExtra("username"),
+                    intent.getStringExtra("firstname"),
+                    intent.getStringExtra("lastname"),
+                    intent.getStringExtra("email"),
+                    FriendStatus.RECEIVED_REQUEST
+            ));
+        }
     }
 
     @Override
@@ -276,7 +333,7 @@ public class MainActivity
         if (mPushMessageReceiver == null) {
             mPushMessageReceiver = new MainPushMessageReceiver();
         }
-        IntentFilter iFilter = new IntentFilter(PushReceiver.RECEIVED_NEW_MESSAGE);
+        IntentFilter iFilter = new IntentFilter(PushReceiver.RECEIVED_PUSHY_MESSAGE);
         registerReceiver(mPushMessageReceiver, iFilter);
     }
     @Override
