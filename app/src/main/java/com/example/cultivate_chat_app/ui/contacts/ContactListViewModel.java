@@ -16,6 +16,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.cultivate_chat_app.R;
+import com.example.cultivate_chat_app.io.RequestQueueSingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -107,6 +108,70 @@ public class ContactListViewModel extends AndroidViewModel {
         mPendingList.setValue(new ArrayList<>());
     }
 
+    public void connectDeleteForSelectMember(String nickname) {
+        String url = getApplication().getResources().getString(R.string.chosen_delete_url) + nickname;
+        Request request = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null,
+                this::handleResultDeleteSelect,
+                this::handleErrorDeleteSelect
+        );
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    private void handleErrorDeleteSelect(VolleyError volleyError) {
+        Log.e("DELETEMEMBER", volleyError.getLocalizedMessage());
+    }
+
+    private void handleResultDeleteSelect(JSONObject jsonObject) {
+        JSONObject response = jsonObject;
+        if (response.has("success")) {
+            Log.d("DELETEMEMBER", "Delete member success");
+        }
+    }
+
+    public void connectPostRequestForSelectMember(int memberid, String firstname) {
+        String url = getApplication().getResources().getString(R.string.chosen_get_url) + memberid + "/";
+        JSONObject body = new JSONObject();
+        try {
+            body.put("firstname", firstname);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                body,
+                this::handleResultSelect,
+                this::handleErrorSelect
+        );
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
+
+    private void handleErrorSelect(VolleyError volleyError) {
+        Log.e("SELECTMEMBER", volleyError.getLocalizedMessage());
+    }
+
+    private void handleResultSelect(JSONObject result) {
+        JSONObject response = result;
+        if (response.has("success")) {
+            Log.d("SELECTMEMBER", "Select member success");
+        }
+    }
+
     public void connectGetRequest(int random) {
         String url = getApplication().getResources().getString(R.string.chosen_get_url) + random;
 
@@ -140,8 +205,8 @@ public class ContactListViewModel extends AndroidViewModel {
                     JSONObject chosenJson = rows.getJSONObject(mem);
                     Contact chosen = new Contact(
                             chosenJson.getString("memberid"),
-                            null,
                             chosenJson.getString("firstname"),
+                            null,
                             null,
                             null,
                             null);

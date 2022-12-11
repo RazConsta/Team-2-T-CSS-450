@@ -100,6 +100,7 @@
     <string name="base_url">https://cultivate-app-web-service.herokuapp.com/</string>
     <string name="room_url">https://cultivate-app-web-service.herokuapp.com/room/</string>
     <string name="chosen_get_url">https://cultivate-app-web-service.herokuapp.com/group/</string>
+    <string name="chosen_delete_url">https://cultivate-app-web-service.herokuapp.com/group/delete/</string>
     <!-- weather -->
     <string name="current_weather_temp_text_view"> </string>
 

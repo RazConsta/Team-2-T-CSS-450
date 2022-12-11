@@ -54,6 +54,7 @@ public class NewRoomFragment extends Fragment {
         mChosenRecyclerView = mBinding.chosenMember;
 
         mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
+
         //this is for create chat room name
         NewRoomViewModel model = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
                 .get(NewRoomViewModel.class);

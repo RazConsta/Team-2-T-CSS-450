@@ -9,16 +9,21 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.cultivate_chat_app.MainActivity;
 import com.example.cultivate_chat_app.R;
 
 import com.example.cultivate_chat_app.ui.contacts.Contact;
+import com.example.cultivate_chat_app.ui.contacts.ContactListViewModel;
 
 import java.util.HashMap;
 
 public class ContactNewRoomRecyclerViewAdapter extends  RecyclerView.Adapter<ContactNewRoomRecyclerViewAdapter.ViewHolder> {
     private final HashMap<Integer,Contact> mContacts;
+    private int memberID;
 
     public ContactNewRoomRecyclerViewAdapter(HashMap<Integer, Contact> mContacts) {
         this.mContacts = mContacts;
@@ -41,10 +46,14 @@ public class ContactNewRoomRecyclerViewAdapter extends  RecyclerView.Adapter<Con
         holder.memberid.setText(contact.getId());
         holder.memberid.setVisibility(View.GONE);
         holder.view.getContext();
-//        holder.view.setOnClickListener(item -> {
-//            this.memberID = Integer.parseInt(holder.memberid.getText().toString());
-//            Log.e("error", "id:" + this.memberID);
-//        });
+        ContactListViewModel selectModel = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
+                .get(ContactListViewModel.class);
+
+        holder.view.setOnClickListener(item -> {
+            selectModel.connectPostRequestForSelectMember(
+                    Integer.parseInt(holder.memberid.getText().toString()), holder.nickname.getText().toString()
+            );
+        });
 
     }
 
