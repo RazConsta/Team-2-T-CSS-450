@@ -6,4 +6,3 @@ Group members:
 * Raz Consta
 * Qinyu Tao
 * Tien Dao
-* David Chan
