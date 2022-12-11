@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.cultivate_chat_app.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +33,7 @@ import java.util.Map;
 public class ContactListViewModel extends AndroidViewModel {
     private final MutableLiveData<List<Contact>> mContactList;
     private final MutableLiveData<List<Contact>> mPendingList;
+    private final MutableLiveData<List<Contact>> mChosenList;
 
     /**
      * Constructor
@@ -43,6 +45,16 @@ public class ContactListViewModel extends AndroidViewModel {
         mContactList.setValue(new ArrayList<>());
         mPendingList = new MutableLiveData<>();
         mPendingList.setValue(new ArrayList<>());
+        mChosenList = new MutableLiveData<>();
+        mChosenList.setValue(new ArrayList<>());
+    }
+
+    public MutableLiveData<List<Contact>> getContactList() {
+        return this.mContactList;
+    }
+
+    public MutableLiveData<List<Contact>> getChosenList() {
+        return this.mChosenList;
     }
 
     /**
@@ -53,6 +65,11 @@ public class ContactListViewModel extends AndroidViewModel {
     public void addContactListObserver(@NonNull LifecycleOwner owner,
                                        @Nullable Observer<?super List<Contact>> observer){
         mContactList.observe(owner,observer);
+    }
+
+    public void addChosenListObeserver(@NonNull LifecycleOwner owner,
+                                       @Nullable Observer<?super List<Contact>> observer) {
+        mChosenList.observe(owner, observer);
     }
 
     /**
@@ -81,11 +98,63 @@ public class ContactListViewModel extends AndroidViewModel {
         mContactList.setValue(new ArrayList<>());
     }
 
+    public void resetChosens() { mChosenList.setValue(new ArrayList<>());}
+
     /**
      * reset requests list
      */
     public void resetRequests() {
         mPendingList.setValue(new ArrayList<>());
+    }
+
+    public void connectGetRequest(int random) {
+        String url = getApplication().getResources().getString(R.string.chosen_get_url) + random;
+
+        Request<JSONObject> request = new JsonObjectRequest(
+                Request.Method.GET,
+                url,
+                null,
+                this::handleResultChosen,
+                this::handleErrorChosen);
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        Volley.newRequestQueue(getApplication().getApplicationContext())
+                .add(request);
+    }
+
+    private void handleErrorChosen(VolleyError volleyError) {
+        Log.e("Chosen List", volleyError.getMessage());
+    }
+
+    private void handleResultChosen(JSONObject result) {
+        Log.d("GetChosenList", "Success Get Request");
+        MutableLiveData<List<Contact>> list = mChosenList;
+        try {
+            JSONObject response = result;
+            if (response.has("rows")) {
+                JSONArray rows = response.getJSONArray("rows");
+                for (int mem = 0; mem < rows.length(); mem++) {
+                    JSONObject chosenJson = rows.getJSONObject(mem);
+                    Contact chosen = new Contact(
+                            chosenJson.getString("memberid"),
+                            null,
+                            chosenJson.getString("firstname"),
+                            null,
+                            null,
+                            null);
+                    list.getValue().add(chosen);
+                }
+            } else {
+                Log.e("ERROR", "No Chosen Member Exist In Server");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.e("Chosen-HandleResult", e.getMessage());
+        }
+        list.setValue(list.getValue());
     }
 
     /**

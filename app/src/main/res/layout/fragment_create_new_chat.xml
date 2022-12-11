@@ -38,14 +38,15 @@
             android:id="@+id/button_add_people"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_create_chat" />
+            android:text="@string/button_create_chat"
+            android:textColor="#311B92" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_contacts_in_chat_room"
         android:name="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogFragment"
-        android:layout_width="403dp"
-        android:layout_height="463dp"
+        android:layout_width="407dp"
+        android:layout_height="418dp"
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,9 +63,21 @@
         android:layout_marginBottom="8dp"
         android:text="@string/title_search_people"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/list_contacts_in_chat_room"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chosen_member" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chosen_member"
+        android:layout_width="392dp"
+        android:layout_height="84dp"
+        android:orientation="horizontal"
+        app:layoutManager="LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_for_select"
+        tools:listitem="@layout/fragment_chosen_member_card" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

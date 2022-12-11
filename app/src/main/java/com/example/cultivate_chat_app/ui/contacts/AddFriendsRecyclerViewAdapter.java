@@ -42,7 +42,7 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.fragment_contact_card_addfriends,parent,false);
+        View view = inflater.inflate(R.layout.fragment_contact_card,parent,false);
         mManage = new ViewModelProvider(
                 (ViewModelStoreOwner) MainActivity.getActivity()).get(ManagerFriendViewModel.class);
 
@@ -147,10 +147,10 @@ public class AddFriendsRecyclerViewAdapter extends RecyclerView.Adapter<AddFrien
 
         public ViewHolder(View itemView) {
             super(itemView);
-            nickname = itemView.findViewById(R.id.contact_card_addfriends_nickname);
-            fullName = itemView.findViewById(R.id.contact_card_addfriends_fullname);
-            messageButton = itemView.findViewById(R.id.contact_card_addfriends_message_button);
-            addButton = itemView.findViewById(R.id.contact_card_addfriends_add_button);
+            nickname = itemView.findViewById(R.id.contact_card_nickname);
+            fullName = itemView.findViewById(R.id.contact_card_fullname);
+            messageButton = itemView.findViewById(R.id.contact_card_message_button);
+            addButton = itemView.findViewById(R.id.contact_card_remove_button);
             view = itemView.getRootView();
         }
     }

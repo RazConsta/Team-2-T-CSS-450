@@ -74,12 +74,12 @@ public class Contact implements Serializable {
         return mStatus;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this.getClass() != o.getClass()){
-            return false;
-        }
-        Contact other = (Contact) o;
-        return this.mEmail.equals(other.getEmail());
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this.getClass() != o.getClass()){
+//            return false;
+//        }
+//        Contact other = (Contact) o;
+//        return this.mEmail.equals(other.getEmail());
+//    }
 }

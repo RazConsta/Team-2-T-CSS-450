@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contact_chosen_card"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_inner_small_contact"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/small_contact_img"
+            android:layout_width="71dp"
+            android:layout_height="91dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/pepe"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="2dp" />
+
+        <TextView
+            android:id="@+id/small_contact_nickname"
+            android:layout_width="76dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:text="@string/title_contact_name"
+            android:textColor="#212121"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/small_contact_img"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/delete_chosen_contact"
+            android:layout_width="22dp"
+            android:layout_height="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/small_contact_nickname"
+            app:layout_constraintTop_toTopOf="@+id/small_contact_img"
+            app:srcCompat="@drawable/ic_chat_close_24" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
