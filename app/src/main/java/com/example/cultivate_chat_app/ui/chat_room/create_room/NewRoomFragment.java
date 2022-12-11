@@ -58,15 +58,17 @@ public class NewRoomFragment extends Fragment {
         //this is for create chat room name
         NewRoomViewModel model = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
                 .get(NewRoomViewModel.class);
-        mBinding.buttonAddPeople.setEnabled(false);
+
+//        mBinding.buttonAddPeople.setEnabled(true);
         mBinding.buttonAddPeople.setOnClickListener(button -> {
             if (mBinding.editChatName.getText().toString().equals("")) {
-                mBinding.editChatName.setError("Cannot be Empty");
+                mBinding.editChatName.setError("Cannot be Empty and must select member to a chat");
                 return;
             }
             model.connectCreateRoom(mUser.getJwt(), mBinding.editChatName.getText().toString(), mUser.getId());
             navigateBack();
         });
+
 
         //this is for display the contact list
         ContactListViewModel contactModel = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
@@ -82,7 +84,6 @@ public class NewRoomFragment extends Fragment {
         chosenModel.resetChosens();
         chosenModel.connectGetRequest(-1);
         chosenModel.addChosenListObeserver(getViewLifecycleOwner(), this::setAdapterForChosen);
-
     }
 
     private void setAdapterForContact(List<Contact> contacts) {
