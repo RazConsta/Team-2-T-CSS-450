@@ -75,6 +75,8 @@ public class ChatRoomViewModel extends AndroidViewModel {
         List<Integer> roomID = new ArrayList<>();
         try {
             JSONObject response = result;
+            List<Integer> helper = new ArrayList<>();
+            helper.add(0);
             if (response.has("rows")) {
                 JSONArray rows = response.getJSONArray("rows");
                 for (int room = 0; room < rows.length(); room++) {
@@ -89,8 +91,10 @@ public class ChatRoomViewModel extends AndroidViewModel {
                     Room room = new Room(
                             jsonRoom.getString("name"),
                             jsonRoom.getString("message"));
-                    if(!list.getValue().contains(room))
+                    if(!helper.contains(jsonRoom.getInt("chatid"))) {
                         list.getValue().add(room);
+                        helper.add(jsonRoom.getInt("chatid"));
+                    }
                 }
             } else {
                 Log.e("ERROR", "No Room Exist In Server!");

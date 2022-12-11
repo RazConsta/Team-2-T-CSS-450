@@ -201,6 +201,8 @@ public class ContactListViewModel extends AndroidViewModel {
             JSONObject response = result;
             if (response.has("rows")) {
                 JSONArray rows = response.getJSONArray("rows");
+                List<Integer> helper = new ArrayList<>();
+                helper.add(0);
                 for (int mem = 0; mem < rows.length(); mem++) {
                     JSONObject chosenJson = rows.getJSONObject(mem);
                     Contact chosen = new Contact(
@@ -210,7 +212,11 @@ public class ContactListViewModel extends AndroidViewModel {
                             null,
                             null,
                             null);
-                    list.getValue().add(chosen);
+
+                    if(!helper.contains(Integer.parseInt(chosen.getId()))) {
+                        list.getValue().add(chosen);
+                        helper.add(Integer.parseInt(chosen.getId()));
+                    }
                 }
             } else {
                 Log.e("ERROR", "No Chosen Member Exist In Server");
