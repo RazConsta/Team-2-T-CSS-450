@@ -29,8 +29,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class NewRoomFragment extends Fragment {
+
     private FragmentCreateNewChatBinding mBinding;
-    private RecyclerView mSearchedRecyclerView, mChosenRecyclerView;
+    private RecyclerView mSearchedRecyclerView;
+    private RecyclerView mChosenRecyclerView;
     private UserInfoViewModel mUser;
 
     @Override
@@ -45,16 +47,16 @@ public class NewRoomFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        mUser = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity()).get(UserInfoViewModel.class);
         mSearchedRecyclerView = mBinding.listContactsInChatRoom;
         mChosenRecyclerView = mBinding.chosenMember;
 
         mUser = new ViewModelProvider(getActivity()).get(UserInfoViewModel.class);
-
         //this is for create chat room name
         NewRoomViewModel model = new ViewModelProvider((ViewModelStoreOwner) MainActivity.getActivity())
                 .get(NewRoomViewModel.class);
-        UserInfoViewModel user = new ViewModelProvider((ViewModelStoreOwner)
-                MainActivity.getActivity()).get(UserInfoViewModel.class);
         mBinding.buttonAddPeople.setEnabled(false);
         mBinding.buttonAddPeople.setOnClickListener(button -> {
             if (mBinding.editChatName.getText().toString().equals("")) {
@@ -70,7 +72,7 @@ public class NewRoomFragment extends Fragment {
                 .get(ContactListViewModel.class);
 
         contactModel.resetContacts();
-        contactModel.connectContacts(user.getId(),user.getJwt(), "current");
+        contactModel.connectContacts(mUser.getId(),mUser.getJwt(), "current");
         contactModel.addContactListObserver(getViewLifecycleOwner(), this::setAdapterForContact);
 
         //this is for display the chosen member list
@@ -95,7 +97,7 @@ public class NewRoomFragment extends Fragment {
         for (Contact contact : contacts) {
             contactMap.put(contacts.indexOf(contact), contact);
         }
-        mSearchedRecyclerView.setAdapter(new ChosenMemberAdapter(contactMap));
+        mChosenRecyclerView.setAdapter(new ChosenMemberAdapter(contactMap));
     }
 
     private void navigateBack() {
