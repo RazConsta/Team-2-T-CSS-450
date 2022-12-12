@@ -44,6 +44,9 @@ public class NewRoomViewModel extends AndroidViewModel {
         mChat.observe(owner, observer);
     }
 
+    private void handleError(VolleyError volleyError) {
+        Log.e("Error", volleyError.getLocalizedMessage());
+    }
     /**
      * send a post request to create a chat room
      * @param jwt encrypt header
@@ -71,7 +74,6 @@ public class NewRoomViewModel extends AndroidViewModel {
                 return headers;
             }
         };
-
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -81,25 +83,42 @@ public class NewRoomViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
-    private void handleError(VolleyError volleyError) {
-        Log.e("CHATID", volleyError.getLocalizedMessage());
-    }
-
-    private void setValue(JSONObject result) {
-        try {
-            JSONObject response = result;
-            if (response.has("success")) {
-                mChat.getValue().setmRoomId(response.getInt("chatid"));
-                Log.d("CHATID", "Success create a chat room!");
-            } else {
-                Log.e("CHATID", "No chat id found!");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Log.e("ERROR",e.getMessage());
+    private void setValue(JSONObject result){
+        JSONObject response = result;
+        if (response.has("message")) {
+            Log.d("CHATID", "Success create a chat room!");
+        } else {
+            Log.e("CHATID", "No chat id found!");
         }
-        mChat.setValue(mChat.getValue());
     }
 
+    public void connectUpdateSelectMember(String jwt) {
+        //https://cultivate-app-web-service.herokuapp.com/room/update
+        String url = getApplication().getResources().getString(R.string.room_url_update);
+        Request request = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                null,
+                this::handleResult,
+                this::handleError){
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", jwt);
+                return headers;
+            }};
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                10_000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        //Instantiate the RequestQueue and add the request to the queue
+        RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
+                .addToRequestQueue(request);
+    }
 
+    private void handleResult(JSONObject jsonObject) {
+        if (jsonObject.has("message")) {
+            Log.d("SUCCESS", "Success create a chat room!");
+        }
+    }
 }

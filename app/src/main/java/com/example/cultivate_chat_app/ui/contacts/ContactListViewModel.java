@@ -114,7 +114,7 @@ public class ContactListViewModel extends AndroidViewModel {
                 Request.Method.DELETE,
                 url,
                 null,
-                this::handleResultDeleteSelect,
+                this::handleResult,
                 this::handleErrorDeleteSelect
         );
         request.setRetryPolicy(new DefaultRetryPolicy(
@@ -130,7 +130,7 @@ public class ContactListViewModel extends AndroidViewModel {
         Log.e("DELETEMEMBER", volleyError.getLocalizedMessage());
     }
 
-    private void handleResultDeleteSelect(JSONObject jsonObject) {
+    private void handleResult(JSONObject jsonObject) {
         JSONObject response = jsonObject;
         if (response.has("success")) {
             Log.d("DELETEMEMBER", "Delete member success");
