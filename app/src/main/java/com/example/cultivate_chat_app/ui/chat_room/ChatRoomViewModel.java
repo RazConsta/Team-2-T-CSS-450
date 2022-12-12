@@ -75,18 +75,12 @@ public class ChatRoomViewModel extends AndroidViewModel {
         List<Integer> roomID = new ArrayList<>();
         try {
             JSONObject response = result;
+            Log.e("ERR", response.toString());
             List<Integer> helper = new ArrayList<>();
             helper.add(0);
             if (response.has("rows")) {
                 JSONArray rows = response.getJSONArray("rows");
-                for (int room = 0; room < rows.length(); room++) {
-                    JSONObject roomJson = rows.getJSONObject(room);
-                    int chatid = roomJson.getInt("chatid");
-                    if (!roomID.contains(chatid)) {
-                        roomID.add(chatid);
-                    }
-                }
-                for (int i = 0; i< roomID.size(); i++){
+                for (int i = 0; i < rows.length(); i++) {
                     JSONObject jsonRoom = rows.getJSONObject(i);
                     Room room = new Room(
                             jsonRoom.getString("name"),
