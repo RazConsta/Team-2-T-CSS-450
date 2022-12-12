@@ -2,15 +2,20 @@ package com.example.cultivate_chat_app.ui.home;
 
 import static com.example.cultivate_chat_app.utils.ThemeManager.getThemeColor;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,6 +28,7 @@ import com.example.cultivate_chat_app.databinding.FragmentHomeBinding;
 import com.example.cultivate_chat_app.ui.authorization.model.NewFriendRequestCountViewModel;
 import com.example.cultivate_chat_app.ui.authorization.model.UserInfoViewModel;
 import com.example.cultivate_chat_app.ui.weather.CurrentWeather.CurrentWeatherViewModel;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.badge.BadgeDrawable;
 
 import org.json.JSONException;
@@ -55,7 +61,7 @@ public class HomeFragment extends Fragment {
         mNewFriendModel = new ViewModelProvider(this).get(NewFriendRequestCountViewModel.class);
         mHomeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         mCurrentWeatherViewModel = new ViewModelProvider(this).get(CurrentWeatherViewModel.class);
-        //mCurrentWeatherViewModel.connectGet(new Location("dummy"));
+        setLocationByDeviceLocation();
     }
 
     @Override
@@ -115,5 +121,25 @@ public class HomeFragment extends Fragment {
                 e.printStackTrace();
             }
         });
+    }
+
+
+    public void setLocationByDeviceLocation() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        mCurrentWeatherViewModel.connectPost(latLng);
+                    }
+                }
+            });
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        }
     }
 }
