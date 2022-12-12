@@ -258,6 +258,8 @@ public class WeatherParentFragment extends Fragment {
          return R.drawable.clouds;
       } else if (conditions.equals("rain")) {
          return R.drawable.rain;
+      } else if (conditions.equals("clear")) {
+         return R.drawable.clear;
       }
       return R.drawable.clouds;
    }

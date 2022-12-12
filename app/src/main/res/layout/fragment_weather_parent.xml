@@ -311,6 +311,8 @@
         app:layout_constraintTop_toBottomOf="@+id/hourlyWeatherFrameLayout" >
 
 
+
+
         <TextView
             android:id="@+id/day1WeatherTextView"
             android:layout_width="0dp"
