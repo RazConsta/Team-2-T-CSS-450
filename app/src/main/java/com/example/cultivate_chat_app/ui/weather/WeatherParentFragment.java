@@ -3,6 +3,10 @@ package com.example.cultivate_chat_app.ui.weather;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Icon;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -21,6 +25,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.cultivate_chat_app.R;
 import com.example.cultivate_chat_app.databinding.FragmentWeatherParentBinding;
 import com.example.cultivate_chat_app.ui.weather.CurrentWeather.CurrentWeatherViewModel;
@@ -35,6 +43,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Blob;
 
 public class WeatherParentFragment extends Fragment {
    public FragmentWeatherParentBinding mBinding;
@@ -47,7 +63,6 @@ public class WeatherParentFragment extends Fragment {
 
    private GoogleMap mMap;
    public int locationByDevice = 0;
-
    private GoogleMap.OnMapClickListener mMapClickListener = new GoogleMap.OnMapClickListener() {
       @Override
       public void onMapClick(LatLng latLng) {
@@ -132,8 +147,8 @@ public class WeatherParentFragment extends Fragment {
             mCurrentWeatherViewModel.connectPost(latLng);
             mHourlyWeatherForecastViewModel.connectPost(latLng);
             mWeeklyWeatherForecastViewModel.connectPost(latLng);
-            mBinding.currentWeatherLocationTextView
-                    .setText("Lat:" + latLng.latitude + " Long:" + latLng.longitude);
+//            mBinding.currentWeatherLocationTextView
+//                    .setText("Lat:" + latLng.latitude + " Long:" + latLng.longitude);
          }
 //         mHourlyWeatherForecastViewModel.updateHourlyWeatherForecast(latLng);
 //         mWeeklyWeatherForecastViewModel.updateWeeklyWeatherForecast(latLng);
@@ -144,9 +159,18 @@ public class WeatherParentFragment extends Fragment {
          try {
             mBinding.currentTemperatureTextView
                     .setText(weather.getString("temperature") + "°F");
-            mBinding.currentWeatherConditionsTextView
-                    .setText(weather.getString("conditions"));
+
+            URL url = new URL("http://openweathermap.org/img/wn/10d@2x.png");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+               mBinding.currentWeatherConditionsImageView.setImageResource(R.drawable.clouds);
+
+            }
+
          } catch (JSONException e) {
+            e.printStackTrace();
+         } catch (MalformedURLException e) {
+            e.printStackTrace();
+         } catch (IOException e) {
             e.printStackTrace();
          }
       });
@@ -191,8 +215,6 @@ public class WeatherParentFragment extends Fragment {
       //add this fragment as the OnMapReadyCallback -> See onMapReady()
       mapFragment.getMapAsync(this::onMapReady);
 
-     // LatLng latLng = new LatLng(47.2454, -122.4385);
-      //mLocationViewModel.mResponse.setValue(latLng);
 
    }
 
@@ -215,4 +237,5 @@ public class WeatherParentFragment extends Fragment {
          }
       }
    }
+
 }
