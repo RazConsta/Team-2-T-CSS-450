@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/title_for_select"
-        android:layout_width="303dp"
+        android:layout_width="0dp"
         android:layout_height="49dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
@@ -19,8 +19,9 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="393dp"
+        android:layout_width="0dp"
         android:layout_height="62dp"
+        android:layout_marginStart="8dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,33 +46,34 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_contacts_in_chat_room"
         android:name="edu.uw.tcss450.uiandnavigationlab.ui.blog.BlogFragment"
-        android:layout_width="377dp"
-        android:layout_height="352dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="0dp"
+        android:layout_height="458dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:orientation="vertical"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_for_search_member"
         tools:listitem="@layout/fragment_room_create_contact" />
 
     <TextView
         android:id="@+id/title_for_search_member"
-        android:layout_width="303dp"
+        android:layout_width="0dp"
         android:layout_height="49dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/title_search_people"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/list_contacts_in_chat_room"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chosen_member" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chosen_member"
-        android:layout_width="392dp"
+        android:layout_width="0dp"
         android:layout_height="84dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
         app:layoutManager="LinearLayoutManager"
