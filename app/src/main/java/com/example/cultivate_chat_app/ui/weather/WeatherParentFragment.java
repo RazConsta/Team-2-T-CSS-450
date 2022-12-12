@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.location.Location;
 import android.location.LocationListener;
@@ -42,6 +43,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -73,23 +75,12 @@ public class WeatherParentFragment extends Fragment {
          }
 
          mLocationViewModel.mResponse.setValue(latLng);
-
-         //update viewmodel
-         //make a location provider
-         //mLocationViewModel.mResponse.setValue(latLng);
-         //do not zoom in
-         //mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
       }
    };
 
    private OnMapReadyCallback mMapReadyCallback = googleMap -> {
       mMap = googleMap;
       setLocationByDeviceLocation();
-      // Add a marker in Sydney and move the camera
-      //LatLng sydney = new LatLng(-34, 151);
-      //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-      //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
    };
 
    public void onMapReady(GoogleMap googleMap) {
@@ -147,12 +138,8 @@ public class WeatherParentFragment extends Fragment {
             mCurrentWeatherViewModel.connectPost(latLng);
             mHourlyWeatherForecastViewModel.connectPost(latLng);
             mWeeklyWeatherForecastViewModel.connectPost(latLng);
-//            mBinding.currentWeatherLocationTextView
-//                    .setText("Lat:" + latLng.latitude + " Long:" + latLng.longitude);
          }
-//         mHourlyWeatherForecastViewModel.updateHourlyWeatherForecast(latLng);
-//         mWeeklyWeatherForecastViewModel.updateWeeklyWeatherForecast(latLng);
-      });
+  });
 
       //CurrentWeatherViewModel Observer
       mCurrentWeatherViewModel.addResponseObserver(getViewLifecycleOwner(), weather -> {
@@ -160,33 +147,80 @@ public class WeatherParentFragment extends Fragment {
             mBinding.currentTemperatureTextView
                     .setText(weather.getString("temperature") + "°F");
 
-            URL url = new URL("http://openweathermap.org/img/wn/10d@2x.png");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-               mBinding.currentWeatherConditionsImageView.setImageResource(R.drawable.clouds);
-
+               int weatherIconId = getWeatherIcon(weather.getString("conditions"));
+               mBinding.currentWeatherConditionsImageView.setImageResource(weatherIconId);
             }
 
          } catch (JSONException e) {
-            e.printStackTrace();
-         } catch (MalformedURLException e) {
-            e.printStackTrace();
-         } catch (IOException e) {
             e.printStackTrace();
          }
       });
       //HourlyWeatherForecastViewModel Observer
       mHourlyWeatherForecastViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
       {
-         try {
-            mBinding.hour1WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour1"));
-            mBinding.hour2WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour2"));
-            mBinding.hour3WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour3"));
-            mBinding.hour4WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour4"));
-            mBinding.hour5WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour5"));
-            mBinding.hour6WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour6"));
-            mBinding.hour7WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour7"));
-            mBinding.hour8WeatherTextView.setText(mHourlyWeatherForecastViewModel.mResponse.getValue().getString("hour8"));
+         //get the array of hourly temperatures
 
+         try {
+            JSONArray hour1 = temp.getJSONArray("hour1");
+            int hour1Temp= hour1.getInt(0);
+            String hour1Conditions = hour1.getString(1);
+            String hour1Time = hour1.getString(2);
+            mBinding.hour1WeatherTextView.setText(hour1Time + "\n" + hour1Temp + "°F");
+
+            JSONArray hour2 = temp.getJSONArray("hour2");
+            int hour2Temp= hour2.getInt(0);
+            String hour2Conditions = hour2.getString(1);
+            String hour2Time = hour2.getString(2);
+            mBinding.hour2WeatherTextView.setText(hour2Time + "\n" + hour2Temp + "°F");
+
+            JSONArray hour3 = temp.getJSONArray("hour3");
+            int hour3Temp= hour3.getInt(0);
+            String hour3Conditions = hour3.getString(1);
+            String hour3Time = hour3.getString(2);
+            mBinding.hour3WeatherTextView.setText(hour3Time + "\n" + hour3Temp + "°F");
+
+            JSONArray hour4 = temp.getJSONArray("hour4");
+            int hour4Temp= hour4.getInt(0);
+            String hour4Conditions = hour4.getString(1);
+            String hour4Time = hour4.getString(2);
+            mBinding.hour4WeatherTextView.setText(hour4Time + "\n" + hour4Temp + "°F");
+
+            JSONArray hour5 = temp.getJSONArray("hour5");
+            int hour5Temp= hour5.getInt(0);
+            String hour5Conditions = hour5.getString(1);
+            String hour5Time = hour5.getString(2);
+            mBinding.hour5WeatherTextView.setText(hour5Time + "\n" + hour5Temp + "°F");
+
+            JSONArray hour6 = temp.getJSONArray("hour6");
+            int hour6Temp= hour6.getInt(0);
+            String hour6Conditions = hour6.getString(1);
+            String hour6Time = hour6.getString(2);
+            mBinding.hour6WeatherTextView.setText(hour6Time + "\n" + hour6Temp + "°F");
+
+            JSONArray hour7 = temp.getJSONArray("hour7");
+            int hour7Temp= hour7.getInt(0);
+            String hour7Conditions = hour7.getString(1);
+            String hour7Time = hour7.getString(2);
+            mBinding.hour7WeatherTextView.setText(hour7Time + "\n" + hour7Temp + "°F");
+
+            JSONArray hour8 = temp.getJSONArray("hour8");
+            int hour8Temp= hour8.getInt(0);
+            String hour8Conditions = hour8.getString(1);
+            String hour8Time = hour8.getString(2);
+            mBinding.hour8WeatherTextView.setText(hour8Time + "\n" + hour8Temp + "°F");
+
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+               mBinding.hour1WeatherConditionsImageView.setImageResource(getWeatherIcon(hour1Conditions));
+               mBinding.hour2WeatherConditionsImageView.setImageResource(getWeatherIcon(hour2Conditions));
+               mBinding.hour3WeatherConditionsImageView.setImageResource(getWeatherIcon(hour3Conditions));
+               mBinding.hour4WeatherConditionsImageView.setImageResource(getWeatherIcon(hour4Conditions));
+               mBinding.hour5WeatherConditionsImageView.setImageResource(getWeatherIcon(hour5Conditions));
+               mBinding.hour6WeatherConditionsImageView.setImageResource(getWeatherIcon(hour6Conditions));
+               mBinding.hour7WeatherConditionsImageView.setImageResource(getWeatherIcon(hour7Conditions));
+               mBinding.hour8WeatherConditionsImageView.setImageResource(getWeatherIcon(hour8Conditions));
+            }
          } catch (JSONException e) {
             e.printStackTrace();
          }
@@ -216,6 +250,16 @@ public class WeatherParentFragment extends Fragment {
       mapFragment.getMapAsync(this::onMapReady);
 
 
+   }
+
+   private int getWeatherIcon(String conditions) {
+      conditions.toLowerCase();
+      if (conditions.equals("clouds")) {
+         return R.drawable.clouds;
+      } else if (conditions.equals("rain")) {
+         return R.drawable.rain;
+      }
+      return R.drawable.clouds;
    }
 
    public void setLocationByDeviceLocation() {
