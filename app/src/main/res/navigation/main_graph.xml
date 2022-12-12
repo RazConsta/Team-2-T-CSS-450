@@ -74,7 +74,7 @@
     <fragment
         android:id="@+id/addFriendsFragment"
         android:name="com.example.cultivate_chat_app.ui.contacts.AddFriendsFragment"
-        android:label="Add Friends"
+        android:label="Add Contacts"
         tools:layout="@layout/fragment_add_friends" >
         <action
             android:id="@+id/action_addFriendsFragment_to_chatsFragment"
