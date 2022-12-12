@@ -228,6 +228,7 @@ public class WeatherParentFragment extends Fragment {
                if (locationByDevice == 0){
                   mLocationViewModel.mResponse.setValue(latLng);
                   locationByDevice++;
+
                }
             }
          });
