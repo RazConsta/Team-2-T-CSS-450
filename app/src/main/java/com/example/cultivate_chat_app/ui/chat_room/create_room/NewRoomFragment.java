@@ -66,7 +66,6 @@ public class NewRoomFragment extends Fragment {
                 return;
             }
             model.connectCreateRoom(mUser.getJwt(), mBinding.editChatName.getText().toString(), mUser.getId());
-            model.connectUpdateSelectMember(mUser.getJwt());
             navigateBack();
         });
 

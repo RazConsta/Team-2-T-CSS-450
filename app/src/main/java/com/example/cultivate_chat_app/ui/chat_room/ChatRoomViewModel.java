@@ -90,7 +90,8 @@ public class ChatRoomViewModel extends AndroidViewModel {
                     JSONObject jsonRoom = rows.getJSONObject(i);
                     Room room = new Room(
                             jsonRoom.getString("name"),
-                            jsonRoom.getString("message"));
+                            jsonRoom.getString("message"),
+                            jsonRoom.getString("chatid"));
                     if(!helper.contains(jsonRoom.getInt("chatid"))) {
                         list.getValue().add(room);
                         helper.add(jsonRoom.getInt("chatid"));

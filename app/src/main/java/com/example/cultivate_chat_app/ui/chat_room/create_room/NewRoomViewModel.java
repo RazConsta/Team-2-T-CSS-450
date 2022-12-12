@@ -65,7 +65,7 @@ public class NewRoomViewModel extends AndroidViewModel {
                 Request.Method.POST,
                 url,
                 body,
-                this::setValue,
+                this::handleResultAddLoginMember,
                 this::handleError) {
             @Override
             public Map<String, String> getHeaders() {
@@ -83,10 +83,20 @@ public class NewRoomViewModel extends AndroidViewModel {
                 .addToRequestQueue(request);
     }
 
-    private void setValue(JSONObject result){
+    private void handleResultAddLoginMember(JSONObject result){
         JSONObject response = result;
+        Log.e("ERR", response.toString());
         if (response.has("message")) {
             Log.d("CHATID", "Success create a chat room!");
+        } else {
+            Log.e("CHATID", "No chat id found!");
+        }
+    }
+
+    private void handleResultAddChosenMember(JSONObject result) {
+        JSONObject response = result;
+        if (response.has("message")) {
+            Log.d("CHATID", "Success add members!");
         } else {
             Log.e("CHATID", "No chat id found!");
         }
@@ -99,14 +109,15 @@ public class NewRoomViewModel extends AndroidViewModel {
                 Request.Method.POST,
                 url,
                 null,
-                this::handleResult,
+                this::handleResultAddChosenMember,
                 this::handleError){
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Authorization", jwt);
                 return headers;
-            }};
+            }
+        };
         request.setRetryPolicy(new DefaultRetryPolicy(
                 10_000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
@@ -114,11 +125,5 @@ public class NewRoomViewModel extends AndroidViewModel {
         //Instantiate the RequestQueue and add the request to the queue
         RequestQueueSingleton.getInstance(getApplication().getApplicationContext())
                 .addToRequestQueue(request);
-    }
-
-    private void handleResult(JSONObject jsonObject) {
-        if (jsonObject.has("message")) {
-            Log.d("SUCCESS", "Success create a chat room!");
-        }
     }
 }

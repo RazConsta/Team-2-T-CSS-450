@@ -4,11 +4,16 @@ import java.io.Serializable;
 
 public class Room implements Serializable {
 
-    private final String mRoomName, mLatestMessage;
+    private final String mRoomName, mLatestMessage, mChatID;
 
-    public Room(String mRoomName, String mLatestMessage) {
+    public String getmChatID() {
+        return mChatID;
+    }
+
+    public Room(String mRoomName, String mLatestMessage, String mChatID) {
         this.mRoomName = mRoomName;
         this.mLatestMessage = mLatestMessage;
+        this.mChatID = mChatID;
     }
 
     public String getmRoomName() {

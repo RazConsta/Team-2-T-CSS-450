@@ -14,8 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.example.cultivate_chat_app.R;
+import com.example.cultivate_chat_app.ui.chat_room.create_room.NewRoomFragment;
+import com.example.cultivate_chat_app.ui.chats.ChatFragment;
+import com.example.cultivate_chat_app.ui.chats.ChatSendViewModel;
 import com.example.cultivate_chat_app.ui.contacts.Contact;
 import com.example.cultivate_chat_app.ui.contacts.ContactRecyclerViewAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,16 +47,15 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
         Room room = mRooms.get(position);
         holder.roomName.setText(room.getmRoomName());
         holder.roomMessage.setText(room.getmLatestMessage());
-        holder.cardLayout.setOnClickListener(Navigation.createNavigateOnClickListener
-                (R.id.action_chatsFragment_to_chats));
-//        holder.cardLayout.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View v) {
-//
-//                Log.d("ROOM", "SUCCESS LONG CLICK CALL");
-//                return false;
-//            }
-//        });
+        holder.chatid.setText(room.getmChatID());
+        holder.chatid.setVisibility(View.GONE);
+        holder.view.getContext();
+        holder.view.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_chatsFragment_to_chats)
+//            Log.e("ERRR", holder.chatid.getText().toString());
+//            Navigation.createNavigateOnClickListener(get
+//            ChatFragment test = new ChatFragment(new ChatSendViewModel(provider.get(ChatSendViewModel.class)), Integer.parseInt(holder.chatid.getText().toString()),)
+        );
 
     }
 
@@ -69,12 +73,14 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
         private final TextView roomMessage;
         private final CardView cardLayout;
         private final View view;
+        private final TextView chatid;
 
         public ViewHolder(View itemView) {
             super(itemView);
             roomName = itemView.findViewById(R.id.roomName);
             roomMessage = itemView.findViewById(R.id.roomLastestMessage);
             cardLayout = itemView.findViewById(R.id.room_card_root);
+            chatid = itemView.findViewById(R.id.secret_chat_id);
             view = itemView.getRootView();
         }
     }
