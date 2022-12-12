@@ -230,17 +230,61 @@ public class WeatherParentFragment extends Fragment {
       mWeeklyWeatherForecastViewModel.addResponseObserver(getViewLifecycleOwner(), temp ->
       {
          try {
-            mBinding.day1WeatherTextView.
-                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day1"));
-            mBinding.day2WeatherTextView.
-                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day2"));
-            mBinding.day3WeatherTextView.
-                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day3"));
-            mBinding.day4WeatherTextView.
-                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day4"));
-            mBinding.day5WeatherTextView.
-                    setText(mWeeklyWeatherForecastViewModel.mResponse.getValue().getString("day5"));
-         } catch (JSONException e) {
+            JSONArray day1 = temp.getJSONArray("day1");
+            int day1HighTemp= day1.getInt(0);
+            int day1LowTemp= day1.getInt(1);
+            String day1Conditions = day1.getString(2);
+            String day1Day = day1.getString(3);
+            mBinding.weeklyWeatherDay1TextView.setText(day1Day + "\n" + day1HighTemp + "°F" + "/" + day1LowTemp + "°F");
+
+            JSONArray day2 = temp.getJSONArray("day2");
+            int day2HighTemp= day2.getInt(0);
+            int day2LowTemp= day2.getInt(1);
+            String day2Conditions = day2.getString(2);
+            String day2Day = day2.getString(3);
+            mBinding.weeklyWeatherDay2TextView.setText(day2Day + "\n" + day2HighTemp + "°F" + "/" + day2LowTemp + "°F");
+
+            JSONArray day3 = temp.getJSONArray("day3");
+            int day3HighTemp= day3.getInt(0);
+            int day3LowTemp= day3.getInt(1);
+            String day3Conditions = day3.getString(2);
+            String day3Day = day3.getString(3);
+            mBinding.weeklyWeatherDay3TextView.setText(day3Day + "\n" + day3HighTemp + "°F" + "/" + day3LowTemp + "°F");
+
+            JSONArray day4 = temp.getJSONArray("day4");
+            int day4HighTemp= day4.getInt(0);
+            int day4LowTemp= day4.getInt(1);
+            String day4Conditions = day4.getString(2);
+            String day4Day = day4.getString(3);
+            mBinding.weeklyWeatherDay4TextView.setText(day4Day + "\n" + day4HighTemp + "°F" + "/" + day4LowTemp + "°F");
+
+            JSONArray day5 = temp.getJSONArray("day5");
+            int day5HighTemp= day5.getInt(0);
+            int day5LowTemp= day5.getInt(1);
+            String day5Conditions = day5.getString(2);
+            String day5Day = day5.getString(3);
+            mBinding.weeklyWeatherDay5TextView.setText(day5Day + "\n" + day5HighTemp + "°F" + "/" + day5LowTemp + "°F");
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+               mBinding.weeklyWeatherDay1ConditionsImageView.setImageResource(getWeatherIcon(day1Conditions));
+               mBinding.weeklyWeatherDay2ConditionsImageView.setImageResource(getWeatherIcon(day2Conditions));
+               mBinding.weeklyWeatherDay3ConditionsImageView.setImageResource(getWeatherIcon(day3Conditions));
+               mBinding.weeklyWeatherDay4ConditionsImageView.setImageResource(getWeatherIcon(day4Conditions));
+               mBinding.weeklyWeatherDay5ConditionsImageView.setImageResource(getWeatherIcon(day5Conditions));
+            }
+
+
+
+
+
+
+
+
+
+
+
+            } catch (JSONException e) {
             e.printStackTrace();
          }
       });
@@ -253,15 +297,21 @@ public class WeatherParentFragment extends Fragment {
    }
 
    private int getWeatherIcon(String conditions) {
-      conditions.toLowerCase();
+      System.out.println(conditions);
+      conditions = conditions.toLowerCase();
       if (conditions.equals("clouds")) {
          return R.drawable.clouds;
       } else if (conditions.equals("rain")) {
          return R.drawable.rain;
       } else if (conditions.equals("clear")) {
          return R.drawable.clear;
+      } else if (conditions.equals("snow")) {
+         return R.drawable.snow;
+      } else if (conditions.equals("drizzle")) {
+         return R.drawable.drizzle;
+      } else {
+         return R.drawable.clear;
       }
-      return R.drawable.clouds;
    }
 
    public void setLocationByDeviceLocation() {
