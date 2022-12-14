@@ -84,6 +84,7 @@ public class HomeFragment extends Fragment {
         } else {
             mBinding.roundedRectangle2.setVisibility(View.GONE);
         }
+        // JWT jwt = new JWT( mUserModel.getJwt());
 
         SharedPreferences prefs =
                 getActivity().getSharedPreferences(
