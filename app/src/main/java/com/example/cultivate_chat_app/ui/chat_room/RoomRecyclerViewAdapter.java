@@ -14,8 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
 import com.example.cultivate_chat_app.R;
-import com.example.cultivate_chat_app.ui.authorization.register.RegisterFragment;
-import com.example.cultivate_chat_app.ui.authorization.register.RegisterFragmentDirections;
 import com.example.cultivate_chat_app.ui.chat_room.create_room.NewRoomFragment;
 import com.example.cultivate_chat_app.ui.chats.ChatFragment;
 import com.example.cultivate_chat_app.ui.chats.ChatSendViewModel;
@@ -52,12 +50,8 @@ public class RoomRecyclerViewAdapter extends RecyclerView.Adapter<RoomRecyclerVi
         holder.chatid.setText(room.getmChatID());
         holder.chatid.setVisibility(View.GONE);
         holder.view.getContext();
-        holder.cardLayout.setOnClickListener( item -> {
-                    ChatRoomFragmentDirections.ActionChatsFragmentToChats directions =
-                            ChatRoomFragmentDirections.actionChatsFragmentToChats(Integer.parseInt(room.getmChatID()));
-                    Navigation.findNavController(holder.view).navigate(directions);
-                }
-
+        holder.view.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_chatsFragment_to_chats)
 //            Log.e("ERRR", holder.chatid.getText().toString());
 //            Navigation.createNavigateOnClickListener(get
 //            ChatFragment test = new ChatFragment(new ChatSendViewModel(provider.get(ChatSendViewModel.class)), Integer.parseInt(holder.chatid.getText().toString()),)

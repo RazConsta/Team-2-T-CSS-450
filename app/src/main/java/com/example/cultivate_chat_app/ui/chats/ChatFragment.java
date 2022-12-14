@@ -1,7 +1,6 @@
 package com.example.cultivate_chat_app.ui.chats;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +21,16 @@ import java.util.Objects;
 public class ChatFragment extends Fragment {
 
     private ChatSendViewModel mSendModel;
-
+    private int chatid;
     private ChatViewModel mChatModel;
     private UserInfoViewModel mUserModel;
-    private ChatFragmentArgs mArgs;
 
-    public ChatFragment() {
+    public ChatFragment(ChatSendViewModel modelSend, int chatid, ChatViewModel modelChat, UserInfoViewModel modelUser) {
+        // Required empty public constructor
+        this.mSendModel = modelSend;
+        this.chatid = chatid;
+        this.mChatModel = modelChat;
+        this.mUserModel = modelUser;
     }
 
     @Override
@@ -36,16 +39,13 @@ public class ChatFragment extends Fragment {
         ViewModelProvider provider = new ViewModelProvider(getActivity());
         mUserModel = provider.get(UserInfoViewModel.class);
         mChatModel = provider.get(ChatViewModel.class);
-        Log.e("ERR", "onCreate: args= " + mArgs);
+        mChatModel.getFirstMessages(chatid, mUserModel.getJwt());
         mSendModel = provider.get(ChatSendViewModel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mArgs = ChatFragmentArgs.fromBundle(getArguments());
-        mChatModel.getFirstMessages(mArgs.getChatid(), mUserModel.getJwt());
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_chats, container, false);
     }
@@ -60,7 +60,6 @@ public class ChatFragment extends Fragment {
         binding.swipeContainer.setRefreshing(true);
 
         final RecyclerView rv = binding.recyclerMessages;
-        int chatid = mArgs.getChatid();
         //Set the Adapter to hold a reference to the list FOR THIS chat ID that the ViewModel
         //holds.
         rv.setAdapter(new ChatRecyclerViewAdapter(
