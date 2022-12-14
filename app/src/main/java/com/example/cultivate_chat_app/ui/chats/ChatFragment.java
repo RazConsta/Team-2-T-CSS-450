@@ -60,20 +60,21 @@ public class ChatFragment extends Fragment {
         binding.swipeContainer.setRefreshing(true);
 
         final RecyclerView rv = binding.recyclerMessages;
+        int chatid = mArgs.getChatid();
         //Set the Adapter to hold a reference to the list FOR THIS chat ID that the ViewModel
         //holds.
         rv.setAdapter(new ChatRecyclerViewAdapter(
-                mChatModel.getMessageListByChatId(mArgs.getChatid()),
+                mChatModel.getMessageListByChatId(chatid),
                 mUserModel.getEmail()));
 
 
         //When the user scrolls to the top of the RV, the swiper list will "refresh"
         //The user is out of messages, go out to the service and get more
         binding.swipeContainer.setOnRefreshListener(() -> {
-            mChatModel.getNextMessages(mArgs.getChatid(), mUserModel.getJwt());
+            mChatModel.getNextMessages(chatid, mUserModel.getJwt());
         });
 
-        mChatModel.addMessageObserver(mArgs.getChatid(), getViewLifecycleOwner(),
+        mChatModel.addMessageObserver(chatid, getViewLifecycleOwner(),
                 list -> {
                     /*
                      * This solution needs work on the scroll position. As a group,
@@ -89,7 +90,7 @@ public class ChatFragment extends Fragment {
 
         //Send button was clicked. Send the message via the SendViewModel
         binding.buttonSend.setOnClickListener(button -> {
-            mSendModel.sendMessage(mArgs.getChatid(),
+            mSendModel.sendMessage(chatid,
                     mUserModel.getJwt(),
                     binding.editMessage.getText().toString());
         });
